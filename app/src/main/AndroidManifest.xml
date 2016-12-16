@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.whrsmxmx.eqa">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="com.whrsmxmx.eqa.patients.PatientsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.whrsmxmx.eqa.assesment.AssessmentActivity"
+            android:label="@string/title_activity_evaluation"/>
+        <activity
+            android:name="com.whrsmxmx.eqa.add_patient.PersonActivity"
+            android:label="@string/patient"/>
+    </application>
+
+</manifest>

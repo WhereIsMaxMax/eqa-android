@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="drop_number_array">
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+    </array>
+</resources>

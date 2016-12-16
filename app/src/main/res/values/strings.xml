@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Embryo quality assessment</string>
+    <string name="title_activity_evaluation">Quality Assessment</string>
+    <string name="name_hint">Patient name</string>
+    <string name="date">Date:</string>
+    <string name="patient">Patient</string>
+    <string name="procedure">Procedure</string>
+    <string name="drops_number">Drops number</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

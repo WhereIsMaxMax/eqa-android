@@ -1,0 +1,24 @@
+#
+# generated on 2016/12/15 08:16:07
+#
+# --table-start--
+dataClass=com.whrsmxmx.cell.model.Patient
+tableName=patient
+# --table-fields-start--
+# --field-start--
+fieldName=mSurname
+columnName=surname
+id=true
+# --field-end--
+# --field-start--
+fieldName=procedure
+# --field-end--
+# --field-start--
+fieldName=creationDate
+# --field-end--
+# --field-start--
+fieldName=dropsNumber
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

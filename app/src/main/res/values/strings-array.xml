@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drop_number_string_array">
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+    </string-array>
+    <string-array name="procedure_string_array">
+        <item>IVF</item>
+        <item>ICSI</item>
+        <item>PICSI</item>
+    </string-array>
+</resources>
