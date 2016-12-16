@@ -88,13 +88,13 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mRecyclerAdapter);
-        mRecyclerView.addOnItemTouchListener();
+//        mRecyclerView.addOnItemTouchListener();
     }
 
     RecyclerItemClickListener.OnItemClickListener itemClickListener = new RecyclerItemClickListener.OnItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            mActionsListener.openPatientCard(mPatients.get(position));
+            mActionsListener.openPatientCard("");
         }
 
         @Override
