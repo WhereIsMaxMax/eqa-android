@@ -1,19 +1,33 @@
 package com.whrsmxmx.eqa.patients;
 
+import android.support.annotation.NonNull;
+
+import com.whrsmxmx.eqa.data.Patient;
+
+import java.util.List;
+
 /**
  * Created by Max on 16.12.2016.
  */
 
 public class PatientsPresenter implements PatientsContract.UserActions {
 
-    @Override
-    public void addNewPatient() {
+    private List<Patient> mPatients;
+    private PatientsContract.View mPatientsView;
 
+    PatientsPresenter(@NonNull List<Patient> patients, @NonNull PatientsContract.View patientsView){
+        mPatients = patients;
+        mPatientsView = patientsView;
     }
 
     @Override
-    public void showChoosePatientActionDialog() {
+    public void loadPatients() {
+        mPatientsView.updatePatientsList();
+    }
 
+    @Override
+    public void addNewPatient() {
+        mPatientsView.showAddPatient();
     }
 
     @Override
@@ -23,7 +37,7 @@ public class PatientsPresenter implements PatientsContract.UserActions {
 
     @Override
     public void updatePatient(String patientId) {
-
+//        mPatientsView.openUpdatePatient();
     }
 
     @Override

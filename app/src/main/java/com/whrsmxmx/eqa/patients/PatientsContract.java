@@ -16,14 +16,16 @@ public interface PatientsContract {
 
         void showPatientsList(ArrayList<Patient> patients);
 
+        void updatePatientsList();
+
         void showPatientCard(String patientId);
     }
 
     interface UserActions{
 
-        void addNewPatient();
+        void loadPatients();
 
-        void showChoosePatientActionDialog();
+        void addNewPatient();
 
         void deletePatient(String patientId);
 

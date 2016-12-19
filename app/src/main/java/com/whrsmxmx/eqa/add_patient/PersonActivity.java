@@ -16,11 +16,13 @@ import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
 import com.whrsmxmx.eqa.data.Patient;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
+import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class PersonActivity extends AppCompatOrmActivity<DatabaseHelper> {
 
@@ -64,13 +66,12 @@ public class PersonActivity extends AppCompatOrmActivity<DatabaseHelper> {
     }
 
     private void init() {
-        final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
         mCalendar = Calendar.getInstance();
         final DatePickerDialog dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 mCalendar.set(i, i1, i2);
-                mDateTextView.setText(sdf.format(mCalendar.getTime()));
+                mDateTextView.setText(DefaultDateFormatter.format(mCalendar.getTime()));
             }
         }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -108,9 +109,9 @@ public class PersonActivity extends AppCompatOrmActivity<DatabaseHelper> {
 
         if (mPatient==null){
             dateDialog.show();
-            mDateTextView.setText(sdf.format(mCalendar.getTime()));
+            mDateTextView.setText(DefaultDateFormatter.format(mCalendar.getTime()));
         }else{
-            mDateTextView.setText(sdf.format(mPatient.getCreationDate()));
+            mDateTextView.setText(DefaultDateFormatter.format(mPatient.getCreationDate()));
 //            todo check
             mDropNumberSpinner.setSelection(dropsNumberArray.indexOf(mPatient.getDropsNumber()));
         }

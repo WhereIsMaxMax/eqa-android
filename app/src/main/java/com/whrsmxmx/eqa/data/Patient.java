@@ -31,7 +31,7 @@ public class Patient {
         this.dropsNumber = dropsNumber;
     }
 
-    public String getSurname(){
+    public String getName(){
         return mSurname;
     }
 
@@ -45,9 +45,5 @@ public class Patient {
 
     public int getProcedure() {
         return procedure;
-    }
-
-    public String getmSurname() {
-        return mSurname;
     }
 }

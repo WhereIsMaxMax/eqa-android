@@ -18,9 +18,6 @@ public class PatientsActivity extends AppCompatOrmActivity<DatabaseHelper> {
 
     final static String TAG = PatientsActivity.class.getName();
 
-    private List<Patient> mPatients;
-    private RuntimeExceptionDao<Patient, String> patientDao;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +28,6 @@ public class PatientsActivity extends AppCompatOrmActivity<DatabaseHelper> {
         ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
-
-        patientDao = getHelper().getSimpleDataDao();
-        mPatients = patientDao.queryForAll();
 
         initFragment(PatientsFragment.newInstance());
     }
