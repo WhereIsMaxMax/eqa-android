@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.whrsmxmx.eqa.add_patient.PersonActivity">
+    tools:context="com.whrsmxmx.eqa.add_patient.PatientActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,93 +15,9 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <LinearLayout
-        android:id="@+id/date"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="@dimen/add_person_element_margin"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/add_person_element_margin"
-            android:text="@string/date" />
-
-        <TextView
-            android:id="@+id/date_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/add_person_element_margin"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/name_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/date"
-        android:layout_margin="@dimen/add_person_element_margin"
-        android:hint="@string/name_hint"
-        android:inputType="textPersonName" />
-
-    <LinearLayout
-        android:id="@+id/spinner_hints"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/add_person_element_margin"
-        android:layout_below="@+id/name_edit_text"
-        android:orientation="horizontal">
-
-        <TextView
-            android:text="@string/procedure"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:text="@string/drops_number"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/add_person_element_margin"
-        android:layout_marginRight="@dimen/add_person_element_margin"
-        android:layout_below="@+id/spinner_hints"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/procedure_type_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Spinner
-            android:id="@+id/drops_number_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn"
-        android:background="@color/colorAccent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/add_person_element_margin"
-        android:text="@android:string/ok"
-        android:gravity="center" />
-
+        android:layout_height="match_parent" />
 </RelativeLayout>

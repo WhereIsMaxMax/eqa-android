@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.whrsmxmx.eqa.patients.PatientsActivity">
+        <activity android:name="com.whrsmxmx.eqa.patients_list.PatientsListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
             android:name="com.whrsmxmx.eqa.assesment.AssessmentActivity"
             android:label="@string/title_activity_evaluation"/>
         <activity
-            android:name="com.whrsmxmx.eqa.add_patient.PersonActivity"
+            android:name="com.whrsmxmx.eqa.add_patient.PatientActivity"
             android:label="@string/patient"/>
     </application>
 

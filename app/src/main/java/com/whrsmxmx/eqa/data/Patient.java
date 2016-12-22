@@ -11,6 +11,9 @@ import java.util.Date;
 
 @DatabaseTable
 public class Patient {
+//    tag for passing id's between activities
+    final public static String PERSON_ID = "PERSON_ID";
+
     @DatabaseField(id = true, columnName = "surname")
     private String mSurname = "";
     @DatabaseField

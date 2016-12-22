@@ -1,4 +1,4 @@
-package com.whrsmxmx.eqa.patients;
+package com.whrsmxmx.eqa.patients_list;
 
 import android.support.annotation.NonNull;
 
@@ -10,12 +10,12 @@ import java.util.List;
  * Created by Max on 16.12.2016.
  */
 
-public class PatientsPresenter implements PatientsContract.UserActions {
+public class PatientsListPresenter implements PatientsListContract.UserActionsListener {
 
     private List<Patient> mPatients;
-    private PatientsContract.View mPatientsView;
+    private PatientsListContract.View mPatientsView;
 
-    PatientsPresenter(@NonNull List<Patient> patients, @NonNull PatientsContract.View patientsView){
+    PatientsListPresenter(@NonNull List<Patient> patients, @NonNull PatientsListContract.View patientsView){
         mPatients = patients;
         mPatientsView = patientsView;
     }
@@ -37,7 +37,7 @@ public class PatientsPresenter implements PatientsContract.UserActions {
 
     @Override
     public void updatePatient(String patientId) {
-//        mPatientsView.openUpdatePatient();
+        mPatientsView.openUpdatePatient(patientId);
     }
 
     @Override

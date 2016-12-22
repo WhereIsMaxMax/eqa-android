@@ -1,4 +1,4 @@
-package com.whrsmxmx.eqa.patients;
+package com.whrsmxmx.eqa.patients_list;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.add_patient.PersonActivity;
+import com.whrsmxmx.eqa.add_patient.PatientActivity;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
 import com.whrsmxmx.eqa.data.Patient;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
@@ -30,15 +30,14 @@ import java.util.List;
 
 /**
  */
-public class PatientsFragment extends Fragment implements PatientsContract.View {
+public class PatientsListFragment extends Fragment implements PatientsListContract.View {
 
 //    Constants
-    private static final String TAG = PatientsFragment.class.getName();
-    final static int ADD_PERSON_REQUEST = 111;
-    final static String PERSON_ID = "PERSON_ID";
+    private static final String TAG = PatientsListFragment.class.getName();
+    final static int PERSON_REQUEST = 111;
 
 //    Listeners
-    private PatientsContract.UserActions mActionsListener;
+    private PatientsListContract.UserActionsListener mActionsListener;
 
 //    Views
     private android.support.v7.widget.RecyclerView mRecyclerView;
@@ -46,7 +45,7 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
 
     private RecyclerAdapter mRecyclerAdapter;
 
-    public PatientsFragment() {
+    public PatientsListFragment() {
         // Required empty public constructor
     }
 
@@ -62,15 +61,15 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
         });
     }
 
-    public static PatientsFragment newInstance() {
-        return new PatientsFragment();
+    public static PatientsListFragment newInstance() {
+        return new PatientsListFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mActionsListener = new PatientsPresenter(getPatientsFromDatabase(), this);
+        mActionsListener = new PatientsListPresenter(getPatientsFromDatabase(), this);
     }
 
     public List<Patient> getPatientsFromDatabase() {
@@ -82,7 +81,6 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
         bind(v);
@@ -96,16 +94,17 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
     }
 
     private void init(View v) {
-        mRecyclerAdapter = new RecyclerAdapter(new ArrayList<Patient>(0));
+        mRecyclerAdapter = new RecyclerAdapter(new ArrayList<Patient>(0), recyclerViewListener);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mRecyclerAdapter);
+
+        mActionsListener.loadPatients();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mActionsListener.loadPatients();
     }
 
     @Override
@@ -116,12 +115,7 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
 
     @Override
     public void showAddPatient() {
-        startActivityForResult(new Intent(getActivity(), PersonActivity.class), ADD_PERSON_REQUEST);
-    }
-
-    @Override
-    public void showPatientsList(ArrayList<Patient> patients) {
-
+        startActivityForResult(new Intent(getActivity(), PatientActivity.class), PERSON_REQUEST);
     }
 
     @Override
@@ -131,15 +125,22 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
 
     @Override
     public void showPatientCard(String patientId) {
+//        // TODO: 20.12.2016 open patient card;
+    }
 
+    @Override
+    public void openUpdatePatient(String patientId) {
+        Intent intent = new Intent(getActivity(), PatientActivity.class);
+        intent.putExtra(Patient.PERSON_ID, patientId);
+        startActivityForResult(intent, PERSON_REQUEST);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i(TAG, "OnActivityResult");
-        if (requestCode == ADD_PERSON_REQUEST){
-            Log.i(TAG, "ADD_PERSON_REQUEST");
+        if (requestCode == PERSON_REQUEST){
+            Log.i(TAG, "PERSON_REQUEST");
             if (resultCode == Activity.RESULT_OK){
                 mActionsListener.loadPatients();
                 Log.i(TAG, "RESULT_OK");
@@ -150,9 +151,11 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
         public List<Patient> mPatients;
+        RecyclerViewListener mRecyclerViewListener;
 
-        RecyclerAdapter(List<Patient> patients){
+        RecyclerAdapter(List<Patient> patients, RecyclerViewListener recyclerViewListener){
             mPatients = patients;
+            mRecyclerViewListener = recyclerViewListener;
         }
 
         @Override
@@ -189,7 +192,6 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
 
             private TextView surnameView;
             private TextView idView;
-            private RecyclerViewListener recyclerViewListener;
 
             ViewHolder(LinearLayout itemView) {
                 super(itemView);
@@ -204,14 +206,14 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
             public void onClick(View view) {
                 int position = getAdapterPosition();
                 Patient patient = getItem(position);
-                recyclerViewListener.onClick(patient);
+                mRecyclerViewListener.onClick(patient);
             }
 
             @Override
             public boolean onLongClick(View view) {
                 int position = getAdapterPosition();
                 Patient patient = getItem(position);
-                recyclerViewListener.onLongClick(patient);
+                mRecyclerViewListener.onLongClick(patient);
                 return false;
             }
 
@@ -234,23 +236,23 @@ public class PatientsFragment extends Fragment implements PatientsContract.View 
         public void onLongClick(final Patient patient) {
             final AlertDialog dialog = new AlertDialog.Builder(getActivity())
                     .setTitle(patient.getName())
-                    .setMessage(getResources().getString(R.string.created)+ DefaultDateFormatter.format(patient.getCreationDate()))
-                    .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
+                    .setMessage(getResources().getString(R.string.created)+" "+ DefaultDateFormatter.format(patient.getCreationDate()))
+                    .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setNeutralButton(R.string.edit, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             mActionsListener.updatePatient(patient.getName());
                         }
                     })
-                    .setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             mActionsListener.deletePatient(patient.getName());
-                        }
-                    })
-                    .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
                         }
                     })
                     .show();
