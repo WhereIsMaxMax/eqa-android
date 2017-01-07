@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.data.Drop;
@@ -26,7 +27,11 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
     private String patient_id;
 
     private AssessmentView assessmentView;
-    private DropsView dropsView;
+    private DropsView mDropsView;
+    private FrameLayout dropsContainer;
+//    private Drop mDrop;
+    private int mDropNumber = 0;
+//    private int mDropsNumber;
 
 
     public AssessmentFragment() {
@@ -52,43 +57,68 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.content_assessment, container, false);
+
         bind(v);
 
         return v;
     }
 
     private void bind(View v) {
-        FrameLayout dropsContainer = (FrameLayout) v.findViewById(R.id.drops_container);
+        dropsContainer = (FrameLayout) v.findViewById(R.id.drops_container);
         FrameLayout assessmentContainer = (FrameLayout) v.findViewById(R.id.assessment_container);
-
-        dropsView = new DropsView(getActivity(), 8);
-        dropsView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT));
-        dropsContainer.addView(dropsView);
 
         assessmentView = new AssessmentView(getContext());
         assessmentView.setOnSaveListener(this);
         assessmentContainer.addView(assessmentView);
 
+        mListener.getDropsAmount();
+
+        mListener.getDrop(mDropNumber);
+
+        Log.i(TAG, "openDrop " + mDropNumber);
     }
+
+    @Override
+    public void setDropsAmount(int dropsNumber) {
+        mDropsView = new DropsView(getActivity(), dropsNumber);
+        mDropsView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
+        dropsContainer.addView(mDropsView);
+    }
+
+    @Override
+    public void dropSaved() {
+        Log.i(TAG, "dropSaved " + mDropNumber);
+        mDropNumber++;
+        Log.i(TAG, "getDrop " + mDropNumber);
+        mListener.getDrop(mDropNumber);
+    }
+
+    @Override
+    public void lastDropSaved() {
+        Toast.makeText(getContext(), "Last drop was saved", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void openDrop(boolean isDegenerate, String blastomeres, int fragmentationPercent,
+                         ArrayList<String> anomalies, String note) {
+
+        mDropsView.changeDrop(mDropNumber);
+        assessmentView.setDropInfo(mDropNumber, isDegenerate, blastomeres, fragmentationPercent, anomalies, note);
+    }
+
 
     public void onDropChanged(int dropNumber) {
-        mListener.dropClicked(dropNumber);
-    }
-
-    @Override
-    public void openDrop(Drop drop) {
-        assessmentView.setDropInfo(drop.getNumber(), drop.isDegenerate(), drop.getBlastomeres(), drop.getPercent(),
-                new ArrayList<>(drop.getAnomalies()), drop.getComment());
-    }
-
-    @Override
-    public void openPatientsList() {
-
+        mListener.getDrop(dropNumber);
     }
 
     @Override
     public void onDropSave() {
         mListener.saveClicked(assessmentView.saveDrop());
+    }
+
+    @Override
+    public void openPatientsList() {
+
     }
 }

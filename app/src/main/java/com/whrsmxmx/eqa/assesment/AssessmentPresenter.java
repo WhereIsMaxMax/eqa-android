@@ -1,14 +1,12 @@
 package com.whrsmxmx.eqa.assesment;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.whrsmxmx.eqa.data.Drop;
 import com.whrsmxmx.eqa.data.Patient;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Max on 22.12.2016.
@@ -23,6 +21,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     private AssessmentContract.View mView;
     private Patient mPatient;
     private Drop mDrop;
+    private ArrayList<Drop> mDrops;
 
     AssessmentPresenter(RuntimeExceptionDao<Patient, String> patientDao,
                         RuntimeExceptionDao<Drop, String> dropDao,
@@ -31,16 +30,30 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
 
         mPatientDao = patientDao;
         mDropDao = dropDao;
+
         mView = view;
 
         mPatient = patientDao.queryForId(patient_id);
+        mDrops = new ArrayList<>(mPatient.getDrops());
     }
 
     @Override
-    public void dropClicked(int dropNumber) {
-        ArrayList<Drop> dropsArray = new ArrayList<Drop>(mPatient.getDrops());
-        if (dropsArray.get(dropNumber)!=null)
-            mView.openDrop(dropsArray.get(dropNumber));
+    public void getDropsAmount() {
+        mView.setDropsAmount(mPatient.getDropsNumber());
+    }
+
+    @Override
+    public void getDrop(int dropNumber) {
+        if (mDrops.size() <= dropNumber){
+            mDrop = mDrops.get(dropNumber);
+            Log.i(TAG, "openDrop "+mDrop.getNumber());
+
+            mView.openDrop(mDrop.isDegenerate(),
+                    mDrop.getBlastomeres(),
+                    mDrop.getFragmentationPercent(),
+                    mDrop.getAnomalies(),
+                    mDrop.getNote());
+        }
         else{
             Log.w(TAG, "Drop is null, SOMETHING GOES WRONG!");
         }
@@ -49,8 +62,15 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     @Override
     public void saveClicked(Drop drop) {
         drop.setPatient(mPatient);
-        mPatient.addDrop(drop);
+        mDropDao.update(drop);
+        mDrops.set(drop.getNumber(), drop);
+        mPatient.setDrops(mDrops);
         mPatientDao.update(mPatient);
+
+        if(drop.getNumber()<mDrops.size())
+            mView.dropSaved();
+        else
+            mView.lastDropSaved();
     }
 
 }

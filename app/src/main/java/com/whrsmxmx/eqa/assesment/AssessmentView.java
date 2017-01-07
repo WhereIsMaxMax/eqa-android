@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.j256.ormlite.stmt.query.In;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.data.Drop;
 
@@ -26,7 +25,7 @@ import java.util.Date;
 public class AssessmentView extends RelativeLayout {
 
     private LinearLayout propertiesContainer;
-    private TextView propertiesTextView;
+    private TextView anomaliesTextView;
     private Spinner fragmentationSpinner;
     private Spinner blastomeresSpinner;
     private Button saveButton;
@@ -58,7 +57,7 @@ public class AssessmentView extends RelativeLayout {
 
 //        binding
         propertiesContainer = (LinearLayout) this.findViewById(R.id.properties_container);
-        propertiesTextView = (TextView) this.findViewById(R.id.properties_text_view);
+        anomaliesTextView = (TextView) this.findViewById(R.id.properties_text_view);
         fragmentationSpinner = (Spinner) this.findViewById(R.id.fragmentation_spinner);
         blastomeresSpinner = (Spinner) this.findViewById(R.id.blastomeres_spinner);
         saveButton = (Button) this.findViewById(R.id.save_button);
@@ -104,6 +103,11 @@ public class AssessmentView extends RelativeLayout {
                     builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            String anomaliesText = "";
+                            for (String s : propertiesSelectedArray){
+                                anomaliesText += s +" ";
+                            }
+                            anomaliesTextView.setText(anomaliesText);
                             dialog.dismiss();
                         }
                     });
@@ -124,9 +128,8 @@ public class AssessmentView extends RelativeLayout {
     public void setDropInfo(int number, boolean isDegenerate, String blastomeres,
                             int fragmentation, ArrayList<String> properties, String notes){
         mNumber = number;
-//        todo:add number
         isDegenerateCheckBox.setChecked(isDegenerate);
-        blastomeresSpinner.setSelection(Arrays.asList(blastomeresArray).indexOf(blastomeres));
+        blastomeresSpinner.setSelection(blastomeresArray.indexOf(blastomeres));
         fragmentationSpinner.setSelection(fragmentation);
         propertiesSelectedArray = properties;
         String textValue = "";
@@ -134,7 +137,7 @@ public class AssessmentView extends RelativeLayout {
             propertiesArrayCheckedList[Arrays.asList(propertiesArray).indexOf(properties.get(i))] = true;
             textValue = textValue + propertiesArray[i] + " ";
         }
-        propertiesTextView.setText(textValue);
+        anomaliesTextView.setText(textValue);
         notesEditText.setText(notes);
     }
 
@@ -142,7 +145,7 @@ public class AssessmentView extends RelativeLayout {
         isDegenerateCheckBox.setChecked(false);
         blastomeresSpinner.setSelection(0);
         fragmentationSpinner.setSelection(0);
-        propertiesTextView.setText("");
+        anomaliesTextView.setText("");
         notesEditText.setText("");
     }
 

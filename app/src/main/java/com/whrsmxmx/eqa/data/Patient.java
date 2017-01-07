@@ -8,8 +8,10 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Max on 13.12.2016.
@@ -54,6 +56,10 @@ public class Patient {
         return drops;
     }
 
+    public void setDrops(Collection<Drop>drops){
+        this.drops = drops;
+    }
+
     public String getName(){
         return mSurname;
     }
@@ -69,9 +75,4 @@ public class Patient {
     public String getProcedure() {
         return procedure;
     }
-
-    public void addDrop(Drop drop){
-        drops.add(drop);
-    }
-
 }

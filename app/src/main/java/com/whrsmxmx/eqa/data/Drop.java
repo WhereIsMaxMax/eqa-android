@@ -72,7 +72,7 @@ public class Drop implements Serializable{
         return mBlastomeres;
     }
 
-    public int getPercent() {
+    public int getFragmentationPercent() {
         return mPercent;
     }
 
@@ -80,7 +80,7 @@ public class Drop implements Serializable{
         return mAnomalies;
     }
 
-    public String getComment() {
+    public String getNote() {
         return mComment;
     }
 }

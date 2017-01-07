@@ -20,6 +20,8 @@ public class DropsView extends LinearLayout {
     private static final String TAG = DropsView.class.getName();
 
     DropsInteraction listener;
+    int mLastSelectionTag = 0;
+    private int mDropsNumber;
 
     public DropsView(Context context, int dropsNumber) {
         super(context);
@@ -34,6 +36,7 @@ public class DropsView extends LinearLayout {
     }
 
     private void initView(int dropsNumber, Context context) {
+        mDropsNumber = dropsNumber;
         final LinearLayout rootContainer = new LinearLayout(context);
         rootContainer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
@@ -51,22 +54,9 @@ public class DropsView extends LinearLayout {
         rootContainer.addView(topLineContainer);
         rootContainer.addView(botLineContainer);
 
-//        topLineContainer.setBackgroundColor(Color.BLUE);
-//        rootContainer.setBackgroundColor(Color.GREEN);
-
-//        ViewTreeObserver vto1 = rootContainer.getViewTreeObserver();
-//        vto1.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                Log.i(TAG, "dropsRoot width="+rootContainer.getWidth()+" height="+rootContainer.getHeight());
-//                Log.i(TAG, "topLineContainer width="+topLineContainer.getWidth()+" height="+topLineContainer.getHeight());
-//
-//            }
-//        });
-//
-        int lineCapacity = dropsNumber/2;
-        for (int i = 0; i < dropsNumber; i++){
-            ImageView dropView = new ImageView(context);
+        int lineCapacity = mDropsNumber/2;
+        for (int i = 0; i < mDropsNumber; i++){
+            final ImageView dropView = new ImageView(context);
             dropView.setTag(i);
             LayoutParams lp = new LayoutParams(DROPS_SIZE, DROPS_SIZE);
             lp.setMargins(DROPS_MARGIN_PX, DROPS_MARGIN_PX, DROPS_MARGIN_PX, DROPS_MARGIN_PX);
@@ -75,6 +65,7 @@ public class DropsView extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     listener.onDropClicked(Integer.valueOf(v.getTag().toString()));
+                    changeDrop(Integer.valueOf(v.getTag().toString()));
                 }
             });
             dropView.setImageDrawable(ContextCompat.getDrawable(context,
@@ -86,5 +77,15 @@ public class DropsView extends LinearLayout {
         }
 
         addView(rootContainer);
+    }
+
+    public void changeDrop(int dropNumber){
+        ((ImageView)getRootView().findViewWithTag(mLastSelectionTag))
+                .setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_drop_unselected));
+        if(dropNumber<=mDropsNumber){
+            mLastSelectionTag = dropNumber;
+            ((ImageView)getRootView().findViewWithTag(mLastSelectionTag))
+                    .setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_drop_selected));
+        }
     }
 }

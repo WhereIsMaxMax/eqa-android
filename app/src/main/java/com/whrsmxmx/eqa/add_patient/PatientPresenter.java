@@ -27,14 +27,15 @@ class PatientPresenter implements PatientContract.UserActionsListener{
 
     @Override
     public void saveUser(String name, String procedure, Date date, int dropsNumber) {
-        Collection<Drop> drops = new ArrayList<Drop>(dropsNumber);
+        Collection<Drop> drops = new ArrayList<Drop>();
         Patient p = new Patient(name, procedure, date, dropsNumber);
-        for(int i = 0; i <dropsNumber; i++){
+        for(int i = 0; i < dropsNumber; i++){
             Drop drop = new Drop(i, new Date(), false, "0", 0, new ArrayList<String>(), "");
             drop.setPatient(p);
             mDropDao.create(drop);
             drops.add(drop);
         }
+        p.setDrops(drops);
         mPatientDao.create(p);
         mView.showUserList();
     }
