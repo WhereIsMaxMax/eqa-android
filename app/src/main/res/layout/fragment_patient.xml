@@ -88,7 +88,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/add_person_element_margin"
         android:text="@android:string/ok"
         android:gravity="center" />
 

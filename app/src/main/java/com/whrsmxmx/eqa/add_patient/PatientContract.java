@@ -16,7 +16,9 @@ interface PatientContract {
 
     interface UserActionsListener{
 
-        void saveUser(String name, int procedure, Date date, int drops);
+        void saveUser(String name, String procedure, Date date, int drops);
+
+        void updateUser(String name, String procedure, Date date, int drops);
 
         void openUserInfoForUpdate(String userId);
     }

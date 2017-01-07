@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.query.In;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.data.Patient;
 import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
@@ -38,11 +40,8 @@ public class PatientFragment extends Fragment implements PatientContract.View {
     private Button mOkButton;
 
     private Calendar mCalendar;
-    final ArrayList<String> dropsNumberArray = new ArrayList<>(
-            Arrays.asList(getResources().getStringArray(R.array.drop_number_string_array))
-    );
-
-    private String mName;
+    private ArrayList<Integer> mDropsNumberArray;
+    private ArrayList<String> mProcedureArray;
 
     public PatientFragment() {
         // Required empty public constructor
@@ -56,7 +55,9 @@ public class PatientFragment extends Fragment implements PatientContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mListener = new PatientPresenter(((PatientActivity)getActivity()).getHelper().getSimpleDataDao(), this);
+        mListener = new PatientPresenter(((PatientActivity)getActivity()).getHelper().getSimpleDataDao(),
+                ((PatientActivity)getActivity()).getHelper().getDropDataDao(),
+                this);
     }
 
     @Override
@@ -96,28 +97,46 @@ public class PatientFragment extends Fragment implements PatientContract.View {
             }
         });
 
+        int[] drop_number_array = getResources().getIntArray(R.array.drop_number_array);
+        mDropsNumberArray = new ArrayList<Integer>();
+
+        for (int aDrop_number_array : drop_number_array) {
+            mDropsNumberArray.add(aDrop_number_array);
+        }
+
         mDropNumberSpinner.setAdapter(new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item,
-                dropsNumberArray));
+                mDropsNumberArray));
+
+        mProcedureArray = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.procedure_string_array)));
 
         mProcedureSpinner.setAdapter(new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_dropdown_item,
-                getResources().getStringArray(R.array.procedure_string_array)));
-        mOkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.saveUser(mNameEditText.getText().toString(),
-                        mProcedureSpinner.getSelectedItemPosition(),
-                        mCalendar.getTime(),
-                        Integer.valueOf(dropsNumberArray.get(mDropNumberSpinner.getSelectedItemPosition())));
-                getActivity().setResult(Activity.RESULT_OK);
-            }
-        });
+                android.R.layout.simple_spinner_dropdown_item, mProcedureArray
+                ));
 
         if (!getActivity().getIntent().hasExtra(Patient.PERSON_ID)){
             dateDialog.show();
             mDateTextView.setText(DefaultDateFormatter.format(mCalendar.getTime()));
+            mOkButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.saveUser(mNameEditText.getText().toString(),
+                            mProcedureArray.get(mProcedureSpinner.getSelectedItemPosition()),
+                            mCalendar.getTime(),
+                            mDropsNumberArray.get(mDropNumberSpinner.getSelectedItemPosition()));
+                }
+            });
         }else{
+            mOkButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.updateUser(mNameEditText.getText().toString(),
+                            mProcedureArray.get(mProcedureSpinner.getSelectedItemPosition()),
+                            mCalendar.getTime(),
+                            mDropsNumberArray.get(mDropNumberSpinner.getSelectedItemPosition()));
+                }
+            });
             mListener.openUserInfoForUpdate(getActivity().getIntent().getStringExtra(Patient.PERSON_ID));
         }
     }
@@ -135,12 +154,15 @@ public class PatientFragment extends Fragment implements PatientContract.View {
 
     @Override
     public void showUserInfo(Patient patient) {
+        mNameEditText.setText(patient.getName());
         mDateTextView.setText(DefaultDateFormatter.format(patient.getCreationDate()));
-        mDropNumberSpinner.setSelection(dropsNumberArray.indexOf(patient.getDropsNumber()));
+        mDropNumberSpinner.setSelection(mDropsNumberArray.indexOf(patient.getDropsNumber()));
+        mProcedureSpinner.setSelection(mProcedureArray.indexOf(patient.getProcedure()));
     }
 
     @Override
     public void showUserList() {
+        getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
     }
 }

@@ -1,31 +1,45 @@
 package com.whrsmxmx.eqa.assesment;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.Toast;
 
 import com.whrsmxmx.eqa.R;
+import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
+import com.whrsmxmx.eqa.data.database.DatabaseHelper;
 
-public class AssessmentActivity extends AppCompatActivity {
+public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper> implements DropsInteraction{
+
+    AssessmentFragment assessmentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_evaluation);
+        setContentView(R.layout.activity_assessment);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        setupFragment();
+    }
+
+    private void setupFragment() {
+        assessmentFragment = new AssessmentFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, assessmentFragment).commit();
+    }
+
+
+    @Override
+    public void onDropClicked(int dropNumber) {
+        assessmentFragment.onDropChanged(dropNumber);
+        Toast.makeText(this, "Drop # "+dropNumber, Toast.LENGTH_LONG).show();
+
     }
 
 }

@@ -18,12 +18,11 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="0.8"/>
 
-    <ImageView
-        android:id="@+id/type"
-        android:layout_gravity="right"
+    <TextView
+        android:id="@+id/procedure"
+        android:layout_gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:contentDescription="@null" />
+        android:layout_weight="0.2"/>
 
 </LinearLayout>

@@ -1,5 +1,5 @@
 #
-# generated on 2016/12/19 07:01:31
+# generated on 2017/01/06 06:40:02
 #
 # --table-start--
 dataClass=com.whrsmxmx.eqa.data.Patient
@@ -18,6 +18,13 @@ fieldName=creationDate
 # --field-end--
 # --field-start--
 fieldName=dropsNumber
+# --field-end--
+# --field-start--
+fieldName=drops
+columnName=drops
+foreignCollection=true
+foreignCollectionEager=true
+foreignCollectionColumnName=drops
 # --field-end--
 # --table-fields-end--
 # --table-end--

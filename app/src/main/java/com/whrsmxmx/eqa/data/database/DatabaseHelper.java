@@ -10,6 +10,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.whrsmxmx.eqa.R;
+import com.whrsmxmx.eqa.data.Drop;
 import com.whrsmxmx.eqa.data.Patient;
 
 import java.sql.SQLException;
@@ -21,10 +22,12 @@ import java.sql.SQLException;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "Patients.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private Dao<Patient, String> patentsDao = null;
+    private Dao<Drop, String> dropDao = null;
     private RuntimeExceptionDao<Patient, String> patientsRuntimeDao = null;
+    private RuntimeExceptionDao<Drop, String> dropRuntimeDao = null;
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -37,6 +40,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "OnCreate");
             TableUtils.createTable(connectionSource, Patient.class);
+            TableUtils.createTable(connectionSource, Drop.class);
         } catch (SQLException e){
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -47,6 +51,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
             TableUtils.dropTable(connectionSource, Patient.class, true);
+            TableUtils.dropTable(connectionSource, Drop.class, true);
             // after we drop the old databases, we create the new ones
             onCreate(db, connectionSource);
         } catch (SQLException e) {
@@ -65,6 +70,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return patentsDao;
     }
+    public Dao<Drop, String> getDropDao() throws SQLException {
+        if (dropDao == null) {
+            dropDao = getDao(Drop.class);
+        }
+        return dropDao;
+    }
 
     /**
      * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
@@ -77,6 +88,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return patientsRuntimeDao;
     }
 
+    public RuntimeExceptionDao<Drop, String> getDropDataDao() {
+        if (dropRuntimeDao == null) {
+            dropRuntimeDao = getRuntimeExceptionDao(Drop.class);
+        }
+        return dropRuntimeDao;
+    }
+
     /**
      * Close the database connections and clear any cached DAOs.
      */
@@ -84,6 +102,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void close() {
         super.close();
         patentsDao = null;
+        dropDao = null;
         patientsRuntimeDao = null;
+        dropRuntimeDao = null;
     }
 }

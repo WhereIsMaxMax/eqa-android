@@ -42,6 +42,6 @@ public class PatientsListPresenter implements PatientsListContract.UserActionsLi
 
     @Override
     public void openPatientCard(String patientId) {
-
+        mPatientsView.showPatientCard(patientId);
     }
 }

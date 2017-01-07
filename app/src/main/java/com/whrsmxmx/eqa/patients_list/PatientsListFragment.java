@@ -3,6 +3,8 @@ package com.whrsmxmx.eqa.patients_list;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,12 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.add_patient.PatientActivity;
+import com.whrsmxmx.eqa.assesment.AssessmentActivity;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
 import com.whrsmxmx.eqa.data.Patient;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
@@ -42,8 +46,10 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
 //    Views
     private android.support.v7.widget.RecyclerView mRecyclerView;
 
-
+//    Adapters
     private RecyclerAdapter mRecyclerAdapter;
+
+//    Primitives
 
     public PatientsListFragment() {
         // Required empty public constructor
@@ -84,7 +90,7 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
         bind(v);
-        init(v);
+        init();
 
         return v;
     }
@@ -93,12 +99,11 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
                 mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler);
     }
 
-    private void init(View v) {
+    private void init() {
         mRecyclerAdapter = new RecyclerAdapter(new ArrayList<Patient>(0), recyclerViewListener);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mRecyclerAdapter);
-
         mActionsListener.loadPatients();
     }
 
@@ -110,26 +115,31 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
     }
 
     @Override
     public void showAddPatient() {
+        Log.i(TAG, "showAddPatient");
         startActivityForResult(new Intent(getActivity(), PatientActivity.class), PERSON_REQUEST);
     }
 
     @Override
     public void updatePatientsList() {
+        Log.i(TAG, "updatePatientsList");
         mRecyclerAdapter.update((ArrayList<Patient>) getPatientsFromDatabase());
     }
 
     @Override
     public void showPatientCard(String patientId) {
-//        // TODO: 20.12.2016 open patient card;
+        Log.i(TAG, "showPatientCard");
+        Intent intent = new Intent(getActivity(), AssessmentActivity.class);
+        intent.putExtra(Patient.PERSON_ID, patientId);
+        startActivity(intent);
     }
 
     @Override
     public void openUpdatePatient(String patientId) {
+        Log.i(TAG, "openUpdatePatient");
         Intent intent = new Intent(getActivity(), PatientActivity.class);
         intent.putExtra(Patient.PERSON_ID, patientId);
         startActivityForResult(intent, PERSON_REQUEST);
@@ -150,8 +160,9 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-        public List<Patient> mPatients;
+        List<Patient> mPatients;
         RecyclerViewListener mRecyclerViewListener;
+        int[]colors = new int[]{Color.RED, Color.BLUE, Color.GREEN};
 
         RecyclerAdapter(List<Patient> patients, RecyclerViewListener recyclerViewListener){
             mPatients = patients;
@@ -169,7 +180,8 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.idView.setText(String.valueOf(position+1));
             holder.surnameView.setText(String.valueOf(mPatients.get(position).getName()));
-//        todo: add type colour
+            holder.procedure.setText(String.valueOf(mPatients.get(position).getProcedure()));
+//            holder.procedure.setBackgroundColor(colors[mPatients.get(position).getProcedure()]);
         }
 
         public Patient getItem(int position){
@@ -187,11 +199,12 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
             void onLongClick(Patient patient);
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder
+        class ViewHolder extends RecyclerView.ViewHolder
                 implements View.OnClickListener, View.OnLongClickListener{
 
             private TextView surnameView;
             private TextView idView;
+            private TextView procedure;
 
             ViewHolder(LinearLayout itemView) {
                 super(itemView);
@@ -199,8 +212,8 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
                 itemView.setOnLongClickListener(this);
                 surnameView = (TextView) itemView.findViewById(R.id.surname);
                 idView = (TextView) itemView.findViewById(R.id.id);
+                procedure = (TextView) itemView.findViewById(R.id.procedure);
             }
-
 
             @Override
             public void onClick(View view) {

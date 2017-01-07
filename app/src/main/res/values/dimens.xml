@@ -3,9 +3,18 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!--MainActivity-->
+    <!--common dimens-->
+    <dimen name="small_element_margin">4dp</dimen>
+
+    <!--PersonsList-->
     <dimen name="id_margin">6dp</dimen>
     <dimen name="add_button_margin">26dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="add_person_element_margin">8dp</dimen>
+    <dimen name="procedure_circle">4dp</dimen>
+
+    <!--Person-->
+
+    <!--Assessment dimens-->
+    <dimen name="side_margin">8dp</dimen>
 </resources>

@@ -17,6 +17,6 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
     private static final Class[] classes = new Class[]{Patient.class};
 
     public static void main(String[] args) throws SQLException, IOException {
-        writeConfigFile(new File("C:\\Android\\Proj\\Cell\\app\\src\\main\\res\\raw\\ormlite_config.txt"), classes);
+        writeConfigFile(new File("C:\\Android\\Proj\\Eqa\\app\\src\\main\\res\\raw\\ormlite_config.txt"), classes);
     }
 }
