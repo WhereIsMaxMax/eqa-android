@@ -49,9 +49,11 @@ public class AssessmentView extends RelativeLayout {
         View v = LayoutInflater.from(context).inflate(R.layout.layout_assessment, this);
 
         propertiesArray = getResources().getStringArray(R.array.properties);
-        fragmentationArray = new ArrayList<>();
         int[] frgmtA = getResources().getIntArray(R.array.fragmentation_percent);
-        for(int frgmt : frgmtA){fragmentationArray.add(frgmt);}
+        fragmentationArray = new ArrayList<Integer>();
+        for(int frgmt : frgmtA){
+            fragmentationArray.add(frgmt);
+        }
         blastomeresArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.blastomeres_number)));
         propertiesArrayCheckedList = new boolean[propertiesArray.length];
 
@@ -74,9 +76,9 @@ public class AssessmentView extends RelativeLayout {
 
             }
         });
-        fragmentationSpinner.setAdapter(new ArrayAdapter<String>(getContext(),
+        fragmentationSpinner.setAdapter(new ArrayAdapter<Integer>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
-                getResources().getStringArray(R.array.fragmentation_percent)));
+                fragmentationArray));
         blastomeresSpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 getResources().getStringArray(R.array.blastomeres_number)));
@@ -130,7 +132,7 @@ public class AssessmentView extends RelativeLayout {
         mNumber = number;
         isDegenerateCheckBox.setChecked(isDegenerate);
         blastomeresSpinner.setSelection(blastomeresArray.indexOf(blastomeres));
-        fragmentationSpinner.setSelection(fragmentation);
+        fragmentationSpinner.setSelection(fragmentationArray.indexOf(fragmentation));
         propertiesSelectedArray = properties;
         String textValue = "";
         for(int i = 0; i < properties.size(); i++){

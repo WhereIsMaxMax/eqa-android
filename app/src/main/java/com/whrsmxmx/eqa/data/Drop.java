@@ -83,4 +83,16 @@ public class Drop implements Serializable{
     public String getNote() {
         return mComment;
     }
+
+    public void setDropInfo(boolean isDegenerate,
+                            String blastomeres,
+                            int percent,
+                            ArrayList<String> anomalies,
+                            String comment){
+        mIsDegenerate = isDegenerate;
+        mBlastomeres = blastomeres;
+        mPercent = percent;
+        mAnomalies = anomalies;
+        mComment = comment;
+    }
 }

@@ -20,7 +20,6 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     private RuntimeExceptionDao<Drop, String> mDropDao;
     private AssessmentContract.View mView;
     private Patient mPatient;
-    private Drop mDrop;
     private ArrayList<Drop> mDrops;
 
     AssessmentPresenter(RuntimeExceptionDao<Patient, String> patientDao,
@@ -44,24 +43,28 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
 
     @Override
     public void getDrop(int dropNumber) {
-        if (mDrops.size() <= dropNumber){
-            mDrop = mDrops.get(dropNumber);
-            Log.i(TAG, "openDrop "+mDrop.getNumber());
+        if (dropNumber < mDrops.size()){
+            Drop drop = mDrops.get(dropNumber);
+            Log.i(TAG, "openDrop " + drop.getNumber());
 
-            mView.openDrop(mDrop.isDegenerate(),
-                    mDrop.getBlastomeres(),
-                    mDrop.getFragmentationPercent(),
-                    mDrop.getAnomalies(),
-                    mDrop.getNote());
-        }
-        else{
-            Log.w(TAG, "Drop is null, SOMETHING GOES WRONG!");
+            mView.openDrop(drop.isDegenerate(),
+                    drop.getBlastomeres(),
+                    drop.getFragmentationPercent(),
+                    drop.getAnomalies(),
+                    drop.getNote());
+        }else{
+            mView.lastDropSaved();
         }
     }
 
     @Override
-    public void saveClicked(Drop drop) {
-        drop.setPatient(mPatient);
+    public void saveClicked(Drop dropInfoContainer) {
+        Drop drop = mDrops.get(dropInfoContainer.getNumber());
+        drop.setDropInfo(dropInfoContainer.isDegenerate(),
+                dropInfoContainer.getBlastomeres(),
+                dropInfoContainer.getFragmentationPercent(),
+                dropInfoContainer.getAnomalies(),
+                dropInfoContainer.getNote());
         mDropDao.update(drop);
         mDrops.set(drop.getNumber(), drop);
         mPatient.setDrops(mDrops);

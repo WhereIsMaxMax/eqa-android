@@ -13,6 +13,8 @@ import java.util.Date;
 
 class PatientPresenter implements PatientContract.UserActionsListener{
 
+    final static String TAG = PatientPresenter.class.getName();
+
     private PatientContract.View mView;
     private RuntimeExceptionDao<Patient, String> mPatientDao;
     private RuntimeExceptionDao<Drop, String> mDropDao;
@@ -46,7 +48,7 @@ class PatientPresenter implements PatientContract.UserActionsListener{
             mPatientDao.update(new Patient(name, procedure, date, dropsNumber, mPatient.getDrops()));
         else {
             mPatientDao.update(new Patient(name, procedure, date, dropsNumber, new ArrayList<Drop>(dropsNumber)));
-            Log.w("PatientPresenter", "mPatient == null!!!");
+            Log.w(TAG, "updatePatient mPatient == null!!!");
         }
         mView.showUserList();
     }

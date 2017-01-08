@@ -29,9 +29,7 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
     private AssessmentView assessmentView;
     private DropsView mDropsView;
     private FrameLayout dropsContainer;
-//    private Drop mDrop;
     private int mDropNumber = 0;
-//    private int mDropsNumber;
 
 
     public AssessmentFragment() {
@@ -97,6 +95,7 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
     @Override
     public void lastDropSaved() {
         Toast.makeText(getContext(), "Last drop was saved", Toast.LENGTH_LONG).show();
+        getActivity().finish();
     }
 
     @Override
@@ -109,6 +108,7 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
 
 
     public void onDropChanged(int dropNumber) {
+        mDropNumber = dropNumber;
         mListener.getDrop(dropNumber);
     }
 
