@@ -68,8 +68,7 @@ public class DropsView extends LinearLayout {
                     changeDrop(Integer.valueOf(v.getTag().toString()));
                 }
             });
-            dropView.setImageDrawable(ContextCompat.getDrawable(context,
-                    i==0?R.drawable.ic_drop_selected:R.drawable.ic_drop_unselected));
+            dropView.setImageResource(i==0?R.drawable.ic_drop_selected:R.drawable.ic_drop_unselected);
             if (i<lineCapacity)
                 topLineContainer.addView(dropView);
             else
@@ -81,11 +80,11 @@ public class DropsView extends LinearLayout {
 
     public void changeDrop(int dropNumber){
         ((ImageView)getRootView().findViewWithTag(mLastSelectionTag))
-                .setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_drop_unselected));
+                .setImageResource(R.drawable.ic_drop_unselected);
         if(dropNumber<=mDropsNumber){
             mLastSelectionTag = dropNumber;
             ((ImageView)getRootView().findViewWithTag(mLastSelectionTag))
-                    .setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_drop_selected));
+                    .setImageResource(R.drawable.ic_drop_selected);
         }
     }
 }
