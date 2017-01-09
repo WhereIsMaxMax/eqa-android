@@ -3,8 +3,8 @@ package com.whrsmxmx.eqa.assesment;
 import android.util.Log;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.whrsmxmx.eqa.data.Drop;
-import com.whrsmxmx.eqa.data.Patient;
+import com.whrsmxmx.eqa.data.database.Model.Drop;
+import com.whrsmxmx.eqa.data.database.Model.Patient;
 
 import java.util.ArrayList;
 

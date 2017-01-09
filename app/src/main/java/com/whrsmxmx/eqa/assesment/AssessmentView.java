@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.Drop;
+import com.whrsmxmx.eqa.data.database.Model.Drop;
 
 import java.util.ArrayList;
 import java.util.Arrays;

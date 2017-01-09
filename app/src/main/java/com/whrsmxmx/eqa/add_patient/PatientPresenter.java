@@ -3,9 +3,8 @@ package com.whrsmxmx.eqa.add_patient;
 import android.util.Log;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.j256.ormlite.stmt.query.In;
-import com.whrsmxmx.eqa.data.Drop;
-import com.whrsmxmx.eqa.data.Patient;
+import com.whrsmxmx.eqa.data.database.Model.Drop;
+import com.whrsmxmx.eqa.data.database.Model.Patient;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +31,7 @@ class PatientPresenter implements PatientContract.UserActionsListener{
         Collection<Drop> drops = new ArrayList<Drop>();
         Patient p = new Patient(name, procedure, date, dropsNumber);
         for(int i = 0; i < dropsNumber; i++){
-            Drop drop = new Drop(i, new Date(), false, "0", 0, new ArrayList<String>(), "");
+            Drop drop = new Drop(i, false);
             drop.setPatient(p);
             mDropDao.create(drop);
             drops.add(drop);

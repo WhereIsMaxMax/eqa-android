@@ -1,6 +1,6 @@
 package com.whrsmxmx.eqa.assesment;
 
-import com.whrsmxmx.eqa.data.Drop;
+import com.whrsmxmx.eqa.data.database.Model.Drop;
 
 import java.util.ArrayList;
 

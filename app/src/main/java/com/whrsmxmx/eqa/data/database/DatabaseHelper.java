@@ -10,8 +10,8 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.Drop;
-import com.whrsmxmx.eqa.data.Patient;
+import com.whrsmxmx.eqa.data.database.Model.Drop;
+import com.whrsmxmx.eqa.data.database.Model.Patient;
 
 import java.sql.SQLException;
 

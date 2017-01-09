@@ -1,6 +1,6 @@
 package com.whrsmxmx.eqa.add_patient;
 
-import com.whrsmxmx.eqa.data.Patient;
+import com.whrsmxmx.eqa.data.database.Model.Patient;
 
 import java.util.Date;
 

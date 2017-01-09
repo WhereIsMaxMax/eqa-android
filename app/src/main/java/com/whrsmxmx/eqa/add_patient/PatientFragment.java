@@ -3,10 +3,8 @@ package com.whrsmxmx.eqa.add_patient;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.j256.ormlite.stmt.query.In;
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.Patient;
+import com.whrsmxmx.eqa.data.database.Model.Patient;
 import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
 
 import java.util.ArrayList;

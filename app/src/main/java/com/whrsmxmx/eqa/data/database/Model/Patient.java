@@ -1,17 +1,12 @@
-package com.whrsmxmx.eqa.data;
+package com.whrsmxmx.eqa.data.database.Model;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.EagerForeignCollection;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.whrsmxmx.eqa.data.database.Model.Drop;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Max on 13.12.2016.

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,7 +23,7 @@ import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.add_patient.PatientActivity;
 import com.whrsmxmx.eqa.assesment.AssessmentActivity;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
-import com.whrsmxmx.eqa.data.Patient;
+import com.whrsmxmx.eqa.data.database.Model.Patient;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
 import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
 

@@ -12,8 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.Drop;
-import com.whrsmxmx.eqa.data.Patient;
+import com.whrsmxmx.eqa.data.database.Model.Patient;
 
 import java.util.ArrayList;
 
