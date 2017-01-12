@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
-import com.whrsmxmx.eqa.data.database.Model.Patient;
+import com.whrsmxmx.eqa.data.database.model.Patient;
 
 /**
  * DatabaseConfigUtl writes a configuration file to avoid using annotation processing in runtime which is very slow

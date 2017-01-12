@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.database.Model.Patient;
+import com.whrsmxmx.eqa.data.database.model.Patient;
 import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
 
 import java.util.ArrayList;

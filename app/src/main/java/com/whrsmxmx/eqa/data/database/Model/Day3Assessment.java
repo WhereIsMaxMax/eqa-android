@@ -1,4 +1,4 @@
-package com.whrsmxmx.eqa.data.database.Model;
+package com.whrsmxmx.eqa.data.database.model;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -11,13 +11,38 @@ import java.util.ArrayList;
  */
 
 @DatabaseTable
-public class Day3Assessment {
+public class Day3Assessment extends Assessment{
     @DatabaseField
-    private  String mBlastomeres;
+    private String blastomeres;
     @DatabaseField
-    private  int mPercent;
+    private int percent;
     @DatabaseField (dataType = DataType.SERIALIZABLE)
-    private ArrayList<String> mAnomalies;
+    private ArrayList<String> anomalies;
     @DatabaseField
-    private  String mComment;
+    private String note;
+
+    Day3Assessment(){}
+
+    public Day3Assessment(String blastomeres, int percent, ArrayList<String> anomalies, String note){
+        this.blastomeres = blastomeres;
+        this.percent = percent;
+        this.anomalies = anomalies;
+        this.note = note;
+    }
+
+    public String getBlastomeres() {
+        return blastomeres;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public ArrayList<String> getAnomalies() {
+        return anomalies;
+    }
+
+    public String getNote() {
+        return note;
+    }
 }

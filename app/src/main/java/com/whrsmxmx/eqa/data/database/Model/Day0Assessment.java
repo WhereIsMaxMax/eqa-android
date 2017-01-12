@@ -1,5 +1,6 @@
-package com.whrsmxmx.eqa.data.database.Model;
+package com.whrsmxmx.eqa.data.database.model;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,38 +11,42 @@ import java.util.ArrayList;
  */
 
 @DatabaseTable
-public class Day0Assessment {
-    @DatabaseField (foreign = true, foreignAutoRefresh = true)
-    private Drop drop;
+public class Day0Assessment extends Assessment{
     @DatabaseField
     private String maturity;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> zonaPellucida;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> pvs;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> membrane;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> cytoplasm;
     @DatabaseField
     private String dirBody;
+    @DatabaseField
+    private boolean isDegenerate;
+    @DatabaseField
+    private String note;
 
     Day0Assessment(){}
 
-    Day0Assessment(Drop drop,
+    public Day0Assessment(boolean isDegenerate,
                    String maturity,
                    ArrayList<String> zonaPellucida,
                    ArrayList<String> pvs,
                    ArrayList<String> membrane,
                    ArrayList<String> cytoplasm,
-                   String dirBody){
-        this.drop = drop;
+                   String dirBody,
+                   String note){
+        this.isDegenerate = isDegenerate;
         this.maturity = maturity;
         this.zonaPellucida = zonaPellucida;
         this.pvs = pvs;
         this.membrane = membrane;
         this.cytoplasm = cytoplasm;
         this.dirBody = dirBody;
+        this.note = note;
     }
 
     public String getMaturity() {
@@ -66,5 +71,17 @@ public class Day0Assessment {
 
     public String getDirBody() {
         return dirBody;
+    }
+
+    public boolean isDegenerate() {
+        return isDegenerate;
+    }
+
+    public void setDrop(Drop drop){
+        super.setDrop(drop);
+    }
+
+    public String getNote() {
+        return note;
     }
 }

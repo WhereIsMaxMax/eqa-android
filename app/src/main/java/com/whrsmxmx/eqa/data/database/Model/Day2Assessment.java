@@ -1,4 +1,4 @@
-package com.whrsmxmx.eqa.data.database.Model;
+package com.whrsmxmx.eqa.data.database.model;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
  * Created by Max on 09.01.2017.
  */
 @DatabaseTable
-public class Day2Assessment {
-    @DatabaseField (foreign = true, foreignAutoRefresh = true)
-    Drop drop;
+public class Day2Assessment extends Assessment{
+    @DatabaseField
+    private boolean isDegenerate;
     @DatabaseField
     private String blastomeres;
     @DatabaseField
@@ -24,11 +24,35 @@ public class Day2Assessment {
 
     Day2Assessment(){}
 
-    Day2Assessment(String blastomeres, int percent, ArrayList<String> anomalies, String note){
+    public Day2Assessment(boolean isDegenerate,
+                          String blastomeres,
+                          int percent,
+                          ArrayList<String> anomalies,
+                          String note){
+        this.isDegenerate = isDegenerate;
         this.blastomeres = blastomeres;
         this.percent = percent;
         this.anomalies = anomalies;
         this.note = note;
     }
 
+    public String getBlastomeres() {
+        return blastomeres;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public ArrayList<String> getAnomalies() {
+        return anomalies;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public boolean isDegenerate() {
+        return isDegenerate;
+    }
 }

@@ -1,7 +1,7 @@
-package com.whrsmxmx.eqa.data.database.Model;
+package com.whrsmxmx.eqa.data.database.model;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
@@ -11,32 +11,28 @@ import java.util.ArrayList;
  */
 
 @DatabaseTable
-public class Day1Assessment {
-    @DatabaseField (foreign = true, foreignAutoRefresh = true)
-    private Drop drop;
+public class Day1Assessment extends Assessment{
     @DatabaseField
     private String maturity;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> zonaPellucida;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> pvs;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> membrane;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> cytoplasm;
     @DatabaseField
     private String dirBody;
 
     Day1Assessment(){}
 
-    Day1Assessment(Drop drop,
-                   String maturity,
+    Day1Assessment(String maturity,
                    ArrayList<String> zonaPellucida,
                    ArrayList<String> pvs,
                    ArrayList<String> membrane,
                    ArrayList<String> cytoplasm,
                    String dirBody){
-        this.drop = drop;
         this.maturity = maturity;
         this.zonaPellucida = zonaPellucida;
         this.pvs = pvs;

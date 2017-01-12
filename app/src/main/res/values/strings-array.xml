@@ -1,5 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!--Day 0-->
+    <string-array name="maturity_day_0_string_array">
+        <item>GV</item>
+        <item>MI</item>
+        <item>MII</item>
+        <item>atretic</item>
+        <item>uncertain</item>
+    </string-array>
+    
+    <string-array name="zona_pellucida_string_array">
+        <item>normal</item>
+        <item>thick</item>
+        <item>thin</item>
+        <item>dark</item>
+        <item>intrazonal space</item>
+        <item>abnormally shaped</item>
+        <item>uncertain</item>
+    </string-array>
+    
+    <string-array name="pvs_string_array">
+        <item>normal</item>
+        <item>large</item>
+        <item>small</item>
+        <item>debris</item>
+        <item>uncertain</item>
+    </string-array>
+    
+    <string-array name="membrane_string_array">
+        <item>normal</item>
+        <item>rough</item>
+        <item>anomalous elasticity</item>
+        <item>uncertain</item>
+    </string-array>
+
+    <string-array name="cytoplasm_string_array">
+        <item>normal</item>
+        <item>bull\'s eye</item>
+        <item>SERc</item>
+        <item>organelle clustering</item>
+        <item>large vacuoles</item>
+        <item>heavily granulated</item>
+        <item>uncertain</item>
+    </string-array>
+
+    <string-array name="pbi_string_array">
+        <item>1</item>
+        <item>2</item>
+        <item>large</item>
+        <item>heavily fragmented</item>
+        <item>uncertain</item>
+    </string-array>
+
+    <!--Day 1-->
+
+    <string-array name="maturity_day_1_string_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4+</item>
+        <item>GV</item>
+        <item>MI</item>
+        <item>atretic</item>
+        <item>degeneration</item>
+    </string-array>
+
+
+    <!--Day 2-->
+
     <string-array name="procedure_string_array">
         <item>IVF</item>
         <item>ICSI</item>

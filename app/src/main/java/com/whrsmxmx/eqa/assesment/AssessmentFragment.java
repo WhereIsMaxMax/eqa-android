@@ -12,23 +12,25 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.database.Model.Patient;
+import com.whrsmxmx.eqa.data.database.model.Patient;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AssessmentFragment extends Fragment implements AssessmentContract.View, AssessmentView.DropViewSavedListener{
+public class AssessmentFragment extends Fragment implements AssessmentContract.View, DropViewSavedListener{
 
     final static String TAG = AssessmentFragment.class.getName();
     private AssessmentContract.UserActionsListener mListener;
     private String patient_id;
 
-    private AssessmentView assessmentView;
+    private FrameLayout assessmentContainer;
     private DropsView mDropsView;
     private FrameLayout dropsContainer;
     private int mDropNumber = 0;
+    private AssessmentViewInterface mAssessmentView;
+//    private int mDay = 0;
 
 
     public AssessmentFragment() {
@@ -46,7 +48,17 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
 
         mListener = (AssessmentContract.UserActionsListener) new AssessmentPresenter(
                 ((AssessmentActivity)getActivity()).getHelper().getSimpleDataDao(),
-                ((AssessmentActivity)getActivity()).getHelper().getDropDataDao(), this, patient_id);
+                ((AssessmentActivity)getActivity()).getHelper().getDropDataDao(),
+                ((AssessmentActivity)getActivity()).getHelper().getDay0AssessmentDataDao(),
+                ((AssessmentActivity)getActivity()).getHelper().getDay1AssessmentDataDao(),
+                ((AssessmentActivity)getActivity()).getHelper().getDay2AssessmentDataDao(),
+                ((AssessmentActivity)getActivity()).getHelper().getDay3AssessmentDataDao(),
+                ((AssessmentActivity)getActivity()).getHelper().getDay4AssessmentDataDao(),
+                ((AssessmentActivity)getActivity()).getHelper().getDay5AssessmentDataDao(),
+                ((AssessmentActivity)getActivity()).getHelper().getDay6AssessmentDataDao(),
+                this, patient_id);
+
+//        mListener.getDay();
     }
 
     @Override
@@ -62,11 +74,7 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
 
     private void bind(View v) {
         dropsContainer = (FrameLayout) v.findViewById(R.id.drops_container);
-        FrameLayout assessmentContainer = (FrameLayout) v.findViewById(R.id.assessment_container);
-
-        assessmentView = new AssessmentView(getContext());
-        assessmentView.setOnSaveListener(this);
-        assessmentContainer.addView(assessmentView);
+        assessmentContainer = (FrameLayout) v.findViewById(R.id.assessment_container);
 
         mListener.getDropsAmount();
 
@@ -97,15 +105,6 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
         getActivity().finish();
     }
 
-    @Override
-    public void openDrop(boolean isDegenerate, String blastomeres, int fragmentationPercent,
-                         ArrayList<String> anomalies, String note) {
-
-        mDropsView.changeDrop(mDropNumber);
-        assessmentView.setDropInfo(mDropNumber, isDegenerate, blastomeres, fragmentationPercent, anomalies, note);
-    }
-
-
     public void onDropChanged(int dropNumber) {
         mDropNumber = dropNumber;
         mListener.getDrop(dropNumber);
@@ -113,7 +112,58 @@ public class AssessmentFragment extends Fragment implements AssessmentContract.V
 
     @Override
     public void onDropSave() {
-        mListener.saveClicked(assessmentView.saveDrop());
+        mListener.saveClicked(mDropNumber, mAssessmentView.saveInfo());
+    }
+
+    @Override
+    public void open0Assessment(boolean isDegenerate, String maturity, ArrayList<String> zonaPellucida,
+                                ArrayList<String> pvs, ArrayList<String> membrane,
+                                ArrayList<String> cytoplasm, String pbi, String note) {
+
+        mDropsView.changeDrop(mDropNumber);
+
+        AssessmentView01 view = new AssessmentView01(getContext());
+        mAssessmentView = view;
+        view.setOnSaveListener(this);
+        assessmentContainer.removeAllViews();
+        assessmentContainer.addView(view);
+        view.setInfo(isDegenerate, maturity,
+                zonaPellucida, pvs, membrane, cytoplasm, pbi, note);
+    }
+
+    @Override
+    public void open1Assessment(boolean isDegenerate, String maturity, ArrayList<String> zonaPellucida, ArrayList<String> pvs, ArrayList<String> membrane, ArrayList<String> cytoplasm, String pbi, String note) {
+
+    }
+
+    @Override
+    public void open2Assessment(boolean isDegenerate, String blastomeres, int fragmentationPercent, ArrayList<String> anomalies, String note) {
+
+    }
+
+    @Override
+    public void open3Assessment(boolean isDegenerate, String blastomeres, int fragmentationPercent, ArrayList<String> anomalies, String note) {
+
+    }
+
+    @Override
+    public void open4Assessment(String developmentStage) {
+
+    }
+
+    @Override
+    public void open5Assessment(String developmentStage, String bkm, String te) {
+
+    }
+
+    @Override
+    public void open6Assessment(String developmentStage, String bkm, String te) {
+
+    }
+
+    @Override
+    public void openDecision(String decision) {
+
     }
 
     @Override

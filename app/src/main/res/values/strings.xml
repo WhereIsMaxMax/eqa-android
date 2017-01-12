@@ -16,6 +16,14 @@
     <string name="properties">Properties</string>
     <string name="select_properties">Select properties:</string>
     <string name="save">Save</string>
+    
+    <!--Assessment 0-->
+    <string name="maturity">Maturity</string>
+    <string name="zona_pellucida">Zona pellucida</string>
+    <string name="pvs">PVS</string>
+    <string name="membrane">Membrane</string>
+    <string name="cytoplasm">Cytoplasm</string>
+    <string name="pbi">PBI</string>
 
     <!--Add Patient-->
     <string name="name_hint">Patient name</string>

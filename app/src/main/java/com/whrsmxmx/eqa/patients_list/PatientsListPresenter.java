@@ -2,7 +2,7 @@ package com.whrsmxmx.eqa.patients_list;
 
 import android.support.annotation.NonNull;
 
-import com.whrsmxmx.eqa.data.database.Model.Patient;
+import com.whrsmxmx.eqa.data.database.model.Patient;
 
 import java.util.List;
 

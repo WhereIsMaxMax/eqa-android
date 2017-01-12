@@ -23,7 +23,7 @@ import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.add_patient.PatientActivity;
 import com.whrsmxmx.eqa.assesment.AssessmentActivity;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
-import com.whrsmxmx.eqa.data.database.Model.Patient;
+import com.whrsmxmx.eqa.data.database.model.Patient;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
 import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
 

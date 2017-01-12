@@ -1,9 +1,8 @@
-package com.whrsmxmx.eqa.data.database.Model;
+package com.whrsmxmx.eqa.data.database.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.whrsmxmx.eqa.data.database.Model.Drop;
 
 import java.util.Collection;
 import java.util.Date;

@@ -16,13 +16,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.database.Model.Drop;
+import com.whrsmxmx.eqa.data.database.model.Day2Assessment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
-public class AssessmentView extends RelativeLayout {
+public class AssessmentView23 extends RelativeLayout {
 
     private LinearLayout propertiesContainer;
     private TextView anomaliesTextView;
@@ -35,27 +34,30 @@ public class AssessmentView extends RelativeLayout {
     private boolean [] propertiesArrayCheckedList;
     private String [] propertiesArray;
     private ArrayList <String> propertiesSelectedArray = new ArrayList<>();
+
     private ArrayList<Integer> fragmentationArray;
     private ArrayList<String> blastomeresArray;
-    private AssessmentView.DropViewSavedListener mSaveListener;
+    private DropViewSavedListener mSaveListener;
     private int mNumber;
 
-    public AssessmentView(Context context) {
+    public AssessmentView23(Context context) {
         super(context);
         init(context);
     }
 
     private void init(Context context) {
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_assessment, this);
+        View v = LayoutInflater.from(context).inflate(R.layout.layout_assessment2and3, this);
 
         propertiesArray = getResources().getStringArray(R.array.properties);
+        propertiesArrayCheckedList = new boolean[propertiesArray.length];
         int[] frgmtA = getResources().getIntArray(R.array.fragmentation_percent);
         fragmentationArray = new ArrayList<Integer>();
         for(int frgmt : frgmtA){
             fragmentationArray.add(frgmt);
         }
-        blastomeresArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.blastomeres_number)));
-        propertiesArrayCheckedList = new boolean[propertiesArray.length];
+        blastomeresArray = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.blastomeres_number))
+        );
 
 //        binding
         propertiesContainer = (LinearLayout) this.findViewById(R.id.properties_container);
@@ -151,18 +153,14 @@ public class AssessmentView extends RelativeLayout {
         notesEditText.setText("");
     }
 
-    public Drop saveDrop(){
-        return new Drop(mNumber, new Date(), isDegenerateCheckBox.isChecked(),
+    public Day2Assessment saveAssessment(){
+        return new Day2Assessment(isDegenerateCheckBox.isChecked(),
                 blastomeresArray.get(blastomeresSpinner.getSelectedItemPosition()),
                 fragmentationArray.get(fragmentationSpinner.getSelectedItemPosition()),
                 propertiesSelectedArray, notesEditText.getText().toString());
     }
 
-    public void setOnSaveListener(AssessmentView.DropViewSavedListener listener) {
+    public void setOnSaveListener(DropViewSavedListener listener) {
         mSaveListener = listener;
-    }
-
-    interface DropViewSavedListener{
-        void onDropSave();
     }
 }

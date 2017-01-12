@@ -10,8 +10,15 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.data.database.Model.Drop;
-import com.whrsmxmx.eqa.data.database.Model.Patient;
+import com.whrsmxmx.eqa.data.database.model.Day0Assessment;
+import com.whrsmxmx.eqa.data.database.model.Day1Assessment;
+import com.whrsmxmx.eqa.data.database.model.Day2Assessment;
+import com.whrsmxmx.eqa.data.database.model.Day3Assessment;
+import com.whrsmxmx.eqa.data.database.model.Day4Assessment;
+import com.whrsmxmx.eqa.data.database.model.Day5Assessment;
+import com.whrsmxmx.eqa.data.database.model.Day6Assessment;
+import com.whrsmxmx.eqa.data.database.model.Drop;
+import com.whrsmxmx.eqa.data.database.model.Patient;
 
 import java.sql.SQLException;
 
@@ -26,8 +33,22 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<Patient, String> patentsDao = null;
     private Dao<Drop, String> dropDao = null;
+    private Dao<Day0Assessment, String> day0AssessmentDao = null;
+    private Dao<Day1Assessment, String> day1AssessmentDao = null;
+    private Dao<Day2Assessment, String> day2AssessmentDao = null;
+    private Dao<Day3Assessment, String> day3AssessmentDao = null;
+    private Dao<Day4Assessment, String> day4AssessmentDao = null;
+    private Dao<Day5Assessment, String> day5AssessmentDao = null;
+    private Dao<Day6Assessment, String> day6AssessmentDao = null;
     private RuntimeExceptionDao<Patient, String> patientsRuntimeDao = null;
     private RuntimeExceptionDao<Drop, String> dropRuntimeDao = null;
+    private RuntimeExceptionDao<Day0Assessment, String> day0AssessmentRuntimeDao = null;
+    private RuntimeExceptionDao<Day1Assessment, String> day1AssessmentRuntimeDao = null;
+    private RuntimeExceptionDao<Day2Assessment, String> day2AssessmentRuntimeDao = null;
+    private RuntimeExceptionDao<Day3Assessment, String> day3AssessmentRuntimeDao = null;
+    private RuntimeExceptionDao<Day4Assessment, String> day4AssessmentRuntimeDao = null;
+    private RuntimeExceptionDao<Day5Assessment, String> day5AssessmentRuntimeDao = null;
+    private RuntimeExceptionDao<Day6Assessment, String> day6AssessmentRuntimeDao = null;
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -41,6 +62,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             Log.i(DatabaseHelper.class.getName(), "OnCreate");
             TableUtils.createTable(connectionSource, Patient.class);
             TableUtils.createTable(connectionSource, Drop.class);
+            TableUtils.createTable(connectionSource, Day0Assessment.class);
+            TableUtils.createTable(connectionSource, Day1Assessment.class);
+            TableUtils.createTable(connectionSource, Day2Assessment.class);
+            TableUtils.createTable(connectionSource, Day3Assessment.class);
+            TableUtils.createTable(connectionSource, Day4Assessment.class);
+            TableUtils.createTable(connectionSource, Day5Assessment.class);
+            TableUtils.createTable(connectionSource, Day6Assessment.class);
         } catch (SQLException e){
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -52,6 +80,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
             TableUtils.dropTable(connectionSource, Patient.class, true);
             TableUtils.dropTable(connectionSource, Drop.class, true);
+            TableUtils.dropTable(connectionSource, Day0Assessment.class, true);
+            TableUtils.dropTable(connectionSource, Day1Assessment.class, true);
+            TableUtils.dropTable(connectionSource, Day2Assessment.class, true);
+            TableUtils.dropTable(connectionSource, Day3Assessment.class, true);
+            TableUtils.dropTable(connectionSource, Day4Assessment.class, true);
+            TableUtils.dropTable(connectionSource, Day5Assessment.class, true);
+            TableUtils.dropTable(connectionSource, Day6Assessment.class, true);
             // after we drop the old databases, we create the new ones
             onCreate(db, connectionSource);
         } catch (SQLException e) {
@@ -77,6 +112,55 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return dropDao;
     }
 
+    public Dao<Day0Assessment, String> getDay0AssessmentDao() throws SQLException {
+        if (day0AssessmentDao == null) {
+            day0AssessmentDao = getDao(Day0Assessment.class);
+        }
+        return day0AssessmentDao;
+    }
+
+    public Dao<Day1Assessment, String> getDay1AssessmentDao() throws SQLException {
+        if (day1AssessmentDao == null) {
+            day1AssessmentDao = getDao(Day1Assessment.class);
+        }
+        return day1AssessmentDao;
+    }
+
+    public Dao<Day2Assessment, String> getDay2AssessmentDao() throws SQLException {
+        if (day2AssessmentDao == null) {
+            day2AssessmentDao = getDao(Day2Assessment.class);
+        }
+        return day2AssessmentDao;
+    }
+
+    public Dao<Day3Assessment, String> getDay3AssessmentDao() throws SQLException {
+        if (day3AssessmentDao == null) {
+            day3AssessmentDao = getDao(Day3Assessment.class);
+        }
+        return day3AssessmentDao;
+    }
+
+    public Dao<Day4Assessment, String> getDay4AssessmentDao() throws SQLException {
+        if (day4AssessmentDao == null) {
+            day4AssessmentDao = getDao(Day4Assessment.class);
+        }
+        return day4AssessmentDao;
+    }
+
+    public Dao<Day5Assessment, String> getDay5AssessmentDao() throws SQLException {
+        if (day5AssessmentDao == null) {
+            day5AssessmentDao = getDao(Day5Assessment.class);
+        }
+        return day5AssessmentDao;
+    }
+
+    public Dao<Day6Assessment, String> getDay6AssessmentDao() throws SQLException {
+        if (day6AssessmentDao == null) {
+            day6AssessmentDao = getDao(Day6Assessment.class);
+        }
+        return day6AssessmentDao;
+    }
+
     /**
      * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
      * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
@@ -95,6 +179,62 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return dropRuntimeDao;
     }
 
+    public RuntimeExceptionDao<Day0Assessment, String> getDay0AssessmentDataDao() {
+        if (day0AssessmentRuntimeDao == null) {
+            day0AssessmentRuntimeDao = getRuntimeExceptionDao(Day0Assessment.class);
+        }
+        return day0AssessmentRuntimeDao;
+    }
+
+
+    public RuntimeExceptionDao<Day1Assessment, String> getDay1AssessmentDataDao() {
+        if (day1AssessmentRuntimeDao == null) {
+            day1AssessmentRuntimeDao = getRuntimeExceptionDao(Day1Assessment.class);
+        }
+        return day1AssessmentRuntimeDao;
+    }
+
+
+    public RuntimeExceptionDao<Day2Assessment, String> getDay2AssessmentDataDao() {
+        if (day2AssessmentRuntimeDao == null) {
+            day2AssessmentRuntimeDao = getRuntimeExceptionDao(Day2Assessment.class);
+        }
+        return day2AssessmentRuntimeDao;
+    }
+
+
+    public RuntimeExceptionDao<Day3Assessment, String> getDay3AssessmentDataDao() {
+        if (day3AssessmentRuntimeDao == null) {
+            day3AssessmentRuntimeDao = getRuntimeExceptionDao(Day3Assessment.class);
+        }
+        return day3AssessmentRuntimeDao;
+    }
+
+
+    public RuntimeExceptionDao<Day4Assessment, String> getDay4AssessmentDataDao() {
+        if (day4AssessmentRuntimeDao == null) {
+            day4AssessmentRuntimeDao = getRuntimeExceptionDao(Day4Assessment.class);
+        }
+        return day4AssessmentRuntimeDao;
+    }
+
+
+    public RuntimeExceptionDao<Day5Assessment, String> getDay5AssessmentDataDao() {
+        if (day5AssessmentRuntimeDao == null) {
+            day5AssessmentRuntimeDao = getRuntimeExceptionDao(Day5Assessment.class);
+        }
+        return day5AssessmentRuntimeDao;
+    }
+
+
+    public RuntimeExceptionDao<Day6Assessment, String> getDay6AssessmentDataDao() {
+        if (day6AssessmentRuntimeDao == null) {
+            day6AssessmentRuntimeDao = getRuntimeExceptionDao(Day6Assessment.class);
+        }
+        return day6AssessmentRuntimeDao;
+    }
+
+
     /**
      * Close the database connections and clear any cached DAOs.
      */
@@ -105,5 +245,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         dropDao = null;
         patientsRuntimeDao = null;
         dropRuntimeDao = null;
+        day0AssessmentDao = null;
+        day1AssessmentDao = null;
+        day2AssessmentDao = null;
+        day3AssessmentDao = null;
+        day4AssessmentDao = null;
+        day5AssessmentDao = null;
+        day6AssessmentDao = null;
     }
 }
