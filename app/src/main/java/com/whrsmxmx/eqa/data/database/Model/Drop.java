@@ -25,8 +25,20 @@ public class Drop implements Serializable{
     private int mNumber;
     @DatabaseField
     private boolean mIsDegenerate;
-    @ForeignCollectionField(eager = true)
-    private Collection<Assessment> mAssessments;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day0Assessment mDay0Assessment;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day1Assessment mDay1Assessment;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day2Assessment mDay2Assessment;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day3Assessment mDay3Assessment;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day4Assessment mDay4Assessment;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day5Assessment mDay5Assessment;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day6Assessment mDay6Assessment;
 
     Drop(){}
 
@@ -34,33 +46,6 @@ public class Drop implements Serializable{
         mNumber = number;
 
         mIsDegenerate = isDegenerate;
-
-        mAssessments = new ArrayList<>();
-
-        mAssessments.add(new Day0Assessment(false,
-                "",
-                new ArrayList<String>(),
-                new ArrayList<String>(),
-                new ArrayList<String>(),
-                new ArrayList<String>(),
-                "",
-                ""));
-//        }
-        mAssessments.add(new Day1Assessment("",
-                new ArrayList<String>(),
-                new ArrayList<String>(),
-                new ArrayList<String>(),
-                new ArrayList<String>(),
-                ""));
-        mAssessments.add(new Day2Assessment(false,
-                "",
-                0,
-                new ArrayList<String>(),
-                ""));
-        mAssessments.add(new Day3Assessment("",
-                0,
-                new ArrayList<String>(),
-                ""));
     }
 
     public void setPatient(Patient patient) {
@@ -79,11 +64,59 @@ public class Drop implements Serializable{
         return mIsDegenerate;
     }
 
-    public Collection<Assessment> getAssessments() {
-        return mAssessments;
+    public Day0Assessment getDay0Assessment() {
+        return mDay0Assessment;
     }
 
-    public void setAssessments(Collection<Assessment> assessments) {
-        mAssessments = assessments;
+    public void setDay0Assessment(Day0Assessment day0Assessment) {
+        mDay0Assessment = day0Assessment;
+    }
+
+    public Day1Assessment getDay1Assessment() {
+        return mDay1Assessment;
+    }
+
+    public void setDay1Assessment(Day1Assessment day1Assessment) {
+        mDay1Assessment = day1Assessment;
+    }
+
+    public Day2Assessment getDay2Assessment() {
+        return mDay2Assessment;
+    }
+
+    public void setDay2Assessment(Day2Assessment day2Assessment) {
+        mDay2Assessment = day2Assessment;
+    }
+
+    public Day3Assessment getDay3Assessment() {
+        return mDay3Assessment;
+    }
+
+    public void setDay3Assessment(Day3Assessment day3Assessment) {
+        mDay3Assessment = day3Assessment;
+    }
+
+    public Day4Assessment getDay4Assessment() {
+        return mDay4Assessment;
+    }
+
+    public void setDay4Assessment(Day4Assessment day4Assessment) {
+        mDay4Assessment = day4Assessment;
+    }
+
+    public Day5Assessment getDay5Assessment() {
+        return mDay5Assessment;
+    }
+
+    public void setDay5Assessment(Day5Assessment day5Assessment) {
+        mDay5Assessment = day5Assessment;
+    }
+
+    public Day6Assessment getDay6Assessment() {
+        return mDay6Assessment;
+    }
+
+    public void setDay6Assessment(Day6Assessment day6Assessment) {
+        mDay6Assessment = day6Assessment;
     }
 }

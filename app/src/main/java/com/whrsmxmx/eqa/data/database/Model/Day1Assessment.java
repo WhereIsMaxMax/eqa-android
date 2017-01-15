@@ -11,7 +11,12 @@ import java.util.ArrayList;
  */
 
 @DatabaseTable
-public class Day1Assessment extends Assessment{
+public class Day1Assessment{
+
+    @DatabaseField(generatedId = true)
+    private int Id;
+    @DatabaseField (foreign = true, foreignAutoRefresh = true)
+    private Drop drop;
     @DatabaseField
     private String maturity;
     @DatabaseField(dataType = DataType.SERIALIZABLE)
@@ -23,22 +28,30 @@ public class Day1Assessment extends Assessment{
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> cytoplasm;
     @DatabaseField
+    private boolean isDegenerate;
+    @DatabaseField
+    private String notes;
+    @DatabaseField
     private String dirBody;
 
     Day1Assessment(){}
 
-    Day1Assessment(String maturity,
+    public Day1Assessment(boolean isDegenerate,
+                   String maturity,
                    ArrayList<String> zonaPellucida,
                    ArrayList<String> pvs,
                    ArrayList<String> membrane,
                    ArrayList<String> cytoplasm,
-                   String dirBody){
+                   String dirBody,
+                   String notes){
+        this.isDegenerate = isDegenerate;
         this.maturity = maturity;
         this.zonaPellucida = zonaPellucida;
         this.pvs = pvs;
         this.membrane = membrane;
         this.cytoplasm = cytoplasm;
         this.dirBody = dirBody;
+        this.notes = notes;
     }
 
     public String getMaturity() {
@@ -63,5 +76,13 @@ public class Day1Assessment extends Assessment{
 
     public String getDirBody() {
         return dirBody;
+    }
+
+    public void setDrop(Drop drop) {
+        this.drop = drop;
+    }
+
+    public Drop getDrop() {
+        return drop;
     }
 }

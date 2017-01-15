@@ -1,7 +1,6 @@
 package com.whrsmxmx.eqa.assesment;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,13 +18,13 @@ public class DropsView extends LinearLayout {
     private static final int DROPS_SIZE = 64;
     private static final String TAG = DropsView.class.getName();
 
-    DropsInteraction listener;
+    DropsInteractionInterface listener;
     int mLastSelectionTag = 0;
     private int mDropsNumber;
 
     public DropsView(Context context, int dropsNumber) {
         super(context);
-        listener = (DropsInteraction) context;
+        listener = (DropsInteractionInterface) context;
         initView(dropsNumber, context);
     }
 

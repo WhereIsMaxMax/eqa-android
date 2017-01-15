@@ -15,7 +15,7 @@
         <item>thick</item>
         <item>thin</item>
         <item>dark</item>
-        <item>intrazonal space</item>
+        <item>layered</item>
         <item>abnormally shaped</item>
         <item>uncertain</item>
     </string-array>
@@ -29,19 +29,20 @@
     </string-array>
     
     <string-array name="membrane_string_array">
-        <item>normal</item>
-        <item>rough</item>
-        <item>anomalous elasticity</item>
-        <item>uncertain</item>
+        <item>normal membrane</item>
+        <item>abnormally shaped cell/surface</item>
+        <item>abnormal stiffness</item>
+        <item>uncertain membrane features</item>
     </string-array>
 
     <string-array name="cytoplasm_string_array">
-        <item>normal</item>
-        <item>bull\'s eye</item>
+        <item>normal cytoplasm</item>
+        <item>refractile bodies</item>
+        <item>SERc</item>
         <item>SERc</item>
         <item>organelle clustering</item>
         <item>large vacuoles</item>
-        <item>heavily granulated</item>
+        <item>granularity</item>
         <item>uncertain</item>
     </string-array>
 
@@ -49,7 +50,7 @@
         <item>1</item>
         <item>2</item>
         <item>large</item>
-        <item>heavily fragmented</item>
+        <item>fragmented</item>
         <item>uncertain</item>
     </string-array>
 

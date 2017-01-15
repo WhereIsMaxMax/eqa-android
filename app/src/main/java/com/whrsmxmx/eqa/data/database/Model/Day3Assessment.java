@@ -11,7 +11,12 @@ import java.util.ArrayList;
  */
 
 @DatabaseTable
-public class Day3Assessment extends Assessment{
+public class Day3Assessment{
+
+    @DatabaseField(generatedId = true)
+    private int Id;
+    @DatabaseField (foreign = true, foreignAutoRefresh = true)
+    private Drop drop;
     @DatabaseField
     private String blastomeres;
     @DatabaseField
@@ -44,5 +49,13 @@ public class Day3Assessment extends Assessment{
 
     public String getNote() {
         return note;
+    }
+
+    public void setDrop(Drop drop) {
+        this.drop = drop;
+    }
+
+    public Drop getDrop() {
+        return drop;
     }
 }

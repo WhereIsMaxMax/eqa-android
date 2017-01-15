@@ -10,7 +10,12 @@ import java.util.ArrayList;
  * Created by Max on 09.01.2017.
  */
 @DatabaseTable
-public class Day2Assessment extends Assessment{
+public class Day2Assessment{
+
+    @DatabaseField(generatedId = true)
+    private int Id;
+    @DatabaseField (foreign = true, foreignAutoRefresh = true)
+    private Drop drop;
     @DatabaseField
     private boolean isDegenerate;
     @DatabaseField
@@ -54,5 +59,13 @@ public class Day2Assessment extends Assessment{
 
     public boolean isDegenerate() {
         return isDegenerate;
+    }
+
+    public void setDrop(Drop drop) {
+        this.drop = drop;
+    }
+
+    public Drop getDrop() {
+        return drop;
     }
 }

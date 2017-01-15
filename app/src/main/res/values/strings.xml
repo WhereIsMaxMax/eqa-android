@@ -16,7 +16,7 @@
     <string name="properties">Properties</string>
     <string name="select_properties">Select properties:</string>
     <string name="save">Save</string>
-    
+
     <!--Assessment 0-->
     <string name="maturity">Maturity</string>
     <string name="zona_pellucida">Zona pellucida</string>
@@ -34,5 +34,8 @@
 
     <!--Patients-->
     <string name="created">Was created at </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -1,5 +1,5 @@
 package com.whrsmxmx.eqa.assesment;
 
-interface DropsInteraction {
+interface DropsInteractionInterface {
     void onDropClicked(int dropNumber);
 }

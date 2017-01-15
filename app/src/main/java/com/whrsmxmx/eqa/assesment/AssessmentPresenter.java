@@ -1,10 +1,7 @@
 package com.whrsmxmx.eqa.assesment;
 
 import android.util.Log;
-import android.util.TimeUtils;
-
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.whrsmxmx.eqa.data.database.model.Assessment;
 import com.whrsmxmx.eqa.data.database.model.Day0Assessment;
 import com.whrsmxmx.eqa.data.database.model.Day1Assessment;
 import com.whrsmxmx.eqa.data.database.model.Day2Assessment;
@@ -69,30 +66,43 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
         mDrops = new ArrayList<>(mPatient.getDrops());
         mDay = (int) TimeUnit.MILLISECONDS.toDays(
                 new Date().getTime() - mPatient.getCreationDate().getTime());
+        Log.i(TAG, "Day "+mDay);
+
+        view.setDropsAmount(mPatient.getDropsNumber());
     }
 
+
     @Override
-    public void getDropsAmount() {
-        mView.setDropsAmount(mPatient.getDropsNumber());
+    public void getDay() {
+        mView.setDay(mDay, mPatient.getName());
     }
 
     @Override
     public void getDrop(int dropNumber) {
         if (dropNumber < mDrops.size()){
             Drop drop = mDrops.get(dropNumber);
-            ArrayList<Assessment> assessments = new ArrayList<>(drop.getAssessments());
             Log.i(TAG, "openDrop " + drop.getNumber());
             switch (mDay){
                 case 0:
-                    Day0Assessment day0Assessment = (Day0Assessment)assessments.get(mDay);
-                    mView.open0Assessment(day0Assessment.isDegenerate(),
-                            day0Assessment.getMaturity(),
-                            day0Assessment.getZonaPellucida(),
-                            day0Assessment.getPvs(),
-                            day0Assessment.getMembrane(),
-                            day0Assessment.getCytoplasm(),
-                            day0Assessment.getDirBody(),
-                            day0Assessment.getNote());
+                    if(drop.getDay0Assessment()!=null){
+                        Day0Assessment day0Assessment = drop.getDay0Assessment();
+                        mView.openAssessment(day0Assessment.isDegenerate(),
+                                day0Assessment.getMaturity(),
+                                day0Assessment.getZonaPellucida(),
+                                day0Assessment.getPvs(),
+                                day0Assessment.getMembrane(),
+                                day0Assessment.getCytoplasm(),
+                                day0Assessment.getDirBody(),
+                                day0Assessment.getNote());
+                    }else
+                        mView.openAssessment(false,
+                                "",
+                                new ArrayList<String>(),
+                                new ArrayList<String>(),
+                                new ArrayList<String>(),
+                                new ArrayList<String>(),
+                                "",
+                                "");
                     break;
                 case 1:
 
@@ -115,56 +125,65 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
                 default:
 
             }
-//            if(drop.getDay2Assessment()!=null){
-//                Day2Assessment day2Assessment = drop.getDay2Assessment();
-//
-//                mView.openDrop(drop.isDegenerate(),
-//                        day2Assessment.getBlastomeres(),
-//                        day2Assessment.getPercent(),
-//                        day2Assessment.getAnomalies(),
-//                        day2Assessment.getNote());
-//            }else {
-//                mView.openDrop(false, "", 0, new ArrayList<String>(), "");
-//            }
+
         }else{
             mView.lastDropSaved();
         }
     }
 
     @Override
-    public void saveClicked(int dropNumber, Assessment assessment) {
+    public void saveClicked(int dropNumber, boolean isDegenerate, String maturity,
+                            ArrayList<String> zonaPellucida, ArrayList<String> pvs,
+                            ArrayList<String> membrane, ArrayList<String> cytoplasm,
+                            String dirBody, String note) {
         Drop drop = mDrops.get(dropNumber);
-        assessment.setDrop(drop);
-        switch (mDay){
-            case 0:
-                Day0Assessment day0Assessment = (Day0Assessment) assessment;
-                mDay0AssessmentDao.update(day0Assessment);
-                ArrayList<Assessment> assessments = new ArrayList<>(drop.getAssessments());
-                assessments.set(mDay, day0Assessment);
-                drop.setAssessments(assessments);
-                mDropDao.update(drop);
-                break;
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            default:
-
+        Day0Assessment assessment = drop.getDay0Assessment();
+        if (assessment == null){
+            assessment = new Day0Assessment(isDegenerate, maturity, zonaPellucida, pvs,
+                    membrane, cytoplasm, dirBody, note);
+            assessment.setDrop(drop);
+            mDay0AssessmentDao.create(assessment);
+        }else {
+            assessment.setInfo(isDegenerate, maturity, zonaPellucida, pvs,
+                    membrane, cytoplasm, dirBody, note);
+            assessment.setDrop(drop);
+            mDay0AssessmentDao.update(assessment);
         }
+        drop.setDay0Assessment(assessment);
+        updateOtherData(drop);
+    }
+
+    @Override
+    public void saveClicked(int dropNumber, Day1Assessment assessment) {
+
+    }
+
+    @Override
+    public void saveClicked(int dropNumber, Day2Assessment assessment) {
+
+    }
+
+    @Override
+    public void saveClicked(int dropNumber, Day3Assessment assessment) {
+
+    }
+
+    @Override
+    public void saveClicked(int dropNumber, Day4Assessment assessment) {
+
+    }
+
+    @Override
+    public void saveClicked(int dropNumber, Day5Assessment assessment) {
+
+    }
+
+    @Override
+    public void saveClicked(int dropNumber, Day6Assessment assessment) {
+
+    }
+
+    private void updateOtherData(Drop drop) {
         mDropDao.update(drop);
         mDrops.set(drop.getNumber(), drop);
         mPatient.setDrops(mDrops);
