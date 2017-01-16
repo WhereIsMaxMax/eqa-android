@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
+    <!--Add patient-->
+    <string-array name="procedure_string_array">
+        <item>IVF</item>
+        <item>ICSI</item>
+        <item>PICSI</item>
+    </string-array>
+
     <!--Day 0-->
     <string-array name="maturity_day_0_string_array">
         <item>GV</item>
@@ -76,11 +83,6 @@
 
     <!--Day 2-->
 
-    <string-array name="procedure_string_array">
-        <item>IVF</item>
-        <item>ICSI</item>
-        <item>PICSI</item>
-    </string-array>
     <string-array name="properties">
         <item>нормальный паттерн дробления</item>
         <item>неправильный паттерн дробления</item>
@@ -92,7 +94,8 @@
         <item>компактизация</item>
         <item>другое</item>
     </string-array>
-    <string-array name="blastomeres_number">
+
+    <string-array name="blastomeres_number_day2_string_array">
         <item>0</item>
         <item>2</item>
         <item>3</item>
@@ -106,4 +109,28 @@
         <item>3 PN</item>
         <item>4+ PN</item>
     </string-array>
+
+    <!--Day 3-->
+
+    <string-array name="blastomeres_number_day3_string_array">
+        <item>0</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>1 PN</item>
+        <item>2 PN</item>
+        <item>3 PN</item>
+        <item>4+ PN</item>
+    </string-array>
+
 </resources>

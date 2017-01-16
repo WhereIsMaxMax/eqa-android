@@ -90,8 +90,14 @@ public interface AssessmentContract {
                          String dirBody,
                          String note);
 
-        void saveClicked(int dropNumber, Day2Assessment assessment);
-        void saveClicked(int dropNumber, Day3Assessment assessment);
+        void saveClicked(int dropNumber,
+                         boolean is3Day,
+                         boolean isDegenerate,
+                         String blastomeres,
+                         int percent,
+                         ArrayList<String> anomalies,
+                         String note);
+
         void saveClicked(int dropNumber, Day4Assessment assessment);
         void saveClicked(int dropNumber, Day5Assessment assessment);
         void saveClicked(int dropNumber, Day6Assessment assessment);

@@ -68,4 +68,16 @@ public class Day2Assessment{
     public Drop getDrop() {
         return drop;
     }
+
+    public void setInfo(boolean isDegenerate,
+                        String blastomeres,
+                        int percent,
+                        ArrayList<String> anomalies,
+                        String note){
+        this.isDegenerate = isDegenerate;
+        this.blastomeres = blastomeres;
+        this.percent = percent;
+        this.anomalies = anomalies;
+        this.note = note;
+    }
 }

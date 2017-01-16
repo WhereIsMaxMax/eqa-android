@@ -18,6 +18,8 @@ public class Day3Assessment{
     @DatabaseField (foreign = true, foreignAutoRefresh = true)
     private Drop drop;
     @DatabaseField
+    private boolean isDegenerate;
+    @DatabaseField
     private String blastomeres;
     @DatabaseField
     private int percent;
@@ -28,7 +30,16 @@ public class Day3Assessment{
 
     Day3Assessment(){}
 
-    public Day3Assessment(String blastomeres, int percent, ArrayList<String> anomalies, String note){
+    public Day3Assessment(boolean isDegenerate, String blastomeres, int percent, ArrayList<String> anomalies, String note){
+        this.isDegenerate = isDegenerate;
+        this.blastomeres = blastomeres;
+        this.percent = percent;
+        this.anomalies = anomalies;
+        this.note = note;
+    }
+
+    public void setInfo(boolean isDegenerate, String blastomeres, int percent, ArrayList<String> anomalies, String note){
+        this.isDegenerate = isDegenerate;
         this.blastomeres = blastomeres;
         this.percent = percent;
         this.anomalies = anomalies;

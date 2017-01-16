@@ -154,7 +154,10 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     }
 
     @Override
-    public void saveClicked(int dropNumber, boolean isDegenerate, String maturity, String npbs, ArrayList<String> zonaPellucida, ArrayList<String> pvs, ArrayList<String> membrane, ArrayList<String> cytoplasm, String dirBody, String note) {
+    public void saveClicked(int dropNumber, boolean isDegenerate, String maturity, String npbs,
+                            ArrayList<String> zonaPellucida, ArrayList<String> pvs,
+                            ArrayList<String> membrane, ArrayList<String> cytoplasm, String dirBody,
+                            String note) {
 
         Drop drop = mDrops.get(dropNumber);
         Day1Assessment assessment = drop.getDay1Assessment();
@@ -174,13 +177,35 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     }
 
     @Override
-    public void saveClicked(int dropNumber, Day2Assessment assessment) {
-
-    }
-
-    @Override
-    public void saveClicked(int dropNumber, Day3Assessment assessment) {
-
+    public void saveClicked(int dropNumber, boolean is3Day, boolean isDegenerate, String blastomeres, int percent,
+                            ArrayList<String> anomalies, String note) {
+        Drop drop = mDrops.get(dropNumber);
+        if (!is3Day){
+            Day2Assessment assessment = drop.getDay2Assessment();
+            if(assessment == null){
+                assessment = new Day2Assessment(isDegenerate, blastomeres, percent, anomalies, note);
+                assessment.setDrop(drop);
+                mDay2AssessmentDao.create(assessment);
+            }else {
+                assessment.setInfo(isDegenerate, blastomeres, percent, anomalies, note);
+                assessment.setDrop(drop);
+                mDay2AssessmentDao.update(assessment);
+            }
+            drop.setDay2Assessment(assessment);
+        }else {
+            Day3Assessment assessment = drop.getDay3Assessment();
+            if(assessment == null){
+                assessment = new Day3Assessment(isDegenerate, blastomeres, percent, anomalies, note);
+                assessment.setDrop(drop);
+                mDay3AssessmentDao.create(assessment);
+            }else {
+                assessment.setInfo(isDegenerate, blastomeres, percent, anomalies, note);
+                assessment.setDrop(drop);
+                mDay3AssessmentDao.update(assessment);
+            }
+            drop.setDay3Assessment(assessment);
+        }
+        updateOtherData(drop);
     }
 
     @Override

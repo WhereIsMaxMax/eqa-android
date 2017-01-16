@@ -11,14 +11,17 @@ import android.widget.Toast;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.assesment.fragments.Day0Fragment;
 import com.whrsmxmx.eqa.assesment.fragments.Day1Fragment;
+import com.whrsmxmx.eqa.assesment.fragments.Day2Fragment;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
+import com.whrsmxmx.eqa.data.database.model.Day2Assessment;
 import com.whrsmxmx.eqa.data.database.model.Patient;
 
 import java.util.ArrayList;
 
 public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
-        implements AssessmentContract.View, DropsInteractionInterface, Day0Fragment.OnAssessment0Listener, Day1Fragment.OnAssessment1Listener {
+        implements AssessmentContract.View, DropsInteractionInterface, Day0Fragment.OnAssessment0Listener,
+        Day1Fragment.OnAssessment1Listener, Day2Fragment.OnAssessment2Listener {
 
     final static String TAG = AssessmentActivity.class.getName();
     private AssessmentContract.UserActionsListener mListener;
@@ -83,17 +86,16 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         switch (day){
             case 0:
                 mAssessmentFragment = Day0Fragment.newInstance();
-//                getSupportFragmentManager().beginTransaction().replace(R.id.assessment_container, (Day0Fragment)mAssessmentFragment).commit();
-
                 break;
             case 1:
                 mAssessmentFragment = Day1Fragment.newInstance();
                 break;
             case 2:
-
+                mAssessmentFragment = Day2Fragment.newInstance(false);
                 break;
             case 3:
-
+//                use same fragment but set flag
+                mAssessmentFragment = Day2Fragment.newInstance(true);
                 break;
             case 4:
 
@@ -130,7 +132,8 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
     @Override
     public void openAssessment(boolean isDegenerate, String blastomeres, int fragmentationPercent,
                                ArrayList<String> anomalies, String note) {
-
+        ((Day2Fragment)mAssessmentFragment).setInfo(isDegenerate, blastomeres, fragmentationPercent,
+                anomalies, note);
     }
 
     @Override
@@ -176,8 +179,8 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                               ArrayList<String> zonaPellucida,
                               ArrayList<String> pvs, ArrayList<String> membrane,
                               ArrayList<String> cytoplasm, String dirBody, String note) {
-        mListener.saveClicked(mDropNumber, isDegenerate, maturity, zonaPellucida, pvs, membrane, cytoplasm,
-                dirBody, note);
+        mListener.saveClicked(mDropNumber, isDegenerate, maturity, zonaPellucida, pvs, membrane,
+                cytoplasm,dirBody, note);
     }
 
     @Override
@@ -185,8 +188,14 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                               ArrayList<String> zonaPellucida, ArrayList<String> pvs,
                               ArrayList<String> membrane, ArrayList<String> cytoplasm,
                               String dirBody, String note) {
-        mListener.saveClicked(mDropNumber, isDegenerate, maturity, npbs, zonaPellucida, pvs, membrane, cytoplasm,
-                dirBody, note);
+        mListener.saveClicked(mDropNumber, isDegenerate, maturity, npbs, zonaPellucida, pvs,
+                membrane, cytoplasm, dirBody, note);
+    }
+
+    @Override
+    public void onSaveClicked(boolean is3Day, boolean isDegenerate, String blastomeres, int percent,
+                              ArrayList<String> anomalies, String note) {
+        mListener.saveClicked(mDropNumber, is3Day, isDegenerate, blastomeres, percent, anomalies, note);
     }
 
     @Override
