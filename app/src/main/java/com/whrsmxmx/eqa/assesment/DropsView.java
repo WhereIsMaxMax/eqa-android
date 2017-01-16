@@ -80,7 +80,7 @@ public class DropsView extends LinearLayout {
     public void changeDrop(int dropNumber){
         ((ImageView)getRootView().findViewWithTag(mLastSelectionTag))
                 .setImageResource(R.drawable.ic_drop_unselected);
-        if(dropNumber<=mDropsNumber){
+        if(dropNumber<mDropsNumber){
             mLastSelectionTag = dropNumber;
             ((ImageView)getRootView().findViewWithTag(mLastSelectionTag))
                     .setImageResource(R.drawable.ic_drop_selected);

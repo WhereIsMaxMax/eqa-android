@@ -64,10 +64,15 @@
         <item>4+</item>
         <item>GV</item>
         <item>MI</item>
-        <item>atretic</item>
+        <item>atresia</item>
         <item>degeneration</item>
     </string-array>
 
+    <string-array name="npb_day_1_string_array">
+        <item>symmetrical</item>
+        <item>non-symmetrical</item>
+        <item>abnormal</item>
+    </string-array>
 
     <!--Day 2-->
 

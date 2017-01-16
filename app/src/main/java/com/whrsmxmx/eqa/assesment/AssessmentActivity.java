@@ -119,12 +119,17 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
     }
 
     @Override
-    public void openAssessment(boolean isDegenerate, String maturity, String npb, ArrayList<String> zonaPellucida, ArrayList<String> pvs, ArrayList<String> membrane, ArrayList<String> cytoplasm, String pbi, String note) {
-//        (Day1Fragment)
+    public void openAssessment(boolean isDegenerate, String maturity, String npb,
+                               ArrayList<String> zonaPellucida, ArrayList<String> pvs,
+                               ArrayList<String> membrane, ArrayList<String> cytoplasm,
+                               String pbi, String note) {
+        ((Day1Fragment)mAssessmentFragment).setInfo(isDegenerate, maturity, npb, zonaPellucida,
+                pvs, membrane, cytoplasm, pbi, note);
     }
 
     @Override
-    public void openAssessment(boolean isDegenerate, String blastomeres, int fragmentationPercent, ArrayList<String> anomalies, String note) {
+    public void openAssessment(boolean isDegenerate, String blastomeres, int fragmentationPercent,
+                               ArrayList<String> anomalies, String note) {
 
     }
 

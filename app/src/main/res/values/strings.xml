@@ -24,6 +24,9 @@
     <string name="membrane">Membrane</string>
     <string name="cytoplasm">Cytoplasm</string>
     <string name="pbi">PBI</string>
+    
+    <!--Assessment 1-->
+    <string name="npb">NPBs</string>
 
     <!--Add Patient-->
     <string name="name_hint">Patient name</string>
