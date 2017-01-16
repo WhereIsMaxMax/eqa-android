@@ -79,7 +79,17 @@ public interface AssessmentContract {
                          String dirBody,
                          String note);
 
-        void saveClicked(int dropNumber, Day1Assessment assessment);
+        void saveClicked(int dropNumber,
+                         boolean isDegenerate,
+                         String maturity,
+                         String npbs,
+                         ArrayList<String> zonaPellucida,
+                         ArrayList<String> pvs,
+                         ArrayList<String> membrane,
+                         ArrayList<String> cytoplasm,
+                         String dirBody,
+                         String note);
+
         void saveClicked(int dropNumber, Day2Assessment assessment);
         void saveClicked(int dropNumber, Day3Assessment assessment);
         void saveClicked(int dropNumber, Day4Assessment assessment);

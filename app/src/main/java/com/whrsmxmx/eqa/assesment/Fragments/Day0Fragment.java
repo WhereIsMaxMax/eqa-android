@@ -45,19 +45,15 @@ public class Day0Fragment extends Fragment {
 
     private boolean [] mZonaArrayCheckedList;
     private String [] mZonaArray;
-    private ArrayList<String> mZonaSelectedArray = new ArrayList<>();
 
     private boolean [] mPvsArrayCheckedList;
     private String [] mPvsArray;
-    private ArrayList<String> mPvsSelectedArray = new ArrayList<>();
 
     private boolean [] mMembraneArrayCheckedList;
     private String [] mMembraneArray;
-    private ArrayList<String> mMembraneSelectedArray = new ArrayList<>();
 
     private boolean [] mCytoplasmArrayCheckedList;
     private String [] mCytoplasmArray;
-    private ArrayList<String> mCytoplasmSelectedArray = new ArrayList<>();
 
     private ArrayList<String> mPbiArray;
     private OnAssessment0Listener mSaveListener;
@@ -70,11 +66,6 @@ public class Day0Fragment extends Fragment {
 
     public Day0Fragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -147,39 +138,65 @@ public class Day0Fragment extends Fragment {
                 android.R.layout.simple_spinner_dropdown_item,
                 mPbiArray));
 
-        mZonaContainer.setOnClickListener(createClickListener(mZonaArray, mZonaSelectedArray,
+        mZonaContainer.setOnClickListener(createClickListener(mZonaArray,
                 mZonaArrayCheckedList, getResources().getString(R.string.zona_pellucida), mZonaTextView));
 
-        mPvsContainer.setOnClickListener(createClickListener(mPvsArray, mPvsSelectedArray,
-                mPvsArrayCheckedList, getResources().getString(R.string.pvs), mPvsTextView));
+        mPvsContainer.setOnClickListener(createClickListener(mPvsArray, mPvsArrayCheckedList,
+                getResources().getString(R.string.pvs), mPvsTextView));
 
-        mCytoplasmContainer.setOnClickListener(createClickListener(mCytoplasmArray, mCytoplasmSelectedArray,
+        mCytoplasmContainer.setOnClickListener(createClickListener(mCytoplasmArray,
                 mCytoplasmArrayCheckedList, getResources().getString(R.string.cytoplasm), mCytoplasmTextView));
 
-        mMembraneContainer.setOnClickListener(createClickListener(mMembraneArray, mMembraneSelectedArray,
+        mMembraneContainer.setOnClickListener(createClickListener(mMembraneArray,
                 mMembraneArrayCheckedList, getResources().getString(R.string.membrane), mMembraneTextView));
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<String> zonaSelectedArray = new ArrayList<>();
+                for (int i = 0; i < mZonaArray.length; i ++){
+                    if(mZonaArrayCheckedList[i])
+                        zonaSelectedArray.add(mZonaArray[i]);
+                }
+                ArrayList<String> pvsSelectedArray = new ArrayList<>();
+                for (int i = 0; i < mPvsArray.length; i ++){
+                    if(mPvsArrayCheckedList[i])
+                        pvsSelectedArray.add(mPvsArray[i]);
+                }
+                ArrayList<String> membraneSelectedArray = new ArrayList<>();
+                for (int i = 0; i < mMembraneArray.length; i ++){
+                    if(mMembraneArrayCheckedList[i])
+                        membraneSelectedArray.add(mMembraneArray[i]);
+                }
+                ArrayList<String> cytoplasmSelectedArray = new ArrayList<>();
+                for (int i = 0; i < mCytoplasmArray.length; i ++){
+                    if(mCytoplasmArrayCheckedList[i])
+                        cytoplasmSelectedArray.add(mCytoplasmArray[i]);
+                }
                 mSaveListener.onSaveClicked(isDegenerateCheckBox.isChecked(),
                         mMaturityArray.get(mMaturitySpinner.getSelectedItemPosition()),
-                        mZonaSelectedArray,
-                        mPvsSelectedArray,
-                        mMembraneSelectedArray,
-                        mCytoplasmSelectedArray,
+                        zonaSelectedArray,
+                        pvsSelectedArray,
+                        membraneSelectedArray,
+                        cytoplasmSelectedArray,
                         mPbiArray.get(mPbiSpinner.getSelectedItemPosition()),
                         notesEditText.getText().toString());
             }
         });
     }
 
-    private View.OnClickListener createClickListener(final String[] array, final ArrayList<String> selectedArray,
-                                                     final boolean [] checkedArray, final String title, final TextView textView){
+    private View.OnClickListener createClickListener(final String[] array, final boolean [] checkedArray,
+                                                     final String title, final TextView textView){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isDegenerateCheckBox.isChecked()) {
+
+                    final ArrayList<String> selectedArray = new ArrayList<>();
+                    for (int i = 0; i < array.length; i ++){
+                        if(checkedArray[i])
+                            selectedArray.add(array[i]);
+                    }
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -202,8 +219,7 @@ public class Day0Fragment extends Fragment {
                             for (String s : selectedArray){
                                 text += s +"\n";
                             }
-                            text = text.substring(0, text.length()-1);
-                            textView.setText(text);
+                            textView.setText(removeLastCharIfNotEmpty(text));
                             dialog.dismiss();
                         }
                     });
@@ -224,39 +240,45 @@ public class Day0Fragment extends Fragment {
         mMaturitySpinner.setSelection(mMaturityArray.indexOf(maturity));
         mPbiSpinner.setSelection(mPbiArray.indexOf(pbi));
 
-        mZonaSelectedArray = zonaPellucida;
         String zonaTextValue = "";
-        for(int i = 0; i < zonaPellucida.size(); i++){
-            mZonaArrayCheckedList[Arrays.asList(mZonaArray).indexOf(zonaPellucida.get(i))] = true;
-            zonaTextValue = zonaTextValue + mZonaArray[i] + " ";
+        for(String s : zonaPellucida){
+            int index = Arrays.asList(mZonaArray).indexOf(s);
+            mZonaArrayCheckedList[index] = true;
+            zonaTextValue = zonaTextValue + mZonaArray[index] + "\n";
         }
-        mZonaTextView.setText(zonaTextValue);
+        mZonaTextView.setText(removeLastCharIfNotEmpty(zonaTextValue));
 
-        mPvsSelectedArray = pvs;
         String pvSTextValue = "";
-        for(int i = 0; i < pvs.size(); i++){
-            mPvsArrayCheckedList[Arrays.asList(mPvsArray).indexOf(pvs.get(i))] = true;
-            pvSTextValue = pvSTextValue + mPvsArray[i] + " ";
+        for(String s : pvs){
+            int index = Arrays.asList(mPvsArray).indexOf(s);
+            mPvsArrayCheckedList[index] = true;
+            pvSTextValue = pvSTextValue + mPvsArray[index] + "\n";
         }
-        mPvsTextView.setText(pvSTextValue);
+        mPvsTextView.setText(removeLastCharIfNotEmpty(pvSTextValue));
 
-        mMembraneSelectedArray = membrane;
         String membraneTextValue = "";
-        for(int i = 0; i < membrane.size(); i++){
-            mMembraneArrayCheckedList[Arrays.asList(mMembraneArray).indexOf(membrane.get(i))] = true;
-            membraneTextValue = membraneTextValue + mMembraneArray[i] + " ";
+        for(String s : membrane){
+            int index = Arrays.asList(mMembraneArray).indexOf(s);
+            mMembraneArrayCheckedList[index] = true;
+            membraneTextValue = membraneTextValue + mMembraneArray[index] + "\n";
         }
-        mMembraneTextView.setText(membraneTextValue);
+        mMembraneTextView.setText(removeLastCharIfNotEmpty(membraneTextValue));
 
-        mCytoplasmSelectedArray = cytoplasm;
         String cytoplasmTextValue = "";
-        for(int i = 0; i < cytoplasm.size(); i++){
-            mCytoplasmArrayCheckedList[Arrays.asList(mCytoplasmArray).indexOf(cytoplasm.get(i))] = true;
-            cytoplasmTextValue = cytoplasmTextValue + mCytoplasmArray[i] + "";
+        for(String s : cytoplasm){
+            int index = Arrays.asList(mCytoplasmArray).indexOf(s);
+            mCytoplasmArrayCheckedList[index] = true;
+            cytoplasmTextValue = cytoplasmTextValue + mCytoplasmArray[index] + "\n";
         }
-        mCytoplasmTextView.setText(cytoplasmTextValue);
+        mCytoplasmTextView.setText(removeLastCharIfNotEmpty(cytoplasmTextValue));
 
         notesEditText.setText(note);
+    }
+
+    private String removeLastCharIfNotEmpty(String text){
+        if (!text.isEmpty())
+            text = text.substring(0, text.length()-1);
+        return text;
     }
 
     @Override

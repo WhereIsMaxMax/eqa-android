@@ -1,5 +1,7 @@
 package com.whrsmxmx.eqa.data.database.model;
 
+import android.support.annotation.ArrayRes;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -19,6 +21,8 @@ public class Day1Assessment{
     private Drop drop;
     @DatabaseField
     private String maturity;
+    @DatabaseField
+    private String npbs;
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> zonaPellucida;
     @DatabaseField(dataType = DataType.SERIALIZABLE)
@@ -38,6 +42,7 @@ public class Day1Assessment{
 
     public Day1Assessment(boolean isDegenerate,
                    String maturity,
+                   String npbs,
                    ArrayList<String> zonaPellucida,
                    ArrayList<String> pvs,
                    ArrayList<String> membrane,
@@ -46,6 +51,7 @@ public class Day1Assessment{
                    String notes){
         this.isDegenerate = isDegenerate;
         this.maturity = maturity;
+        this.npbs = npbs;
         this.zonaPellucida = zonaPellucida;
         this.pvs = pvs;
         this.membrane = membrane;
@@ -56,6 +62,10 @@ public class Day1Assessment{
 
     public String getMaturity() {
         return maturity;
+    }
+
+    public String getNpbs() {
+        return npbs;
     }
 
     public ArrayList<String> getZonaPellucida() {
@@ -84,5 +94,21 @@ public class Day1Assessment{
 
     public Drop getDrop() {
         return drop;
+    }
+
+    public void setInfo(boolean isDegenerate, String maturity, String npbs,
+                        ArrayList<String> zonaPellucida, ArrayList<String> pvs,
+                        ArrayList<String> membrane, ArrayList<String> cytoplasm, String dirBody,
+                        String note) {
+
+        this.isDegenerate = isDegenerate;
+        this.maturity = maturity;
+        this.npbs = npbs;
+        this.zonaPellucida = zonaPellucida;
+        this.pvs = pvs;
+        this.membrane = membrane;
+        this.cytoplasm = cytoplasm;
+        this.dirBody = dirBody;
+        this.notes = note;
     }
 }

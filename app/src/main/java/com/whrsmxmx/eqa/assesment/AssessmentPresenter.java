@@ -154,8 +154,23 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     }
 
     @Override
-    public void saveClicked(int dropNumber, Day1Assessment assessment) {
+    public void saveClicked(int dropNumber, boolean isDegenerate, String maturity, String npbs, ArrayList<String> zonaPellucida, ArrayList<String> pvs, ArrayList<String> membrane, ArrayList<String> cytoplasm, String dirBody, String note) {
 
+        Drop drop = mDrops.get(dropNumber);
+        Day1Assessment assessment = drop.getDay1Assessment();
+        if (assessment == null){
+            assessment = new Day1Assessment(isDegenerate, maturity, npbs, zonaPellucida, pvs,
+                    membrane, cytoplasm, dirBody, note);
+            assessment.setDrop(drop);
+            mDay1AssessmentDao.create(assessment);
+        }else {
+            assessment.setInfo(isDegenerate, maturity, npbs, zonaPellucida, pvs,
+                    membrane, cytoplasm, dirBody, note);
+            assessment.setDrop(drop);
+            mDay1AssessmentDao.update(assessment);
+        }
+        drop.setDay1Assessment(assessment);
+        updateOtherData(drop);
     }
 
     @Override

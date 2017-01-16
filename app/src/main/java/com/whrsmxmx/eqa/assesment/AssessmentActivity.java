@@ -18,7 +18,7 @@ import com.whrsmxmx.eqa.data.database.model.Patient;
 import java.util.ArrayList;
 
 public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
-        implements AssessmentContract.View, DropsInteractionInterface, Day0Fragment.OnAssessment0Listener {
+        implements AssessmentContract.View, DropsInteractionInterface, Day0Fragment.OnAssessment0Listener, Day1Fragment.OnAssessment1Listener {
 
     final static String TAG = AssessmentActivity.class.getName();
     private AssessmentContract.UserActionsListener mListener;
@@ -83,7 +83,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         switch (day){
             case 0:
                 mAssessmentFragment = Day0Fragment.newInstance();
-                getSupportFragmentManager().beginTransaction().replace(R.id.assessment_container, (Day0Fragment)mAssessmentFragment).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.assessment_container, (Day0Fragment)mAssessmentFragment).commit();
 
                 break;
             case 1:
@@ -106,7 +106,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                 break;
             default:
         }
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.assessment_container, mAssessmentFragment).commit();
     }
 
     @Override
@@ -177,6 +177,15 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                               ArrayList<String> pvs, ArrayList<String> membrane,
                               ArrayList<String> cytoplasm, String dirBody, String note) {
         mListener.saveClicked(mDropNumber, isDegenerate, maturity, zonaPellucida, pvs, membrane, cytoplasm,
+                dirBody, note);
+    }
+
+    @Override
+    public void onSaveClicked(boolean isDegenerate, String maturity, String npbs,
+                              ArrayList<String> zonaPellucida, ArrayList<String> pvs,
+                              ArrayList<String> membrane, ArrayList<String> cytoplasm,
+                              String dirBody, String note) {
+        mListener.saveClicked(mDropNumber, isDegenerate, maturity, npbs, zonaPellucida, pvs, membrane, cytoplasm,
                 dirBody, note);
     }
 
