@@ -3,8 +3,11 @@ package com.whrsmxmx.eqa.data.database.model;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.whrsmxmx.eqa.utils.StringsTricks;
 
 import java.util.ArrayList;
+
+import static com.whrsmxmx.eqa.utils.StringsTricks.*;
 
 /**
  * Created by Max on 09.01.2017.
@@ -109,5 +112,10 @@ public class Day0Assessment{
         this.cytoplasm = cytoplasm;
         this.dirBody = dirBody;
         this.note = note;
+    }
+
+    public String[] toStringArray(){
+        return new String[]{maturity, stringCSVFromArrayList(zonaPellucida), stringCSVFromArrayList(pvs),
+                stringCSVFromArrayList(membrane), stringCSVFromArrayList(cytoplasm), dirBody, note};
     }
 }

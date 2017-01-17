@@ -16,7 +16,7 @@
         <item>atretic</item>
         <item>uncertain</item>
     </string-array>
-    
+
     <string-array name="zona_pellucida_string_array">
         <item>normal</item>
         <item>thick</item>
@@ -26,7 +26,7 @@
         <item>abnormally shaped</item>
         <item>uncertain</item>
     </string-array>
-    
+
     <string-array name="pvs_string_array">
         <item>normal</item>
         <item>large</item>
@@ -34,7 +34,7 @@
         <item>debris</item>
         <item>uncertain</item>
     </string-array>
-    
+
     <string-array name="membrane_string_array">
         <item>normal membrane</item>
         <item>abnormally shaped cell/surface</item>
@@ -131,6 +131,19 @@
         <item>2 PN</item>
         <item>3 PN</item>
         <item>4+ PN</item>
+    </string-array>
+
+    <!--Export-->
+
+    <string-array name="export">
+        <item>name</item>
+        <item>maturity</item>
+        <item>zona pellucida</item>
+        <item>perivitelline space</item>
+        <item>PVS</item>
+        <item>membrane</item>
+        <item>cytoplasm</item>
+        <item>polar bodies</item>
     </string-array>
 
 </resources>

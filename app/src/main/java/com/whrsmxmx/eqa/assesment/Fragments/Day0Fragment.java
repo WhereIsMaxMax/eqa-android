@@ -19,9 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.whrsmxmx.eqa.R;
+import com.whrsmxmx.eqa.utils.StringsTricks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static com.whrsmxmx.eqa.utils.StringsTricks.removeLastCharIfNotEmpty;
 
 public class Day0Fragment extends Fragment {
 
@@ -273,12 +276,6 @@ public class Day0Fragment extends Fragment {
         mCytoplasmTextView.setText(removeLastCharIfNotEmpty(cytoplasmTextValue));
 
         notesEditText.setText(note);
-    }
-
-    private String removeLastCharIfNotEmpty(String text){
-        if (!text.isEmpty())
-            text = text.substring(0, text.length()-1);
-        return text;
     }
 
     @Override
