@@ -19,11 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.whrsmxmx.eqa.R;
+import com.whrsmxmx.eqa.assesment.DecisionView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Day1Fragment extends Fragment {
+public class Day1Fragment extends Fragment implements DecisionView.DecisionInterface{
 
     //    views;
     private Spinner mMaturitySpinner;
@@ -39,7 +40,8 @@ public class Day1Fragment extends Fragment {
     private Spinner mPbiSpinner;
     private Button saveButton;
     private EditText notesEditText;
-    private CheckBox isDegenerateCheckBox;
+//    private CheckBox isDegenerateCheckBox;
+    private DecisionView mDecisionView;
 
     //    data containers;
     private ArrayList<String> mMaturityArray;
@@ -103,7 +105,9 @@ public class Day1Fragment extends Fragment {
 
         saveButton = (Button) v.findViewById(R.id.save_button);
         notesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
-        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
+//        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
+        mDecisionView = (DecisionView) v.findViewById(R.id.decision_view);
+
     }
 
     private void init() {
@@ -129,16 +133,16 @@ public class Day1Fragment extends Fragment {
         mCytoplasmArrayCheckedList = new boolean[mCytoplasmArray.length];
 
 //        initialisation
-        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mMaturitySpinner.setEnabled(!isChecked);
-                mPbiSpinner.setEnabled(!isChecked);
-                mNPBSpinner.setEnabled(!isChecked);
-                notesEditText.setEnabled(!isChecked);
-
-            }
-        });
+//        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                mMaturitySpinner.setEnabled(!isChecked);
+//                mPbiSpinner.setEnabled(!isChecked);
+//                mNPBSpinner.setEnabled(!isChecked);
+//                notesEditText.setEnabled(!isChecked);
+//
+//            }
+//        });
         mMaturitySpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 mMaturityArray));
@@ -184,7 +188,7 @@ public class Day1Fragment extends Fragment {
                     if(mCytoplasmArrayCheckedList[i])
                         cytoplasmSelectedArray.add(mCytoplasmArray[i]);
                 }
-                mSaveListener.onSaveClicked(isDegenerateCheckBox.isChecked(),
+                mSaveListener.onSaveClicked(mDecisionView.getDecision(),
                         mMaturityArray.get(mMaturitySpinner.getSelectedItemPosition()),
                         mNPBArray.get(mNPBSpinner.getSelectedItemPosition()),
                         zonaSelectedArray,
@@ -202,7 +206,7 @@ public class Day1Fragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isDegenerateCheckBox.isChecked()) {
+//                if (!isDegenerateCheckBox.isChecked()) {
 
                     final ArrayList<String> selectedArray = new ArrayList<>();
                     for (int i = 0; i < array.length; i ++){
@@ -238,16 +242,17 @@ public class Day1Fragment extends Fragment {
                     AlertDialog dialog = builder.create();
 
                     dialog.show();
-                }
+//                }
             }
         };
     }
 
-    public void setInfo(boolean isDegenerate, String maturity, String npbs, ArrayList<String> zonaPellucida,
+    public void setInfo(String decision, String maturity, String npbs, ArrayList<String> zonaPellucida,
                         ArrayList<String> pvs, ArrayList<String> membrane,
                         ArrayList<String> cytoplasm, String pbi, String note) {
 
-        isDegenerateCheckBox.setChecked(isDegenerate);
+//        isDegenerateCheckBox.setChecked(isDegenerate);
+        mDecisionView.setDecisionSelection(decision);
 
         mMaturitySpinner.setSelection(mMaturityArray.indexOf(maturity));
         mPbiSpinner.setSelection(mPbiArray.indexOf(pbi));
@@ -311,8 +316,13 @@ public class Day1Fragment extends Fragment {
         mSaveListener = null;
     }
 
+    @Override
+    public void onDecisionClick(int decision) {
+
+    }
+
     public interface OnAssessment1Listener {
-        void onSaveClicked(boolean isDegenerate,
+        void onSaveClicked(String decision,
                            String maturity,
                            String npbs,
                            ArrayList<String> zonaPellucida,

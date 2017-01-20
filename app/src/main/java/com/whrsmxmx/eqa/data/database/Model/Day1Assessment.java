@@ -32,7 +32,7 @@ public class Day1Assessment{
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> cytoplasm;
     @DatabaseField
-    private boolean isDegenerate;
+    private String decision;
     @DatabaseField
     private String notes;
     @DatabaseField
@@ -40,7 +40,7 @@ public class Day1Assessment{
 
     Day1Assessment(){}
 
-    public Day1Assessment(boolean isDegenerate,
+    public Day1Assessment(String decision,
                    String maturity,
                    String npbs,
                    ArrayList<String> zonaPellucida,
@@ -49,7 +49,7 @@ public class Day1Assessment{
                    ArrayList<String> cytoplasm,
                    String dirBody,
                    String notes){
-        this.isDegenerate = isDegenerate;
+        this.decision = decision;
         this.maturity = maturity;
         this.npbs = npbs;
         this.zonaPellucida = zonaPellucida;
@@ -58,6 +58,34 @@ public class Day1Assessment{
         this.cytoplasm = cytoplasm;
         this.dirBody = dirBody;
         this.notes = notes;
+    }
+
+    public void setMaturity(String maturity) {
+        this.maturity = maturity;
+    }
+
+    public void setNpbs(String npbs) {
+        this.npbs = npbs;
+    }
+
+    public void setZonaPellucida(ArrayList<String> zonaPellucida) {
+        this.zonaPellucida = zonaPellucida;
+    }
+
+    public void setPvs(ArrayList<String> pvs) {
+        this.pvs = pvs;
+    }
+
+    public void setMembrane(ArrayList<String> membrane) {
+        this.membrane = membrane;
+    }
+
+    public void setCytoplasm(ArrayList<String> cytoplasm) {
+        this.cytoplasm = cytoplasm;
+    }
+
+    public void setDirBody(String dirBody) {
+        this.dirBody = dirBody;
     }
 
     public String getMaturity() {
@@ -96,12 +124,20 @@ public class Day1Assessment{
         return drop;
     }
 
-    public void setInfo(boolean isDegenerate, String maturity, String npbs,
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
+    }
+
+    public void setInfo(String decision, String maturity, String npbs,
                         ArrayList<String> zonaPellucida, ArrayList<String> pvs,
                         ArrayList<String> membrane, ArrayList<String> cytoplasm, String dirBody,
                         String note) {
 
-        this.isDegenerate = isDegenerate;
+        this.decision = decision;
         this.maturity = maturity;
         this.npbs = npbs;
         this.zonaPellucida = zonaPellucida;
@@ -110,5 +146,9 @@ public class Day1Assessment{
         this.cytoplasm = cytoplasm;
         this.dirBody = dirBody;
         this.notes = note;
+    }
+
+    public String getNote() {
+        return notes;
     }
 }

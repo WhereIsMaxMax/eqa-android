@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/button_height"
+                android:fillViewport="true">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/is_degenerate_checkbox_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bot_border">
+
+                    <!--<CheckBox-->
+                        <!--android:id="@+id/is_degenerate_checkbox"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="@dimen/side_margin"-->
+                        <!--android:layout_marginRight="@dimen/side_margin"-->
+                        <!--android:layout_marginTop="@dimen/side_margin"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="@string/degenerate"/>-->
+
+                    <com.whrsmxmx.eqa.assesment.DecisionView
+                        android:id="@+id/decision_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/first_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/is_degenerate_checkbox_container"
+                    android:padding="@dimen/side_margin"
+                    android:background="@drawable/bot_border"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@string/development_stage"/>
+
+                    <Spinner
+                        android:id="@+id/first_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/second_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/first_container"
+                    android:padding="@dimen/side_margin"
+                    android:background="@drawable/bot_border"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@string/ICM"/>
+
+                    <Spinner
+                        android:id="@+id/second_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/third_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/second_container"
+                    android:padding="@dimen/side_margin"
+                    android:background="@drawable/bot_border"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="@string/TE"/>
+
+                    <Spinner
+                        android:id="@+id/third_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"/>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/notes_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/third_container"
+                    android:padding="@dimen/side_margin"
+                    android:hint="@string/notes_hint"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <Button
+    android:id="@+id/save_button"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/button_height"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/colorPrimary"
+    android:text="@string/save"/>
+
+</RelativeLayout>

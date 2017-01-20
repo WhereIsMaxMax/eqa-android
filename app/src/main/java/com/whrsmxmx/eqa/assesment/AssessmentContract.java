@@ -19,7 +19,8 @@ public interface AssessmentContract {
 
     interface View{
 
-        void openAssessment(boolean isDegenerate,
+//        day 0
+        void openAssessment(String decision,
                              String maturity,
                              ArrayList<String> zonaPellucida,
                              ArrayList<String> pvs,
@@ -28,7 +29,8 @@ public interface AssessmentContract {
                              String pbi,
                              String note);
 
-        void openAssessment(boolean isDegenerate,
+//        day 1
+        void openAssessment(String decision,
                              String maturity,
                              String npb,
                              ArrayList<String> zonaPellucida,
@@ -38,21 +40,26 @@ public interface AssessmentContract {
                              String pbi,
                              String note);
 
-        void openAssessment(boolean isDegenerate,
+//        day 2 and day 3
+        void openAssessment(String decision,
+                            boolean isDay3,
                              String blastomeres,
                              int fragmentationPercent,
                              ArrayList<String> anomalies,
                              String note);
 
-        void openAssessment(String developmentStage);
-
-        void openAssessment(boolean isDegenerate,
+//        day 4
+        void openAssessment(String decision,
                             String developmentStage,
-                            String bkm,
-                            String te,
                             String note);
 
-        void openDecision(String decision);
+//        day 5 and day 6
+        void openAssessment(String decision,
+                            boolean isDay5,
+                            String developmentStage,
+                            String ism,
+                            String te,
+                            String note);
 
         void setDropsAmount(int dropsNumber);
 
@@ -69,8 +76,9 @@ public interface AssessmentContract {
 
         void getDrop(int dropNumber);
 
+//        day 0
         void saveClicked(int dropNumber,
-                         boolean isDegenerate,
+                         String decision,
                          String maturity,
                          ArrayList<String> zonaPellucida,
                          ArrayList<String> pvs,
@@ -79,8 +87,9 @@ public interface AssessmentContract {
                          String dirBody,
                          String note);
 
+//        day 1
         void saveClicked(int dropNumber,
-                         boolean isDegenerate,
+                         String decision,
                          String maturity,
                          String npbs,
                          ArrayList<String> zonaPellucida,
@@ -90,45 +99,28 @@ public interface AssessmentContract {
                          String dirBody,
                          String note);
 
+//        day 2 and day 3
         void saveClicked(int dropNumber,
                          boolean is3Day,
-                         boolean isDegenerate,
+                         String decision,
                          String blastomeres,
                          int percent,
                          ArrayList<String> anomalies,
                          String note);
 
-        void saveClicked(int dropNumber, Day4Assessment assessment);
-        void saveClicked(int dropNumber, Day5Assessment assessment);
-        void saveClicked(int dropNumber, Day6Assessment assessment);
+//        day 4
+        void saveClicked(int dropNumber,
+                         String decision,
+                         String devStage,
+                         String note);
 
-    }
-
-    interface Assessment0ViewInterface {
-        Day0Assessment saveDay0Info();
-    }
-
-    interface Assessment1ViewInterface {
-        Day1Assessment saveDay1Info();
-    }
-
-    interface Assessment2ViewInterface {
-        Day2Assessment saveDay2Info();
-    }
-
-    interface Assessment3ViewInterface {
-        Day3Assessment saveDay3Info();
-    }
-
-    interface Assessment4ViewInterface {
-        Day4Assessment saveDay4Info();
-    }
-
-    interface Assessment5ViewInterface {
-        Day5Assessment saveDay5Info();
-    }
-
-    interface Assessment6ViewInterface {
-        Day6Assessment saveDay6Info();
+//        day 5 and day 6
+        void saveClicked(int dropNumber,
+                         String decision,
+                         boolean is5Day,
+                         String devStage,
+                         String ICM,
+                         String TE,
+                         String note);
     }
 }

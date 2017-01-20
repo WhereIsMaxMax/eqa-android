@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,14 +18,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.utils.StringsTricks;
+import com.whrsmxmx.eqa.assesment.DecisionView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.whrsmxmx.eqa.utils.StringsTricks.removeLastCharIfNotEmpty;
 
-public class Day0Fragment extends Fragment {
+public class Day0Fragment extends Fragment implements DecisionView.DecisionInterface{
 
     //    views;
     private Spinner mMaturitySpinner;
@@ -39,9 +38,10 @@ public class Day0Fragment extends Fragment {
     private LinearLayout mCytoplasmContainer;
     private TextView mCytoplasmTextView;
     private Spinner mPbiSpinner;
-    private Button saveButton;
-    private EditText notesEditText;
-    private CheckBox isDegenerateCheckBox;
+    private Button mSaveButton;
+    private EditText mNotesEditText;
+//    private CheckBox isDegenerateCheckBox;
+    private DecisionView mDecisionView;
 
 //    data containers;
     private ArrayList<String> mMaturityArray;
@@ -101,9 +101,10 @@ public class Day0Fragment extends Fragment {
         mMaturitySpinner = (Spinner) v.findViewById(R.id.spinner0);
         mPbiSpinner = (Spinner) v.findViewById(R.id.spinner1);
 
-        saveButton = (Button) v.findViewById(R.id.save_button);
-        notesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
-        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
+        mSaveButton = (Button) v.findViewById(R.id.save_button);
+        mNotesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
+//        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
+        mDecisionView = (DecisionView) v.findViewById(R.id.decision_view);
     }
 
     private void init() {
@@ -125,15 +126,16 @@ public class Day0Fragment extends Fragment {
         mCytoplasmArrayCheckedList = new boolean[mCytoplasmArray.length];
 
 //        initialisation
-        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mMaturitySpinner.setEnabled(!isChecked);
-                mPbiSpinner.setEnabled(!isChecked);
-                notesEditText.setEnabled(!isChecked);
+//        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                mMaturitySpinner.setEnabled(!isChecked);
+//                mPbiSpinner.setEnabled(!isChecked);
+//                mNotesEditText.setEnabled(!isChecked);
+//
+//            }
+//        });
 
-            }
-        });
         mMaturitySpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 mMaturityArray));
@@ -153,7 +155,7 @@ public class Day0Fragment extends Fragment {
         mMembraneContainer.setOnClickListener(createClickListener(mMembraneArray,
                 mMembraneArrayCheckedList, getResources().getString(R.string.membrane), mMembraneTextView));
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<String> zonaSelectedArray = new ArrayList<>();
@@ -176,14 +178,14 @@ public class Day0Fragment extends Fragment {
                     if(mCytoplasmArrayCheckedList[i])
                         cytoplasmSelectedArray.add(mCytoplasmArray[i]);
                 }
-                mSaveListener.onSaveClicked(isDegenerateCheckBox.isChecked(),
+                mSaveListener.onSaveClicked(mDecisionView.getDecision(),
                         mMaturityArray.get(mMaturitySpinner.getSelectedItemPosition()),
                         zonaSelectedArray,
                         pvsSelectedArray,
                         membraneSelectedArray,
                         cytoplasmSelectedArray,
                         mPbiArray.get(mPbiSpinner.getSelectedItemPosition()),
-                        notesEditText.getText().toString());
+                        mNotesEditText.getText().toString());
             }
         });
     }
@@ -193,7 +195,7 @@ public class Day0Fragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isDegenerateCheckBox.isChecked()) {
+//                if (!isDegenerateCheckBox.isChecked()) {
 
                     final ArrayList<String> selectedArray = new ArrayList<>();
                     for (int i = 0; i < array.length; i ++){
@@ -229,16 +231,18 @@ public class Day0Fragment extends Fragment {
                     AlertDialog dialog = builder.create();
 
                     dialog.show();
-                }
+//                }
             }
         };
     }
 
-    public void setInfo(boolean isDegenerate, String maturity, ArrayList<String> zonaPellucida,
+    public void setInfo(String decision, String maturity, ArrayList<String> zonaPellucida,
                         ArrayList<String> pvs, ArrayList<String> membrane,
                         ArrayList<String> cytoplasm, String pbi, String note) {
 
-        isDegenerateCheckBox.setChecked(isDegenerate);
+//        isDegenerateCheckBox.setChecked(isDegenerate);
+
+        mDecisionView.setDecisionSelection(decision);
 
         mMaturitySpinner.setSelection(mMaturityArray.indexOf(maturity));
         mPbiSpinner.setSelection(mPbiArray.indexOf(pbi));
@@ -275,7 +279,7 @@ public class Day0Fragment extends Fragment {
         }
         mCytoplasmTextView.setText(removeLastCharIfNotEmpty(cytoplasmTextValue));
 
-        notesEditText.setText(note);
+        mNotesEditText.setText(note);
     }
 
     @Override
@@ -295,8 +299,13 @@ public class Day0Fragment extends Fragment {
         mSaveListener = null;
     }
 
+    @Override
+    public void onDecisionClick(int decision) {
+
+    }
+
     public interface OnAssessment0Listener {
-        void onSaveClicked(boolean isDegenerate,
+        void onSaveClicked(String decision,
                            String maturity,
                            ArrayList<String> zonaPellucida,
                            ArrayList<String> pvs,

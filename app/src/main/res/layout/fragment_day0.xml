@@ -1,202 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_width="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/button_height"
+                android:fillViewport="true">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/is_degenerate_checkbox_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bot_border">
+
+                <!--<CheckBox-->
+                    <!--android:id="@+id/is_degenerate_checkbox"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="@dimen/side_margin"-->
+                    <!--android:layout_marginRight="@dimen/side_margin"-->
+                    <!--android:layout_marginTop="@dimen/side_margin"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="@string/degenerate"/>-->
+
+                <com.whrsmxmx.eqa.assesment.DecisionView
+                    android:id="@+id/decision_view"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/spinner_container0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/is_degenerate_checkbox_container"
+                android:background="@drawable/bot_border"
+                android:padding="@dimen/side_margin"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_weight="0.5"
+                    android:text="@string/maturity"/>
 
-        <LinearLayout
-            android:id="@+id/is_degenerate_checkbox_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bot_border"
-            android:gravity="right">
+                <Spinner
+                    android:id="@+id/spinner0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
 
-            <CheckBox
-                android:id="@+id/is_degenerate_checkbox"
-                android:layout_width="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/multiselect_container0"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/side_margin"
-                android:layout_marginRight="@dimen/side_margin"
-                android:layout_marginTop="@dimen/side_margin"
-                android:gravity="center_vertical"
-                android:text="@string/degenerate"/>
+                android:layout_below="@+id/spinner_container0"
+                android:background="@drawable/bot_border"
+                android:padding="@dimen/side_margin"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/inner_padding"
+                    android:text="@string/zona_pellucida"/>
 
-        <LinearLayout
-            android:id="@+id/spinner_container0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/is_degenerate_checkbox_container"
-            android:background="@drawable/bot_border"
-            android:padding="@dimen/side_margin"
-            android:gravity="center"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/multiselect0_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/multiselect_container1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/maturity"/>
+                android:layout_below="@+id/multiselect_container0"
+                android:padding="@dimen/side_margin"
+                android:background="@drawable/bot_border"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinner0"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/inner_padding"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/pvs"/>
+
+                <TextView
+                    android:id="@+id/multiselect1_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/multiselect_container2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
+                android:layout_below="@+id/multiselect_container1"
+                android:background="@drawable/bot_border"
+                android:padding="@dimen/side_margin"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/inner_padding"
+                    android:layout_weight="0.5"
+                    android:text="@string/membrane"/>
 
-        <LinearLayout
-            android:id="@+id/multiselect_container0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/spinner_container0"
-            android:background="@drawable/bot_border"
-            android:padding="@dimen/side_margin"
-            android:gravity="center"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/multiselect2_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/multiselect_container3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:paddingTop="@dimen/inner_padding"
-                android:paddingBottom="@dimen/inner_padding"
-                android:text="@string/zona_pellucida"/>
+                android:layout_below="@+id/multiselect_container2"
+                android:background="@drawable/bot_border"
+                android:padding="@dimen/side_margin"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/multiselect0_text_view"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/inner_padding"
+                    android:layout_weight="0.5"
+                    android:text="@string/cytoplasm"/>
+
+                <TextView
+                    android:id="@+id/multiselect3_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/spinner_container1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
-        </LinearLayout>
+                android:layout_below="@+id/multiselect_container3"
+                android:background="@drawable/bot_border"
+                android:padding="@dimen/side_margin"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/multiselect_container1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/multiselect_container0"
-            android:padding="@dimen/side_margin"
-            android:background="@drawable/bot_border"
-            android:gravity="center"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/pbi"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:paddingTop="@dimen/inner_padding"
-                android:paddingBottom="@dimen/inner_padding"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/pvs"/>
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/multiselect1_text_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
-        </LinearLayout>
+            <EditText
+                android:id="@+id/notes_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="@dimen/button_height"
+                android:layout_below="@+id/spinner_container1"
+                android:background="@drawable/bot_border"
+                android:padding="@dimen/side_margin"
+                android:hint="@string/notes_hint"/>
 
-        <LinearLayout
-            android:id="@+id/multiselect_container2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/multiselect_container1"
-            android:background="@drawable/bot_border"
-            android:padding="@dimen/side_margin"
-            android:gravity="center"
-            android:orientation="horizontal">
+        </RelativeLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/inner_padding"
-                android:paddingBottom="@dimen/inner_padding"
-                android:layout_weight="0.5"
-                android:text="@string/membrane"/>
+    </ScrollView>
 
-            <TextView
-                android:id="@+id/multiselect2_text_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
-        </LinearLayout>
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorPrimary"
+        android:text="@string/save"/>
 
-        <LinearLayout
-            android:id="@+id/multiselect_container3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/multiselect_container2"
-            android:background="@drawable/bot_border"
-            android:padding="@dimen/side_margin"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/inner_padding"
-                android:paddingBottom="@dimen/inner_padding"
-                android:layout_weight="0.5"
-                android:text="@string/cytoplasm"/>
-
-            <TextView
-                android:id="@+id/multiselect3_text_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/spinner_container1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/multiselect_container3"
-            android:background="@drawable/bot_border"
-            android:padding="@dimen/side_margin"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/pbi"/>
-
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/notes_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="@dimen/button_height"
-            android:layout_below="@+id/spinner_container1"
-            android:background="@drawable/bot_border"
-            android:padding="@dimen/side_margin"
-            android:paddingBottom="@dimen/button_height"
-            android:hint="@string/notes_hint"/>
-
-        <!--scroll bag. edittext gonna hide under save button-->
-
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_alignBottom="@+id/notes_edit_text"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorPrimary"
-            android:text="@string/save"/>
-
-    </RelativeLayout>
-
-</ScrollView>
+</RelativeLayout>

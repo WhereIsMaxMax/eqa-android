@@ -22,6 +22,7 @@ import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  */
@@ -117,6 +118,10 @@ public class PatientFragment extends Fragment implements PatientContract.View {
             mOkButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+//                    set calendar time to midnight, to facilitate day calculation
+                    mCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                    mCalendar.set(Calendar.MINUTE, 0);
+//                    mCalendar.setTime(new Date(mCalendar.getTime().getTime() + mCalendar.getTimeZone().getRawOffset()));
                     mListener.saveUser(mNameEditText.getText().toString(),
                             mProcedureArray.get(mProcedureSpinner.getSelectedItemPosition()),
                             mCalendar.getTime(),

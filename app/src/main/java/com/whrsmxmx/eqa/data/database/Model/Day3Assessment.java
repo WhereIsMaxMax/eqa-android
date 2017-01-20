@@ -18,7 +18,7 @@ public class Day3Assessment{
     @DatabaseField (foreign = true, foreignAutoRefresh = true)
     private Drop drop;
     @DatabaseField
-    private boolean isDegenerate;
+    private String decision;
     @DatabaseField
     private String blastomeres;
     @DatabaseField
@@ -30,16 +30,16 @@ public class Day3Assessment{
 
     Day3Assessment(){}
 
-    public Day3Assessment(boolean isDegenerate, String blastomeres, int percent, ArrayList<String> anomalies, String note){
-        this.isDegenerate = isDegenerate;
+    public Day3Assessment(String decision, String blastomeres, int percent, ArrayList<String> anomalies, String note){
+        this.decision = decision;
         this.blastomeres = blastomeres;
         this.percent = percent;
         this.anomalies = anomalies;
         this.note = note;
     }
 
-    public void setInfo(boolean isDegenerate, String blastomeres, int percent, ArrayList<String> anomalies, String note){
-        this.isDegenerate = isDegenerate;
+    public void setInfo(String decision, String blastomeres, int percent, ArrayList<String> anomalies, String note){
+        this.decision = decision;
         this.blastomeres = blastomeres;
         this.percent = percent;
         this.anomalies = anomalies;
@@ -50,7 +50,7 @@ public class Day3Assessment{
         return blastomeres;
     }
 
-    public int getPercent() {
+    public int getFragmentation() {
         return percent;
     }
 
@@ -68,5 +68,33 @@ public class Day3Assessment{
 
     public Drop getDrop() {
         return drop;
+    }
+
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
+    }
+
+    public void setBlastomeres(String blastomeres) {
+        this.blastomeres = blastomeres;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
+    }
+
+    public void setAnomalies(ArrayList<String> anomalies) {
+        this.anomalies = anomalies;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

@@ -17,7 +17,7 @@ public class Day2Assessment{
     @DatabaseField (foreign = true, foreignAutoRefresh = true)
     private Drop drop;
     @DatabaseField
-    private boolean isDegenerate;
+    private String decision;
     @DatabaseField
     private String blastomeres;
     @DatabaseField
@@ -29,12 +29,12 @@ public class Day2Assessment{
 
     Day2Assessment(){}
 
-    public Day2Assessment(boolean isDegenerate,
+    public Day2Assessment(String decision,
                           String blastomeres,
                           int percent,
                           ArrayList<String> anomalies,
                           String note){
-        this.isDegenerate = isDegenerate;
+        this.decision = decision;
         this.blastomeres = blastomeres;
         this.percent = percent;
         this.anomalies = anomalies;
@@ -45,7 +45,7 @@ public class Day2Assessment{
         return blastomeres;
     }
 
-    public int getPercent() {
+    public int getFragmentation() {
         return percent;
     }
 
@@ -57,8 +57,12 @@ public class Day2Assessment{
         return note;
     }
 
-    public boolean isDegenerate() {
-        return isDegenerate;
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
     }
 
     public void setDrop(Drop drop) {
@@ -69,12 +73,12 @@ public class Day2Assessment{
         return drop;
     }
 
-    public void setInfo(boolean isDegenerate,
+    public void setInfo(String decision,
                         String blastomeres,
                         int percent,
                         ArrayList<String> anomalies,
                         String note){
-        this.isDegenerate = isDegenerate;
+        this.decision = decision;
         this.blastomeres = blastomeres;
         this.percent = percent;
         this.anomalies = anomalies;

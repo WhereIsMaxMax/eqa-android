@@ -18,5 +18,6 @@
     <!--Assessment dimens-->
     <dimen name="side_margin">8dp</dimen>
     <dimen name="inner_padding">4dp</dimen>
+    <dimen name="decision_button_padding">2dp</dimen>
     <dimen name="button_height">48dp</dimen>
 </resources>

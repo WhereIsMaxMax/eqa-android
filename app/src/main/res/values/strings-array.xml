@@ -133,6 +133,51 @@
         <item>4+ PN</item>
     </string-array>
 
+    <!--Day 4-->
+
+    <string-array name="day4_string_array">
+        <item>morula 1</item>
+        <item>morula 2</item>
+        <item>morula 3</item>
+        <item>cavitation</item>
+        <item>cleavage</item>
+        <item>other</item>
+    </string-array>
+    
+    <!--Day 5 and 6-->
+
+    <string-array name="development_stage_string_array">
+        <item>1 (blastocyst)</item>
+        <item>2 (blastocyst)</item>
+        <item>3 (blastocyst)</item>
+        <item>4 (blastocyst)</item>
+        <item>5 (blastocyst)</item>
+        <item>6 (blastocyst)</item>
+        <item>morula 1</item>
+        <item>morula 2</item>
+        <item>morula 3</item>
+        <item>cleavage</item>
+        <item>other</item>
+    </string-array>
+    
+    <string-array name="ICM_string_array">
+        <item>A/1</item>
+        <item>A-B/1-2</item>
+        <item>B/2</item>
+        <item>B-C/2-3</item>
+        <item>C/3</item>
+        <item>other</item>
+    </string-array>
+
+    <string-array name="TE_string_array">
+        <item>A/1</item>
+        <item>A-B/1-2</item>
+        <item>B/2</item>
+        <item>B-C/2-3</item>
+        <item>C/3</item>
+        <item>other</item>
+    </string-array>
+    
     <!--Export-->
 
     <string-array name="export">

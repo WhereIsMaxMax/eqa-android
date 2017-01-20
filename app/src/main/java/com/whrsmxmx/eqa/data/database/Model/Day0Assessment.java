@@ -32,13 +32,13 @@ public class Day0Assessment{
     @DatabaseField
     private String dirBody;
     @DatabaseField
-    private boolean isDegenerate;
+    private String decision;
     @DatabaseField
     private String note;
 
     Day0Assessment(){}
 
-    public Day0Assessment(boolean isDegenerate,
+    public Day0Assessment(String decision,
                    String maturity,
                    ArrayList<String> zonaPellucida,
                    ArrayList<String> pvs,
@@ -46,7 +46,7 @@ public class Day0Assessment{
                    ArrayList<String> cytoplasm,
                    String dirBody,
                    String note){
-        this.isDegenerate = isDegenerate;
+        this.decision = decision;
         this.maturity = maturity;
         this.zonaPellucida = zonaPellucida;
         this.pvs = pvs;
@@ -80,10 +80,6 @@ public class Day0Assessment{
         return dirBody;
     }
 
-    public boolean isDegenerate() {
-        return isDegenerate;
-    }
-
     public void setDrop(Drop drop){
         this.drop = drop;
     }
@@ -96,7 +92,15 @@ public class Day0Assessment{
         return note;
     }
 
-    public void setInfo(boolean isDegenerate,
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
+    }
+
+    public void setInfo(String decision,
                         String maturity,
                         ArrayList<String> zonaPellucida,
                         ArrayList<String> pvs,
@@ -104,7 +108,7 @@ public class Day0Assessment{
                         ArrayList<String> cytoplasm,
                         String dirBody,
                         String note){
-        this.isDegenerate = isDegenerate;
+        this.decision = decision;
         this.maturity = maturity;
         this.zonaPellucida = zonaPellucida;
         this.pvs = pvs;

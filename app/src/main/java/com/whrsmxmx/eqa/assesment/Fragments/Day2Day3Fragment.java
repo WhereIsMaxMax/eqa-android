@@ -21,11 +21,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.whrsmxmx.eqa.R;
-import com.whrsmxmx.eqa.utils.StringsTricks;
+import com.whrsmxmx.eqa.assesment.DecisionView;
 
 import static com.whrsmxmx.eqa.utils.StringsTricks.*;
 
-public class Day2Fragment extends Fragment {
+public class Day2Day3Fragment extends Fragment implements DecisionView.DecisionInterface{
 
     final static String DAY_TAG = "DAY";
 
@@ -36,7 +36,8 @@ public class Day2Fragment extends Fragment {
     private Spinner blastomeresSpinner;
     private Button saveButton;
     private EditText notesEditText;
-    private CheckBox isDegenerateCheckBox;
+//    private CheckBox isDegenerateCheckBox;
+    private DecisionView mDecisionView;
 
     private boolean [] mFeaturesArrayCheckedList;
     private String [] mFeaturesArray;
@@ -47,15 +48,15 @@ public class Day2Fragment extends Fragment {
     private OnAssessment2Listener mSaveListener;
 
 
-    public static Day2Fragment newInstance(boolean isDay3){
-        Day2Fragment day2Fragment = new Day2Fragment();
+    public static Day2Day3Fragment newInstance(boolean isDay3){
+        Day2Day3Fragment day2Fragment = new Day2Day3Fragment();
         Bundle b = new Bundle();
         b.putBoolean(DAY_TAG, isDay3);
         day2Fragment.setArguments(b);
         return day2Fragment;
     }
 
-    public Day2Fragment() {
+    public Day2Day3Fragment() {
         // Required empty public constructor
     }
 
@@ -84,7 +85,8 @@ public class Day2Fragment extends Fragment {
         blastomeresSpinner = (Spinner) v.findViewById(R.id.blastomeres_spinner);
         saveButton = (Button) v.findViewById(R.id.save_button);
         notesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
-        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
+//        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
+        mDecisionView = (DecisionView) v.findViewById(R.id.decision_view);
     }
 
     private void init() {
@@ -101,15 +103,15 @@ public class Day2Fragment extends Fragment {
                         R.array.blastomeres_number_day3_string_array))
         );
 
-        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                blastomeresSpinner.setEnabled(!isChecked);
-                fragmentationSpinner.setEnabled(!isChecked);
-                notesEditText.setEnabled(!isChecked);
-
-            }
-        });
+//        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                blastomeresSpinner.setEnabled(!isChecked);
+//                fragmentationSpinner.setEnabled(!isChecked);
+//                notesEditText.setEnabled(!isChecked);
+//
+//            }
+//        });
         fragmentationSpinner.setAdapter(new ArrayAdapter<Integer>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 fragmentationArray));
@@ -120,7 +122,7 @@ public class Day2Fragment extends Fragment {
         mFeaturesContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isDegenerateCheckBox.isChecked()) {
+//                if (!isDegenerateCheckBox.isChecked()) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -150,7 +152,7 @@ public class Day2Fragment extends Fragment {
                     AlertDialog dialog = builder.create();
 
                     dialog.show();
-                }
+//                }
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +160,7 @@ public class Day2Fragment extends Fragment {
             public void onClick(View v) {
                 mSaveListener.onSaveClicked(
                         mIsDay3,
-                        isDegenerateCheckBox.isChecked(),
+                        mDecisionView.getDecision(),
                         blastomeresArray.get(blastomeresSpinner.getSelectedItemPosition()),
                         fragmentationArray.get(fragmentationSpinner.getSelectedItemPosition()),
                         mFeaturesSelectedArray,
@@ -168,10 +170,12 @@ public class Day2Fragment extends Fragment {
         });
     }
 
-    public void setInfo(boolean isDegenerate, String blastomeres,
+    public void setInfo(String decision, boolean isDay3, String blastomeres,
                             int fragmentation, ArrayList<String> properties, String notes){
 
-        isDegenerateCheckBox.setChecked(isDegenerate);
+        mIsDay3 = isDay3;
+//        isDegenerateCheckBox.setChecked(isDegenerate);
+        mDecisionView.setDecisionSelection(decision);
         blastomeresSpinner.setSelection(blastomeresArray.indexOf(blastomeres));
         fragmentationSpinner.setSelection(fragmentationArray.indexOf(fragmentation));
         mFeaturesSelectedArray = properties;
@@ -189,8 +193,8 @@ public class Day2Fragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof Day2Fragment.OnAssessment2Listener) {
-            mSaveListener = (Day2Fragment.OnAssessment2Listener) context;
+        if (context instanceof Day2Day3Fragment.OnAssessment2Listener) {
+            mSaveListener = (Day2Day3Fragment.OnAssessment2Listener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -203,9 +207,14 @@ public class Day2Fragment extends Fragment {
         mSaveListener = null;
     }
 
+    @Override
+    public void onDecisionClick(int decision) {
+
+    }
+
     public interface OnAssessment2Listener {
         void onSaveClicked(boolean is3Day,
-                           boolean isDegenerate,
+                           String decision,
                            String blastomeres,
                            int percent,
                            ArrayList<String> anomalies,

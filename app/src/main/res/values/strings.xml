@@ -24,9 +24,16 @@
     <string name="membrane">Membrane</string>
     <string name="cytoplasm">Cytoplasm</string>
     <string name="pbi">PBI</string>
-    
+
     <!--Assessment 1-->
     <string name="npb">NPBs</string>
+
+    <!-- Assessment 4-->
+    <string name="development_stage">Development stage</string>
+
+    <!-- Assessment 5 and 6-->
+    <string name="ICM">ICM</string>
+    <string name="TE">TE</string>
 
     <!--Add Patient-->
     <string name="name_hint">Patient name</string>
@@ -40,5 +47,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="transfer">Transfer</string>
+    <string name="freeze">Freeze</string>
+    <string name="discard">Discard</string>
 
 </resources>

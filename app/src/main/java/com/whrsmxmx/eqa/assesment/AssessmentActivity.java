@@ -11,17 +11,19 @@ import android.widget.Toast;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.assesment.fragments.Day0Fragment;
 import com.whrsmxmx.eqa.assesment.fragments.Day1Fragment;
-import com.whrsmxmx.eqa.assesment.fragments.Day2Fragment;
+import com.whrsmxmx.eqa.assesment.fragments.Day2Day3Fragment;
+import com.whrsmxmx.eqa.assesment.fragments.Day4Fragment;
+import com.whrsmxmx.eqa.assesment.fragments.Day5Day6Fragment;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
-import com.whrsmxmx.eqa.data.database.model.Day2Assessment;
 import com.whrsmxmx.eqa.data.database.model.Patient;
 
 import java.util.ArrayList;
 
 public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         implements AssessmentContract.View, DropsInteractionInterface, Day0Fragment.OnAssessment0Listener,
-        Day1Fragment.OnAssessment1Listener, Day2Fragment.OnAssessment2Listener {
+        Day1Fragment.OnAssessment1Listener, Day2Day3Fragment.OnAssessment2Listener,
+        Day4Fragment.OnAssessmentListener, Day5Day6Fragment.OnAssessmentListener, DecisionView.DecisionInterface{
 
     final static String TAG = AssessmentActivity.class.getName();
     private AssessmentContract.UserActionsListener mListener;
@@ -91,64 +93,66 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                 mAssessmentFragment = Day1Fragment.newInstance();
                 break;
             case 2:
-                mAssessmentFragment = Day2Fragment.newInstance(false);
+                mAssessmentFragment = Day2Day3Fragment.newInstance(false);
                 break;
             case 3:
 //                use same fragment but set flag
-                mAssessmentFragment = Day2Fragment.newInstance(true);
+                mAssessmentFragment = Day2Day3Fragment.newInstance(true);
                 break;
             case 4:
-
+                mAssessmentFragment = Day4Fragment.newInstance();
                 break;
             case 5:
-
+                mAssessmentFragment = Day5Day6Fragment.newInstance(true);
                 break;
             case 6:
-
+                mAssessmentFragment = Day5Day6Fragment.newInstance(false);
                 break;
             default:
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.assessment_container, mAssessmentFragment).commit();
     }
 
+//    day0
     @Override
-    public void openAssessment(boolean isDegenerate, String maturity,
+    public void openAssessment(String decision, String maturity,
                                ArrayList<String> zonaPellucida,
                                ArrayList<String> pvs, ArrayList<String> membrane,
                                ArrayList<String> cytoplasm, String pbi, String note) {
-        ((Day0Fragment)mAssessmentFragment).setInfo(isDegenerate, maturity, zonaPellucida,
+        ((Day0Fragment)mAssessmentFragment).setInfo(decision, maturity, zonaPellucida,
                 pvs, membrane, cytoplasm, pbi, note);
     }
 
+//    day1
     @Override
-    public void openAssessment(boolean isDegenerate, String maturity, String npb,
+    public void openAssessment(String decision, String maturity, String npb,
                                ArrayList<String> zonaPellucida, ArrayList<String> pvs,
                                ArrayList<String> membrane, ArrayList<String> cytoplasm,
                                String pbi, String note) {
-        ((Day1Fragment)mAssessmentFragment).setInfo(isDegenerate, maturity, npb, zonaPellucida,
+        ((Day1Fragment)mAssessmentFragment).setInfo(decision, maturity, npb, zonaPellucida,
                 pvs, membrane, cytoplasm, pbi, note);
     }
 
+//    day2 and day3
     @Override
-    public void openAssessment(boolean isDegenerate, String blastomeres, int fragmentationPercent,
+    public void openAssessment(String decision, boolean isDay3, String blastomeres, int fragmentationPercent,
                                ArrayList<String> anomalies, String note) {
-        ((Day2Fragment)mAssessmentFragment).setInfo(isDegenerate, blastomeres, fragmentationPercent,
+        ((Day2Day3Fragment)mAssessmentFragment).setInfo(decision, isDay3, blastomeres, fragmentationPercent,
                 anomalies, note);
     }
 
+//    day4
     @Override
-    public void openAssessment(String developmentStage) {
-
+    public void openAssessment(String decision, String developmentStage, String note) {
+        ((Day4Fragment)mAssessmentFragment).setInfo(decision, developmentStage, note);
     }
 
+//    day5 and day6
     @Override
-    public void openAssessment(boolean isDegenerate, String developmentStage, String bkm, String te, String note) {
-
-    }
-
-    @Override
-    public void openDecision(String decision) {
-
+    public void openAssessment(String decision, boolean isDay5, String developmentStage,
+                               String ism, String te, String note) {
+        ((Day5Day6Fragment)mAssessmentFragment).setInfo(decision, isDay5, developmentStage, ism,
+                te, note);
     }
 
 
@@ -175,31 +179,46 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
     }
 
     @Override
-    public void onSaveClicked(boolean isDegenerate, String maturity,
+    public void onSaveClicked(String decision, String maturity,
                               ArrayList<String> zonaPellucida,
                               ArrayList<String> pvs, ArrayList<String> membrane,
                               ArrayList<String> cytoplasm, String dirBody, String note) {
-        mListener.saveClicked(mDropNumber, isDegenerate, maturity, zonaPellucida, pvs, membrane,
+        mListener.saveClicked(mDropNumber, decision, maturity, zonaPellucida, pvs, membrane,
                 cytoplasm,dirBody, note);
     }
 
     @Override
-    public void onSaveClicked(boolean isDegenerate, String maturity, String npbs,
+    public void onSaveClicked(String decision, String maturity, String npbs,
                               ArrayList<String> zonaPellucida, ArrayList<String> pvs,
                               ArrayList<String> membrane, ArrayList<String> cytoplasm,
                               String dirBody, String note) {
-        mListener.saveClicked(mDropNumber, isDegenerate, maturity, npbs, zonaPellucida, pvs,
+        mListener.saveClicked(mDropNumber, decision, maturity, npbs, zonaPellucida, pvs,
                 membrane, cytoplasm, dirBody, note);
     }
 
     @Override
-    public void onSaveClicked(boolean is3Day, boolean isDegenerate, String blastomeres, int percent,
+    public void onSaveClicked(boolean is3Day, String decision, String blastomeres, int percent,
                               ArrayList<String> anomalies, String note) {
-        mListener.saveClicked(mDropNumber, is3Day, isDegenerate, blastomeres, percent, anomalies, note);
+        mListener.saveClicked(mDropNumber, is3Day, decision, blastomeres, percent, anomalies, note);
+    }
+
+    @Override
+    public void onSaveClicked(String decision, String devStage, String note) {
+        mListener.saveClicked(mDropNumber, decision, devStage, note);
+    }
+
+    @Override
+    public void onSaveClicked(String decision, boolean is5Day, String devStage, String ICM, String TE, String note) {
+        mListener.saveClicked(mDropNumber, decision, is5Day, devStage, ICM, TE, note);
     }
 
     @Override
     public void onFragmentCreated() {
         mListener.getDrop(mDropNumber);
+    }
+
+    @Override
+    public void onDecisionClick(int decision) {
+
     }
 }

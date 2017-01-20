@@ -29,7 +29,6 @@
                     <!--android:gravity="center_vertical"-->
                     <!--android:text="@string/degenerate"/>-->
 
-
                 <com.whrsmxmx.eqa.assesment.DecisionView
                     android:id="@+id/decision_view"
                     android:layout_width="match_parent"
@@ -37,7 +36,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/blastomeres_container"
+                android:id="@+id/spinner_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/is_degenerate_checkbox_container"
@@ -50,58 +49,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/blastomeres"/>
+                    android:text="@string/development_stage"/>
 
                 <Spinner
-                    android:id="@+id/blastomeres_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fragmentation_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/blastomeres_container"
-                android:padding="@dimen/side_margin"
-                android:background="@drawable/bot_border"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="@string/fragmentation"/>
-
-                <Spinner
-                    android:id="@+id/fragmentation_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/properties_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fragmentation_container"
-                android:padding="@dimen/side_margin"
-                android:background="@drawable/bot_border"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:paddingTop="@dimen/inner_padding"
-                    android:paddingBottom="@dimen/inner_padding"
-                    android:text="@string/properties"/>
-
-                <TextView
-                    android:id="@+id/properties_text_view"
+                    android:id="@+id/spinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"/>
@@ -111,7 +62,7 @@
                 android:id="@+id/notes_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/properties_container"
+                android:layout_below="@+id/spinner_container"
                 android:padding="@dimen/side_margin"
                 android:hint="@string/notes_hint"/>
 
@@ -120,12 +71,12 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/save_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorPrimary"
-        android:text="@string/save"/>
+    android:id="@+id/save_button"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/button_height"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/colorPrimary"
+    android:text="@string/save"/>
 
 </RelativeLayout>
