@@ -92,6 +92,7 @@ public class DecisionView extends LinearLayout {
     };
 
     private void setSelectionBackgroundAndNumber(int tag) {
+        discardSelection();
         switch (tag){
             case TRANSFER_TAG:
                 if(mSelected==TRANSFER_TAG){
@@ -125,10 +126,13 @@ public class DecisionView extends LinearLayout {
                 break;
             default:
                 mSelected = EMPTY_SELECTION_TAG;
-                discardButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
-                freezeButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
-                transferButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
         }
+    }
+
+    private void discardSelection() {
+        discardButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+        freezeButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+        transferButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
     }
 
     public interface DecisionInterface{
@@ -136,11 +140,12 @@ public class DecisionView extends LinearLayout {
     }
 
     public void setDecisionSelection(String selection){
+        mSelected = EMPTY_SELECTION_TAG;
         if(selection.equals(getResources().getString(R.string.transfer))){
             setSelectionBackgroundAndNumber(TRANSFER_TAG);
         }else if (selection.equals(getResources().getString(R.string.freeze))){
             setSelectionBackgroundAndNumber(FREEZE_TAG);
-        }else if (selection.equals(DISCARD_TAG)){
+        }else if (selection.equals(getResources().getString(R.string.discard))){
             setSelectionBackgroundAndNumber(DISCARD_TAG);
         } else
             setSelectionBackgroundAndNumber(EMPTY_SELECTION_TAG);

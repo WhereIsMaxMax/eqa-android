@@ -63,7 +63,7 @@ public interface AssessmentContract {
 
         void setDropsAmount(int dropsNumber);
 
-        void dropSaved();
+        void showNextDrop();
 
         void lastDropSaved();
 
@@ -74,7 +74,7 @@ public interface AssessmentContract {
 
         void getDay();
 
-        void getDrop(int dropNumber);
+        void getDrop(int dropNumber, boolean isDirectClick);
 
 //        day 0
         void saveClicked(int dropNumber,

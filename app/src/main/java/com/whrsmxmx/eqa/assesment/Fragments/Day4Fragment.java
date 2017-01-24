@@ -61,12 +61,10 @@ public class Day4Fragment extends Fragment implements DecisionView.DecisionInter
     }
 
     private void bind(View v) {
-//        binding
         mSpinner = (Spinner) v.findViewById(R.id.fragmentation_spinner);
         saveButton = (Button) v.findViewById(R.id.save_button);
         notesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
         mDecisionView = (DecisionView) v.findViewById(R.id.decision_view);
-//        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
     }
 
     private void init() {
@@ -74,15 +72,7 @@ public class Day4Fragment extends Fragment implements DecisionView.DecisionInter
         mStrings = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.day4_string_array))
         );
-//        mStrings = getResources().getStringArray(R.array.day4_string_array);
 
-//        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                mSpinner.setEnabled(!isChecked);
-//                notesEditText.setEnabled(!isChecked);
-//            }
-//        });
         mSpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 mStrings));
@@ -99,10 +89,8 @@ public class Day4Fragment extends Fragment implements DecisionView.DecisionInter
     }
 
     public void setInfo(String decision, String devStage, String notes){
-
-//        isDegenerateCheckBox.setChecked(isDegenerate);
         mDecisionView.setDecisionSelection(decision);
-        mSpinner.setSelection(mStrings.indexOf(devStage));
+        mSpinner.setSelection(devStage.isEmpty()?0:mStrings.indexOf(devStage));
         notesEditText.setText(notes);
     }
 

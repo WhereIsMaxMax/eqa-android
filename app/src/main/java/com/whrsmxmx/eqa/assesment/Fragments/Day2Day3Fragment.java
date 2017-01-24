@@ -40,8 +40,8 @@ public class Day2Day3Fragment extends Fragment implements DecisionView.DecisionI
     private DecisionView mDecisionView;
 
     private boolean [] mFeaturesArrayCheckedList;
-    private String [] mFeaturesArray;
     private ArrayList <String> mFeaturesSelectedArray = new ArrayList<>();
+    private String [] mFeaturesArray;
     private ArrayList<Integer> fragmentationArray;
     private ArrayList<String> blastomeresArray;
 
@@ -174,10 +174,10 @@ public class Day2Day3Fragment extends Fragment implements DecisionView.DecisionI
                             int fragmentation, ArrayList<String> properties, String notes){
 
         mIsDay3 = isDay3;
-//        isDegenerateCheckBox.setChecked(isDegenerate);
         mDecisionView.setDecisionSelection(decision);
-        blastomeresSpinner.setSelection(blastomeresArray.indexOf(blastomeres));
+        blastomeresSpinner.setSelection(blastomeres.isEmpty()?0:blastomeresArray.indexOf(blastomeres));
         fragmentationSpinner.setSelection(fragmentationArray.indexOf(fragmentation));
+        mFeaturesArrayCheckedList = new boolean[mFeaturesArrayCheckedList.length];
         mFeaturesSelectedArray = properties;
 
         String textValue = "";
@@ -229,13 +229,14 @@ public class Day2Day3Fragment extends Fragment implements DecisionView.DecisionI
         mSaveListener.onFragmentCreated();
     }
 //
-//    public void clear(){
-//        isDegenerateCheckBox.setChecked(false);
-//        blastomeresSpinner.setSelection(0);
-//        fragmentationSpinner.setSelection(0);
-//        mFeaturesTextView.setText("");
-//        notesEditText.setText("");
-//    }
+    public void clear(){
+        blastomeresSpinner.setSelection(0);
+        fragmentationSpinner.setSelection(0);
+        mFeaturesArrayCheckedList = new boolean[mFeaturesArrayCheckedList.length];
+        mFeaturesSelectedArray = new ArrayList<>();
+        mFeaturesTextView.setText("");
+        notesEditText.setText("");
+    }
 //
 //    public Day2Assessment saveAssessment(){
 //        return new Day2Assessment(isDegenerateCheckBox.isChecked(),

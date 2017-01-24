@@ -83,7 +83,9 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
 
     @Override
     public void setDay(int day, String patientName) {
-        getSupportActionBar().setTitle(patientName + " day " + day);
+        if(getSupportActionBar()!=null)
+            getSupportActionBar().setTitle(patientName + " day " + day);
+
         Log.i(TAG, "setDay " + day);
         switch (day){
             case 0:
@@ -96,7 +98,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                 mAssessmentFragment = Day2Day3Fragment.newInstance(false);
                 break;
             case 3:
-//                use same fragment but set flag
+//                use same fragment with flag
                 mAssessmentFragment = Day2Day3Fragment.newInstance(true);
                 break;
             case 4:
@@ -113,7 +115,12 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         getSupportFragmentManager().beginTransaction().replace(R.id.assessment_container, mAssessmentFragment).commit();
     }
 
-//    day0
+    @Override
+    public void onFragmentCreated() {
+        mListener.getDrop(mDropNumber, false);
+    }
+
+    //    day0
     @Override
     public void openAssessment(String decision, String maturity,
                                ArrayList<String> zonaPellucida,
@@ -159,16 +166,16 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
     @Override
     public void onDropClicked(int dropNumber) {
         mDropNumber = dropNumber;
-        mListener.getDrop(dropNumber);
+        mListener.getDrop(dropNumber, true);
         Toast.makeText(this, "Drop # "+dropNumber, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void dropSaved() {
-        Log.i(TAG, "dropSaved " + mDropNumber);
+    public void showNextDrop() {
+        Log.i(TAG, "showNextDrop " + mDropNumber);
         mDropNumber++;
         Log.i(TAG, "getDrop " + mDropNumber);
-        mListener.getDrop(mDropNumber);
+        mListener.getDrop(mDropNumber, false);
         mDropsView.changeDrop(mDropNumber);
     }
 
@@ -211,12 +218,6 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
     public void onSaveClicked(String decision, boolean is5Day, String devStage, String ICM, String TE, String note) {
         mListener.saveClicked(mDropNumber, decision, is5Day, devStage, ICM, TE, note);
     }
-
-    @Override
-    public void onFragmentCreated() {
-        mListener.getDrop(mDropNumber);
-    }
-
     @Override
     public void onDecisionClick(int decision) {
 

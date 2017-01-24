@@ -254,11 +254,12 @@ public class Day1Fragment extends Fragment implements DecisionView.DecisionInter
 //        isDegenerateCheckBox.setChecked(isDegenerate);
         mDecisionView.setDecisionSelection(decision);
 
-        mMaturitySpinner.setSelection(mMaturityArray.indexOf(maturity));
-        mPbiSpinner.setSelection(mPbiArray.indexOf(pbi));
-        mNPBSpinner.setSelection(mNPBArray.indexOf(npbs));
+        mMaturitySpinner.setSelection(maturity.isEmpty()?0:mMaturityArray.indexOf(maturity));
+        mPbiSpinner.setSelection(pbi.isEmpty()?0:mPbiArray.indexOf(pbi));
+        mNPBSpinner.setSelection(npbs.isEmpty()?0:mNPBArray.indexOf(npbs));
 
         String zonaTextValue = "";
+        mZonaArrayCheckedList = new boolean[mZonaArrayCheckedList.length];
         for(String s : zonaPellucida){
             int index = Arrays.asList(mZonaArray).indexOf(s);
             mZonaArrayCheckedList[index] = true;
@@ -267,6 +268,7 @@ public class Day1Fragment extends Fragment implements DecisionView.DecisionInter
         mZonaTextView.setText(removeLastCharIfNotEmpty(zonaTextValue));
 
         String pvSTextValue = "";
+        mPvsArrayCheckedList = new boolean[mPvsArrayCheckedList.length];
         for(String s : pvs){
             int index = Arrays.asList(mPvsArray).indexOf(s);
             mPvsArrayCheckedList[index] = true;
@@ -275,6 +277,7 @@ public class Day1Fragment extends Fragment implements DecisionView.DecisionInter
         mPvsTextView.setText(removeLastCharIfNotEmpty(pvSTextValue));
 
         String membraneTextValue = "";
+        mMembraneArrayCheckedList = new boolean[mMembraneArrayCheckedList.length];
         for(String s : membrane){
             int index = Arrays.asList(mMembraneArray).indexOf(s);
             mMembraneArrayCheckedList[index] = true;
@@ -283,6 +286,7 @@ public class Day1Fragment extends Fragment implements DecisionView.DecisionInter
         mMembraneTextView.setText(removeLastCharIfNotEmpty(membraneTextValue));
 
         String cytoplasmTextValue = "";
+        mCytoplasmArrayCheckedList = new boolean[mCytoplasmArrayCheckedList.length];
         for(String s : cytoplasm){
             int index = Arrays.asList(mCytoplasmArray).indexOf(s);
             mCytoplasmArrayCheckedList[index] = true;

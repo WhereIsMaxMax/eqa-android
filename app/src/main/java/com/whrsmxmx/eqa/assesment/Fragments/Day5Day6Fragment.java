@@ -124,11 +124,11 @@ public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionI
     public void setInfo(String decision, boolean isDay5, String devStage, String ICM,
                         String TE, String notes){
         mIsDay5 = isDay5;
-//        isDegenerateCheckBox.setChecked(isDegenerate);
+
         mDecisionView.setDecisionSelection(decision);
-        mDevStageSpinner.setSelection(mDevStageArray.indexOf(devStage));
-        mTESpinner.setSelection(mTEArray.indexOf(TE));
-        mICMSpinner.setSelection(mICMArray.indexOf(ICM));
+        mDevStageSpinner.setSelection(devStage.isEmpty()?0:mDevStageArray.indexOf(devStage));
+        mTESpinner.setSelection(TE.isEmpty()?0:mTEArray.indexOf(TE));
+        mICMSpinner.setSelection(ICM.isEmpty()?0:mICMArray.indexOf(ICM));
         notesEditText.setText(notes);
     }
 

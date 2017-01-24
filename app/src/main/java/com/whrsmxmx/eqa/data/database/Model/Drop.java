@@ -24,7 +24,7 @@ public class Drop implements Serializable{
     @DatabaseField
     private int mNumber;
     @DatabaseField
-    private boolean mIsDegenerate;
+    private String decision;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Day0Assessment mDay0Assessment;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
@@ -42,10 +42,8 @@ public class Drop implements Serializable{
 
     Drop(){}
 
-    public Drop(int number, boolean isDegenerate){
+    public Drop(int number){
         mNumber = number;
-
-        mIsDegenerate = isDegenerate;
     }
 
     public void setPatient(Patient patient) {
@@ -60,8 +58,12 @@ public class Drop implements Serializable{
         return mNumber;
     }
 
-    public boolean isDegenerate() {
-        return mIsDegenerate;
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
     }
 
     public Day0Assessment getDay0Assessment() {

@@ -33,7 +33,8 @@ class PatientPresenter implements PatientContract.UserActionsListener{
         Collection<Drop> drops = new ArrayList<Drop>();
         Patient p = new Patient(name, procedure, date, dropsNumber);
         for(int i = 0; i < dropsNumber; i++){
-            Drop drop = new Drop(i, false);
+            Drop drop = new Drop(i);
+            drop.setDecision("");
             drop.setPatient(p);
             mDropDao.create(drop);
             drops.add(drop);

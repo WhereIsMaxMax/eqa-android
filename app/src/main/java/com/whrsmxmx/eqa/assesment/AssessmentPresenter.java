@@ -13,7 +13,6 @@ import com.whrsmxmx.eqa.data.database.model.Drop;
 import com.whrsmxmx.eqa.data.database.model.Patient;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -80,139 +79,142 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     }
 
     @Override
-    public void getDrop(int dropNumber) {
+    public void getDrop(int dropNumber, boolean isDirectClick) {
         if (dropNumber < mDrops.size()){
             Drop drop = mDrops.get(dropNumber);
-            Log.i(TAG, "openDrop " + drop.getNumber());
-            switch (mDay){
-                case 0:
-                    if(drop.getDay0Assessment()!=null){
-                        Day0Assessment day0Assessment = drop.getDay0Assessment();
-                        mView.openAssessment(day0Assessment.getDecision(),
-                                day0Assessment.getMaturity(),
-                                day0Assessment.getZonaPellucida(),
-                                day0Assessment.getPvs(),
-                                day0Assessment.getMembrane(),
-                                day0Assessment.getCytoplasm(),
-                                day0Assessment.getDirBody(),
-                                day0Assessment.getNote());
-                    }else
-                        mView.openAssessment("",
-                                "",
-                                new ArrayList<String>(),
-                                new ArrayList<String>(),
-                                new ArrayList<String>(),
-                                new ArrayList<String>(),
-                                "",
-                                "");
-                    break;
-                case 1:
-                    if(drop.getDay1Assessment()!=null){
-                        Day1Assessment day1Assessment = drop.getDay1Assessment();
-                        mView.openAssessment(day1Assessment.getDecision(),
-                                day1Assessment.getMaturity(),
-                                day1Assessment.getNpbs(),
-                                day1Assessment.getZonaPellucida(),
-                                day1Assessment.getPvs(),
-                                day1Assessment.getMembrane(),
-                                day1Assessment.getCytoplasm(),
-                                day1Assessment.getDirBody(),
-                                day1Assessment.getNote());
-                    }else
-                        mView.openAssessment("",
-                                "",
-                                "",
-                                new ArrayList<String>(),
-                                new ArrayList<String>(),
-                                new ArrayList<String>(),
-                                new ArrayList<String>(),
-                                "",
-                                "");
-                    break;
-                case 2:
-                    if(drop.getDay2Assessment()!=null){
-                        Day2Assessment day2Assessment = drop.getDay2Assessment();
-                        mView.openAssessment(day2Assessment.getDecision(),
-                                false,
-                                day2Assessment.getBlastomeres(),
-                                day2Assessment.getFragmentation(),
-                                day2Assessment.getAnomalies(),
-                                day2Assessment.getNote());
-                    }else
-                        mView.openAssessment("",
-                                false,
-                                "",
-                                0,
-                                new ArrayList<String>(),
-                                "");
-                    break;
-                case 3:
-                    if(drop.getDay2Assessment()!=null){
-                        Day3Assessment day3Assessment = drop.getDay3Assessment();
-                        mView.openAssessment(day3Assessment.getDecision(),
-                                true,
-                                day3Assessment.getBlastomeres(),
-                                day3Assessment.getFragmentation(),
-                                day3Assessment.getAnomalies(),
-                                day3Assessment.getNote());
-                    }else
-                        mView.openAssessment("",
-                                true,
-                                "",
-                                0,
-                                new ArrayList<String>(),
-                                "");
-                    break;
-                case 4:
-                    if(drop.getDay4Assessment()!=null){
-                        Day4Assessment day4Assessment = drop.getDay4Assessment();
-                        mView.openAssessment(day4Assessment.getDecision(),
-                                day4Assessment.getDevStage(),
-                                day4Assessment.getNote());
-                    }else
-                        mView.openAssessment("",
-                                "",
-                                "");
+            if ((drop.getDecision()!=null&&!drop.getDecision().isEmpty())&&!isDirectClick){
+                mView.showNextDrop();
+            } else {
+                Log.i(TAG, "openDrop " + drop.getNumber());
+                switch (mDay){
+                    case 0:
+                        if(drop.getDay0Assessment()!=null){
+                            Day0Assessment day0Assessment = drop.getDay0Assessment();
+                            mView.openAssessment(day0Assessment.getDecision(),
+                                    day0Assessment.getMaturity(),
+                                    day0Assessment.getZonaPellucida(),
+                                    day0Assessment.getPvs(),
+                                    day0Assessment.getMembrane(),
+                                    day0Assessment.getCytoplasm(),
+                                    day0Assessment.getDirBody(),
+                                    day0Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    "",
+                                    new ArrayList<String>(),
+                                    new ArrayList<String>(),
+                                    new ArrayList<String>(),
+                                    new ArrayList<String>(),
+                                    "",
+                                    "");
+                        break;
+                    case 1:
+                        if(drop.getDay1Assessment()!=null){
+                            Day1Assessment day1Assessment = drop.getDay1Assessment();
+                            mView.openAssessment(day1Assessment.getDecision(),
+                                    day1Assessment.getMaturity(),
+                                    day1Assessment.getNpbs(),
+                                    day1Assessment.getZonaPellucida(),
+                                    day1Assessment.getPvs(),
+                                    day1Assessment.getMembrane(),
+                                    day1Assessment.getCytoplasm(),
+                                    day1Assessment.getDirBody(),
+                                    day1Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    "",
+                                    "",
+                                    new ArrayList<String>(),
+                                    new ArrayList<String>(),
+                                    new ArrayList<String>(),
+                                    new ArrayList<String>(),
+                                    "",
+                                    "");
+                        break;
+                    case 2:
+                        if(drop.getDay2Assessment()!=null){
+                            Day2Assessment day2Assessment = drop.getDay2Assessment();
+                            mView.openAssessment(day2Assessment.getDecision(),
+                                    false,
+                                    day2Assessment.getBlastomeres(),
+                                    day2Assessment.getFragmentation(),
+                                    day2Assessment.getAnomalies(),
+                                    day2Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    false,
+                                    "",
+                                    0,
+                                    new ArrayList<String>(),
+                                    "");
+                        break;
+                    case 3:
+                        if(drop.getDay3Assessment()!=null){
+                            Day3Assessment day3Assessment = drop.getDay3Assessment();
+                            mView.openAssessment(day3Assessment.getDecision(),
+                                    true,
+                                    day3Assessment.getBlastomeres(),
+                                    day3Assessment.getFragmentation(),
+                                    day3Assessment.getAnomalies(),
+                                    day3Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    true,
+                                    "",
+                                    0,
+                                    new ArrayList<String>(),
+                                    "");
+                        break;
+                    case 4:
+                        if(drop.getDay4Assessment()!=null){
+                            Day4Assessment day4Assessment = drop.getDay4Assessment();
+                            mView.openAssessment(day4Assessment.getDecision(),
+                                    day4Assessment.getDevStage(),
+                                    day4Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    "",
+                                    "");
 
-                    break;
-                case 5:
-                    if(drop.getDay5Assessment()!=null){
-                        Day5Assessment day5Assessment = drop.getDay5Assessment();
-                        mView.openAssessment(day5Assessment.getDecision(),
-                                true,
-                                day5Assessment.getDevStage(),
-                                day5Assessment.getICM(),
-                                day5Assessment.getTE(),
-                                day5Assessment.getNote());
-                    }else
-                        mView.openAssessment("",
-                                true,
-                                "",
-                                "",
-                                "",
-                                "");
-                    break;
-                case 6:
-                    if(drop.getDay6Assessment()!=null){
-                        Day6Assessment day6Assessment = drop.getDay6Assessment();
-                        mView.openAssessment(day6Assessment.getDecision(),
-                                false,
-                                day6Assessment.getDevStage(),
-                                day6Assessment.getICM(),
-                                day6Assessment.getTE(),
-                                day6Assessment.getNote());
-                    }else
-                        mView.openAssessment("",
-                                false,
-                                "",
-                                "",
-                                "",
-                                "");
-                    break;
-                default:
+                        break;
+                    case 5:
+                        if(drop.getDay5Assessment()!=null){
+                            Day5Assessment day5Assessment = drop.getDay5Assessment();
+                            mView.openAssessment(day5Assessment.getDecision(),
+                                    true,
+                                    day5Assessment.getDevStage(),
+                                    day5Assessment.getICM(),
+                                    day5Assessment.getTE(),
+                                    day5Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    true,
+                                    "",
+                                    "",
+                                    "",
+                                    "");
+                        break;
+                    case 6:
+                        if(drop.getDay6Assessment()!=null){
+                            Day6Assessment day6Assessment = drop.getDay6Assessment();
+                            mView.openAssessment(day6Assessment.getDecision(),
+                                    false,
+                                    day6Assessment.getDevStage(),
+                                    day6Assessment.getICM(),
+                                    day6Assessment.getTE(),
+                                    day6Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    false,
+                                    "",
+                                    "",
+                                    "",
+                                    "");
+                        break;
+                    default:
 //                    todo: show decision
+                }
             }
-
         }else{
             mView.lastDropSaved();
         }
@@ -224,6 +226,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
                             ArrayList<String> membrane, ArrayList<String> cytoplasm,
                             String dirBody, String note) {
         Drop drop = mDrops.get(dropNumber);
+        drop.setDecision(decision);
         Day0Assessment assessment = drop.getDay0Assessment();
         if (assessment == null){
             assessment = new Day0Assessment(decision, maturity, zonaPellucida, pvs,
@@ -247,6 +250,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
                             String note) {
 
         Drop drop = mDrops.get(dropNumber);
+        drop.setDecision(decision);
         Day1Assessment assessment = drop.getDay1Assessment();
         if (assessment == null){
             assessment = new Day1Assessment(decision, maturity, npbs, zonaPellucida, pvs,
@@ -267,6 +271,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     public void saveClicked(int dropNumber, boolean is3Day, String decision, String blastomeres, int percent,
                             ArrayList<String> anomalies, String note) {
         Drop drop = mDrops.get(dropNumber);
+        drop.setDecision(decision);
         if (!is3Day){
             Day2Assessment assessment = drop.getDay2Assessment();
             if(assessment == null){
@@ -298,6 +303,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     @Override
     public void saveClicked(int dropNumber, String decision, String devStage, String note) {
         Drop drop = mDrops.get(dropNumber);
+        drop.setDecision(decision);
         Day4Assessment assessment = drop.getDay4Assessment();
         if (assessment == null){
             assessment = new Day4Assessment(decision, devStage, note);
@@ -315,6 +321,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     @Override
     public void saveClicked(int dropNumber, String decision, boolean is5Day, String devStage, String ICM, String TE, String note) {
         Drop drop = mDrops.get(dropNumber);
+        drop.setDecision(decision);
         if (is5Day){
             Day5Assessment assessment = drop.getDay5Assessment();
             if(assessment == null){
@@ -350,7 +357,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
         mPatientDao.update(mPatient);
 
         if(drop.getNumber()<mDrops.size())
-            mView.dropSaved();
+            mView.showNextDrop();
         else
             mView.lastDropSaved();
     }
