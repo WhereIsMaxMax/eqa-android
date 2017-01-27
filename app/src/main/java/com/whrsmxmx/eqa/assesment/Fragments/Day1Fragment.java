@@ -24,6 +24,8 @@ import com.whrsmxmx.eqa.assesment.DecisionView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.whrsmxmx.eqa.utils.StringsTricks.removeLastCharIfNotEmpty;
+
 public class Day1Fragment extends Fragment implements DecisionView.DecisionInterface{
 
     //    views;
@@ -153,17 +155,167 @@ public class Day1Fragment extends Fragment implements DecisionView.DecisionInter
                 android.R.layout.simple_spinner_dropdown_item,
                 mNPBArray));
 
-        mZonaContainer.setOnClickListener(createClickListener(mZonaArray,
-                mZonaArrayCheckedList, getResources().getString(R.string.zona_pellucida), mZonaTextView));
+        mZonaContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ArrayList<String> selectedArray = new ArrayList<>();
+                for (int i = 0; i < mZonaArray.length; i ++){
+                    if(mZonaArrayCheckedList[i])
+                        selectedArray.add(mZonaArray[i]);
+                }
 
-        mPvsContainer.setOnClickListener(createClickListener(mPvsArray, mPvsArrayCheckedList,
-                getResources().getString(R.string.pvs), mPvsTextView));
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        mCytoplasmContainer.setOnClickListener(createClickListener(mCytoplasmArray,
-                mCytoplasmArrayCheckedList, getResources().getString(R.string.cytoplasm), mCytoplasmTextView));
+                builder.setMultiChoiceItems(mZonaArray, mZonaArrayCheckedList,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                mZonaArrayCheckedList[which] = isChecked;
+                                if(isChecked)
+                                    selectedArray.add(mZonaArray[which]);
+                                else
+                                    selectedArray.remove(mZonaArray[which]);
+                            }
+                        });
+                builder.setTitle(R.string.zona_pellucida);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = "";
+                        for (String s : selectedArray){
+                            text += s +"\n";
+                        }
+                        mZonaTextView.setText(removeLastCharIfNotEmpty(text));
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
 
-        mMembraneContainer.setOnClickListener(createClickListener(mMembraneArray,
-                mMembraneArrayCheckedList, getResources().getString(R.string.membrane), mMembraneTextView));
+                dialog.show();
+            }
+        });
+
+        mPvsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ArrayList<String> selectedArray = new ArrayList<>();
+                for (int i = 0; i < mPvsArray.length; i ++){
+                    if(mPvsArrayCheckedList[i])
+                        selectedArray.add(mPvsArray[i]);
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setMultiChoiceItems(mPvsArray, mPvsArrayCheckedList,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                mPvsArrayCheckedList[which] = isChecked;
+                                if(isChecked)
+                                    selectedArray.add(mPvsArray[which]);
+                                else
+                                    selectedArray.remove(mPvsArray[which]);
+                            }
+                        });
+                builder.setTitle(R.string.pvs);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = "";
+                        for (String s : selectedArray){
+                            text += s +"\n";
+                        }
+                        mPvsTextView.setText(removeLastCharIfNotEmpty(text));
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+            }
+        });
+
+        mCytoplasmContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final ArrayList<String> selectedArray = new ArrayList<>();
+                for (int i = 0; i < mCytoplasmArray.length; i ++){
+                    if(mCytoplasmArrayCheckedList[i])
+                        selectedArray.add(mCytoplasmArray[i]);
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setMultiChoiceItems(mCytoplasmArray, mCytoplasmArrayCheckedList,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                mCytoplasmArrayCheckedList[which] = isChecked;
+                                if(isChecked)
+                                    selectedArray.add(mCytoplasmArray[which]);
+                                else
+                                    selectedArray.remove(mCytoplasmArray[which]);
+                            }
+                        });
+                builder.setTitle(R.string.cytoplasm);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = "";
+                        for (String s : selectedArray){
+                            text += s +"\n";
+                        }
+                        mCytoplasmTextView.setText(removeLastCharIfNotEmpty(text));
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+            }
+        });
+
+        mMembraneContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final ArrayList<String> selectedArray = new ArrayList<>();
+                for (int i = 0; i < mMembraneArray.length; i ++){
+                    if(mMembraneArrayCheckedList[i])
+                        selectedArray.add(mMembraneArray[i]);
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setMultiChoiceItems(mMembraneArray, mMembraneArrayCheckedList,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                mMembraneArrayCheckedList[which] = isChecked;
+                                if(isChecked)
+                                    selectedArray.add(mMembraneArray[which]);
+                                else
+                                    selectedArray.remove(mMembraneArray[which]);
+                            }
+                        });
+                builder.setTitle(R.string.membrane);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = "";
+                        for (String s : selectedArray){
+                            text += s +"\n";
+                        }
+                        mMembraneTextView.setText(removeLastCharIfNotEmpty(text));
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,51 +353,51 @@ public class Day1Fragment extends Fragment implements DecisionView.DecisionInter
         });
     }
 
-    private View.OnClickListener createClickListener(final String[] array, final boolean [] checkedArray,
-                                                     final String title, final TextView textView){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                if (!isDegenerateCheckBox.isChecked()) {
-
-                    final ArrayList<String> selectedArray = new ArrayList<>();
-                    for (int i = 0; i < array.length; i ++){
-                        if(checkedArray[i])
-                            selectedArray.add(array[i]);
-                    }
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                    builder.setMultiChoiceItems(array, checkedArray,
-                            new DialogInterface.OnMultiChoiceClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                    checkedArray[which] = isChecked;
-                                    if(isChecked)
-                                        selectedArray.add(array[which]);
-                                    else
-                                        selectedArray.remove(array[which]);
-                                }
-                            });
-                    builder.setTitle(title);
-                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String text = "";
-                            for (String s : selectedArray){
-                                text += s +"\n";
-                            }
-                            textView.setText(removeLastCharIfNotEmpty(text));
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-
-                    dialog.show();
-//                }
-            }
-        };
-    }
+//    private View.OnClickListener createClickListener(final String[] array, final boolean [] checkedArray,
+//                                                     final String title, final TextView textView){
+//        return new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                if (!isDegenerateCheckBox.isChecked()) {
+//
+//                    final ArrayList<String> selectedArray = new ArrayList<>();
+//                    for (int i = 0; i < array.length; i ++){
+//                        if(checkedArray[i])
+//                            selectedArray.add(array[i]);
+//                    }
+//
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//
+//                    builder.setMultiChoiceItems(array, checkedArray,
+//                            new DialogInterface.OnMultiChoiceClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                                    checkedArray[which] = isChecked;
+//                                    if(isChecked)
+//                                        selectedArray.add(array[which]);
+//                                    else
+//                                        selectedArray.remove(array[which]);
+//                                }
+//                            });
+//                    builder.setTitle(title);
+//                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            String text = "";
+//                            for (String s : selectedArray){
+//                                text += s +"\n";
+//                            }
+//                            textView.setText(removeLastCharIfNotEmpty(text));
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    AlertDialog dialog = builder.create();
+//
+//                    dialog.show();
+////                }
+//            }
+//        };
+//    }
 
     public void setInfo(String decision, String maturity, String npbs, ArrayList<String> zonaPellucida,
                         ArrayList<String> pvs, ArrayList<String> membrane,

@@ -3,6 +3,8 @@ package com.whrsmxmx.eqa.data.database.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import static com.whrsmxmx.eqa.utils.StringsTricks.stringCSVFromArrayList;
+
 /**
  * Created by Max on 11.01.2017.
  */
@@ -55,6 +57,10 @@ public class Day5Assessment {
         this.ICM = ICM;
         this.TE = TE;
         this.note = note;
+    }
+
+    public String[] toStringArray(){
+        return new String[]{decision, devStage, ICM, TE, note};
     }
 
     public String getDecision() {

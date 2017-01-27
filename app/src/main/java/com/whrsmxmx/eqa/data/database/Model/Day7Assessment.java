@@ -3,14 +3,12 @@ package com.whrsmxmx.eqa.data.database.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import static com.whrsmxmx.eqa.utils.StringsTricks.stringCSVFromArrayList;
-
 /**
- * Created by Max on 09.01.2017.
+ * Created by Max on 24.01.2017.
  */
-@DatabaseTable
-public class Day4Assessment{
 
+@DatabaseTable
+public class Day7Assessment {
     @DatabaseField(generatedId = true)
     private int Id;
     @DatabaseField (foreign = true, foreignAutoRefresh = true)
@@ -18,25 +16,22 @@ public class Day4Assessment{
     @DatabaseField
     private String decision;
     @DatabaseField
-    private String devStage;
-    @DatabaseField
     private String note;
 
-    Day4Assessment(){}
+    Day7Assessment(){}
 
-    public Day4Assessment(String decision, String devStage, String note) {
+    public Day7Assessment(String decision, String note) {
         this.decision = decision;
-        this.devStage = devStage;
         this.note = note;
     }
 
-    public void setInfo(String decision, String devStage, String note){
+    public void setInfo(String decision, String note){
         this.decision = decision;
-        this.devStage = devStage;
         this.note = note;
     }
+
     public String[] toStringArray(){
-        return new String[]{decision, devStage, note};
+        return new String[]{decision, note};
     }
 
     public String getDecision() {
@@ -45,14 +40,6 @@ public class Day4Assessment{
 
     public void setDecision(String decision) {
         this.decision = decision;
-    }
-
-    public String getDevStage() {
-        return devStage;
-    }
-
-    public void setDevStage(String devStage) {
-        this.devStage = devStage;
     }
 
     public String getNote() {
@@ -70,5 +57,4 @@ public class Day4Assessment{
     public Drop getDrop() {
         return drop;
     }
-
 }

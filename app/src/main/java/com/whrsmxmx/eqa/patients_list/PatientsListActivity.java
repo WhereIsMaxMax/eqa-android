@@ -8,16 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.crashlytics.android.Crashlytics;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
 import com.whrsmxmx.eqa.utils.ExportDatabaseCSVTask;
+
+import io.fabric.sdk.android.Fabric;
 
 public class PatientsListActivity extends AppCompatOrmActivity<DatabaseHelper> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -27,15 +31,6 @@ public class PatientsListActivity extends AppCompatOrmActivity<DatabaseHelper> {
         ab.setDisplayHomeAsUpEnabled(true);
 
         initFragment(PatientsListFragment.newInstance());
-
-        Button b = (Button) findViewById(R.id.export);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ExportDatabaseCSVTask task = new ExportDatabaseCSVTask(PatientsListActivity.this);
-                task.execute();
-            }
-        });
     }
 
     private void initFragment(PatientsListFragment mainFragment) {

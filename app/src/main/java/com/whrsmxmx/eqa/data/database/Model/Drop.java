@@ -39,6 +39,8 @@ public class Drop implements Serializable{
     private Day5Assessment mDay5Assessment;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Day6Assessment mDay6Assessment;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Day7Assessment mDay7Assessment;
 
     Drop(){}
 
@@ -120,5 +122,13 @@ public class Drop implements Serializable{
 
     public void setDay6Assessment(Day6Assessment day6Assessment) {
         mDay6Assessment = day6Assessment;
+    }
+
+    public Day7Assessment getDay7Assessment() {
+        return mDay7Assessment;
+    }
+
+    public void setDay7Assessment(Day7Assessment day7Assessment) {
+        mDay7Assessment = day7Assessment;
     }
 }

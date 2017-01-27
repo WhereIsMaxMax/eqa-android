@@ -12,6 +12,7 @@ interface PatientContract {
 
         void showUserList();
 
+        void showNameExistsDialog();
     }
 
     interface UserActionsListener{

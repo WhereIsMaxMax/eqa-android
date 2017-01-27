@@ -1,6 +1,7 @@
 package com.whrsmxmx.eqa.patients_list;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
 import com.whrsmxmx.eqa.data.database.model.Patient;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
 import com.whrsmxmx.eqa.utils.DefaultDateFormatter;
+import com.whrsmxmx.eqa.utils.ExportDatabaseCSVTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +102,7 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
     }
 
     private void init() {
-        mRecyclerAdapter = new RecyclerAdapter(new ArrayList<Patient>(0), recyclerViewListener);
+        mRecyclerAdapter = new RecyclerAdapter(new ArrayList<Patient>(0), recyclerViewListener, getActivity());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mRecyclerAdapter);
@@ -158,13 +162,15 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
 
     private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
+        Context mContext;
         List<Patient> mPatients;
         RecyclerViewListener mRecyclerViewListener;
         int[]colors = new int[]{Color.RED, Color.BLUE, Color.GREEN};
 
-        RecyclerAdapter(List<Patient> patients, RecyclerViewListener recyclerViewListener){
+        RecyclerAdapter(List<Patient> patients, RecyclerViewListener recyclerViewListener, Context context){
             mPatients = patients;
             mRecyclerViewListener = recyclerViewListener;
+            mContext = context;
         }
 
         @Override
@@ -175,10 +181,17 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.idView.setText(String.valueOf(position+1));
             holder.surnameView.setText(String.valueOf(mPatients.get(position).getName()));
             holder.procedure.setText(String.valueOf(mPatients.get(position).getProcedure()));
+            holder.export.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ExportDatabaseCSVTask task = new ExportDatabaseCSVTask(mPatients.get(position), mContext);
+                    task.execute();
+                }
+            });
 //            holder.procedure.setBackgroundColor(colors[mPatients.get(position).getProcedure()]);
         }
 
@@ -203,6 +216,7 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
             private TextView surnameView;
             private TextView idView;
             private TextView procedure;
+            private ImageView export;
 
             ViewHolder(LinearLayout itemView) {
                 super(itemView);
@@ -211,6 +225,7 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
                 surnameView = (TextView) itemView.findViewById(R.id.surname);
                 idView = (TextView) itemView.findViewById(R.id.id);
                 procedure = (TextView) itemView.findViewById(R.id.procedure);
+                export = (ImageView) itemView.findViewById(R.id.export);
             }
 
             @Override

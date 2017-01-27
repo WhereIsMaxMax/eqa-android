@@ -6,6 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
 
+import static com.whrsmxmx.eqa.utils.StringsTricks.stringCSVFromArrayList;
+
 /**
  * Created by Max on 09.01.2017.
  */
@@ -30,7 +32,8 @@ public class Day3Assessment{
 
     Day3Assessment(){}
 
-    public Day3Assessment(String decision, String blastomeres, int percent, ArrayList<String> anomalies, String note){
+    public Day3Assessment(String decision, String blastomeres, int percent,
+                          ArrayList<String> anomalies, String note){
         this.decision = decision;
         this.blastomeres = blastomeres;
         this.percent = percent;
@@ -38,12 +41,18 @@ public class Day3Assessment{
         this.note = note;
     }
 
-    public void setInfo(String decision, String blastomeres, int percent, ArrayList<String> anomalies, String note){
+    public void setInfo(String decision, String blastomeres, int percent,
+                        ArrayList<String> anomalies, String note){
         this.decision = decision;
         this.blastomeres = blastomeres;
         this.percent = percent;
         this.anomalies = anomalies;
         this.note = note;
+    }
+
+    public String[] toStringArray(){
+        return new String[]{decision, blastomeres, String.valueOf(percent),
+                stringCSVFromArrayList(anomalies), note};
     }
 
     public String getBlastomeres() {

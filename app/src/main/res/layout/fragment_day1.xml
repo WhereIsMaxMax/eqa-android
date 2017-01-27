@@ -19,16 +19,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bot_border">
 
-                <!--<CheckBox-->
-                    <!--android:id="@+id/is_degenerate_checkbox"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="@dimen/side_margin"-->
-                    <!--android:layout_marginRight="@dimen/side_margin"-->
-                    <!--android:layout_marginTop="@dimen/side_margin"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="@string/degenerate"/>-->
-
                 <com.whrsmxmx.eqa.assesment.DecisionView
                     android:id="@+id/decision_view"
                     android:layout_width="match_parent"

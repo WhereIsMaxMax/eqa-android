@@ -57,6 +57,10 @@ public class Day6Assessment {
         this.note = note;
     }
 
+    public String[] toStringArray(){
+        return new String[]{decision, devStage, ICM, TE, note};
+    }
+
     public String getDecision() {
         return decision;
     }

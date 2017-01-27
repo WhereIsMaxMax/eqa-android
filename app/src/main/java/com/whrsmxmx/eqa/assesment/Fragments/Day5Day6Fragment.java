@@ -75,14 +75,12 @@ public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionI
 
 
     private void bind(View v) {
-//        binding
         mDevStageSpinner = (Spinner) v.findViewById(R.id.first_spinner);
         mICMSpinner = (Spinner) v.findViewById(R.id.fragmentation_spinner);
         mTESpinner = (Spinner) v.findViewById(R.id.blastomeres_spinner);
         saveButton = (Button) v.findViewById(R.id.save_button);
         notesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
         mDecisionView = (DecisionView) v.findViewById(R.id.decision_view);
-//        isDegenerateCheckBox = (CheckBox) v.findViewById(R.id.is_degenerate_checkbox);
     }
 
     private void init() {
@@ -90,15 +88,6 @@ public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionI
         mICMArray = new ArrayList<>(R.array.ICM_string_array);
         mTEArray = new ArrayList<>(R.array.TE_string_array);
 
-//        isDegenerateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                mTESpinner.setEnabled(!isChecked);
-//                mICMSpinner.setEnabled(!isChecked);
-//                notesEditText.setEnabled(!isChecked);
-//
-//            }
-//        });
         mICMSpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 mICMArray));

@@ -1,12 +1,12 @@
 package com.whrsmxmx.eqa.data.database.model;
 
-import android.support.annotation.ArrayRes;
-
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
+
+import static com.whrsmxmx.eqa.utils.StringsTricks.stringCSVFromArrayList;
 
 /**
  * Created by Max on 09.01.2017.
@@ -34,7 +34,7 @@ public class Day1Assessment{
     @DatabaseField
     private String decision;
     @DatabaseField
-    private String notes;
+    private String note;
     @DatabaseField
     private String dirBody;
 
@@ -48,7 +48,7 @@ public class Day1Assessment{
                    ArrayList<String> membrane,
                    ArrayList<String> cytoplasm,
                    String dirBody,
-                   String notes){
+                   String note){
         this.decision = decision;
         this.maturity = maturity;
         this.npbs = npbs;
@@ -57,7 +57,7 @@ public class Day1Assessment{
         this.membrane = membrane;
         this.cytoplasm = cytoplasm;
         this.dirBody = dirBody;
-        this.notes = notes;
+        this.note = note;
     }
 
     public void setMaturity(String maturity) {
@@ -145,10 +145,16 @@ public class Day1Assessment{
         this.membrane = membrane;
         this.cytoplasm = cytoplasm;
         this.dirBody = dirBody;
-        this.notes = note;
+        this.note = note;
     }
 
     public String getNote() {
-        return notes;
+        return note;
+    }
+
+
+    public String[] toStringArray(){
+        return new String[]{decision, maturity, npbs, stringCSVFromArrayList(zonaPellucida), stringCSVFromArrayList(pvs),
+                stringCSVFromArrayList(membrane), stringCSVFromArrayList(cytoplasm), dirBody, note};
     }
 }

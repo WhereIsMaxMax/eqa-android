@@ -31,7 +31,6 @@ public class Day4Fragment extends Fragment implements DecisionView.DecisionInter
     private Spinner mSpinner;
     private Button saveButton;
     private EditText notesEditText;
-    //    private CheckBox isDegenerateCheckBox;
     private DecisionView mDecisionView;
     private ArrayList<String> mStrings;
 
@@ -61,7 +60,7 @@ public class Day4Fragment extends Fragment implements DecisionView.DecisionInter
     }
 
     private void bind(View v) {
-        mSpinner = (Spinner) v.findViewById(R.id.fragmentation_spinner);
+        mSpinner = (Spinner) v.findViewById(R.id.spinner);
         saveButton = (Button) v.findViewById(R.id.save_button);
         notesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
         mDecisionView = (DecisionView) v.findViewById(R.id.decision_view);

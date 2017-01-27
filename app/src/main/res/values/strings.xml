@@ -50,5 +50,8 @@
     <string name="transfer">Transfer</string>
     <string name="freeze">Freeze</string>
     <string name="discard">Discard</string>
+    <string name="export">Export</string>
+    <string name="another_name">This name is already exists, please enter another name</string>
+    <string name="oops">Oopss...</string>
 
 </resources>

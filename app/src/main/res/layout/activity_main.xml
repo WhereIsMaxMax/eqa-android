@@ -28,14 +28,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_red" />
-
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:id="@+id/export"
-        android:text="export"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"/>
+        app:srcCompat="@drawable/ic_add" />
 
 </RelativeLayout>

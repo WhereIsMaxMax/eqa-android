@@ -3,8 +3,10 @@ package com.whrsmxmx.eqa.add_patient;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,5 +167,17 @@ public class PatientFragment extends Fragment implements PatientContract.View {
     public void showUserList() {
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
+    }
+
+    @Override
+    public void showNameExistsDialog() {
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.oops)
+                .setMessage(R.string.another_name)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).show();
     }
 }

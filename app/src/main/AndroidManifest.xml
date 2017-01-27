@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.whrsmxmx.eqa">
 
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -27,5 +27,9 @@
             android:name="com.whrsmxmx.eqa.add_patient.PatientActivity"
             android:screenOrientation="portrait"
             android:label="@string/patient"/>
+        <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="f6a4d543e766480f9719568a301956775cf4a128"
+        />
     </application>
 </manifest>

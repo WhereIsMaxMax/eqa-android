@@ -12,14 +12,12 @@ import com.opencsv.CSVWriter;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.data.database.model.Drop;
 import com.whrsmxmx.eqa.data.database.model.Patient;
-import com.whrsmxmx.eqa.patients_list.PatientsListActivity;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Max on 17.01.2017.
@@ -28,17 +26,14 @@ import java.util.List;
 public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
     private Context mContext;
     private ProgressDialog mDialog;
-    private String[] dataArray;
+    private Patient mPatient;
+    private String mPatientName;
 
-    public ExportDatabaseCSVTask(Context context){
+    public ExportDatabaseCSVTask(Patient patient, Context context){
         mContext = context;
         mDialog = new ProgressDialog(context);
-        List<Patient> patientList = ((PatientsListActivity)context).getHelper().getSimpleDataDao().queryForAll();
-        ArrayList<String> data = new ArrayList<>();
-        data.add(patientList.get(0).getName());
-        Drop drop = (Drop) patientList.get(0).getDrops().toArray()[0];
-        data.addAll(Arrays.asList(drop.getDay0Assessment().toStringArray()));
-        dataArray = data.toArray(new String[data.size()]);
+        mPatientName = patient.getName();
+        mPatient = patient;
     }
 
     @Override
@@ -53,17 +48,38 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
             exportDir.mkdirs();
         }
 
-        File file = new File(exportDir, "ExcelFile.csv");
+        File file = new File(exportDir, mPatientName +"_excel.csv");
         try {
 
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file), ';');
 
             //Headers
-            String arrStr1[] = mContext.getResources().getStringArray(R.array.export);
-            csvWrite.writeNext(arrStr1);
+            String columnNames[] = mContext.getResources().getStringArray(R.array.export);
+            csvWrite.writeNext(columnNames);
 
-            csvWrite.writeNext(dataArray);
+            ArrayList<Drop> drops = new ArrayList<>(mPatient.getDrops());
+
+            for(Drop d : drops){
+                ArrayList<String> dataArrayList = new ArrayList<>();
+                dataArrayList.add(String.valueOf(d.getNumber()));
+                if(d.getDay0Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay0Assessment().toStringArray()));
+                if(d.getDay1Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay1Assessment().toStringArray()));
+                if(d.getDay3Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay3Assessment().toStringArray()));
+                if(d.getDay4Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay4Assessment().toStringArray()));
+                if(d.getDay5Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay5Assessment().toStringArray()));
+                if(d.getDay6Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay6Assessment().toStringArray()));
+                if(d.getDay7Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay7Assessment().toStringArray()));
+
+                csvWrite.writeNext(dataArrayList.toArray(new String[dataArrayList.size()]));
+            }
 
             csvWrite.close();
             return "";

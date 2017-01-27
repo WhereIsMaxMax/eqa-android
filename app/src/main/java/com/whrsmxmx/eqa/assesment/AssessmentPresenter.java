@@ -9,6 +9,7 @@ import com.whrsmxmx.eqa.data.database.model.Day3Assessment;
 import com.whrsmxmx.eqa.data.database.model.Day4Assessment;
 import com.whrsmxmx.eqa.data.database.model.Day5Assessment;
 import com.whrsmxmx.eqa.data.database.model.Day6Assessment;
+import com.whrsmxmx.eqa.data.database.model.Day7Assessment;
 import com.whrsmxmx.eqa.data.database.model.Drop;
 import com.whrsmxmx.eqa.data.database.model.Patient;
 
@@ -33,6 +34,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
     private RuntimeExceptionDao<Day4Assessment, String> mDay4AssessmentDao;
     private RuntimeExceptionDao<Day5Assessment, String> mDay5AssessmentDao;
     private RuntimeExceptionDao<Day6Assessment, String> mDay6AssessmentDao;
+    private RuntimeExceptionDao<Day7Assessment, String> mDay7AssessmentDao;
     private AssessmentContract.View mView;
     private Patient mPatient;
     private ArrayList<Drop> mDrops;
@@ -47,6 +49,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
                         RuntimeExceptionDao<Day4Assessment, String> day4AssessmentDao,
                         RuntimeExceptionDao<Day5Assessment, String> day5AssessmentDao,
                         RuntimeExceptionDao<Day6Assessment, String> day6AssessmentDao,
+                        RuntimeExceptionDao<Day7Assessment, String> day7AssessmentDao,
                         AssessmentContract.View view, String patient_id){
 
 
@@ -59,6 +62,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
         mDay4AssessmentDao = day4AssessmentDao;
         mDay5AssessmentDao = day5AssessmentDao;
         mDay6AssessmentDao = day6AssessmentDao;
+        mDay7AssessmentDao = day7AssessmentDao;
 
         mView = view;
 
@@ -212,7 +216,13 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
                                     "");
                         break;
                     default:
-//                    todo: show decision
+                        if(drop.getDay7Assessment()!=null){
+                            Day7Assessment day7Assessment = drop.getDay7Assessment();
+                            mView.openAssessment(day7Assessment.getDecision(),
+                                    day7Assessment.getNote());
+                        }else
+                            mView.openAssessment(drop.getDecision(),
+                                    "");
                 }
             }
         }else{
@@ -347,6 +357,24 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
             }
             drop.setDay6Assessment(assessment);
         }
+        updateOtherData(drop);
+    }
+
+    @Override
+    public void saveClicked(int dropNumber, String decision, String note) {
+        Drop drop = mDrops.get(dropNumber);
+        drop.setDecision(decision);
+        Day7Assessment assessment = drop.getDay7Assessment();
+        if (assessment == null){
+            assessment = new Day7Assessment(decision, note);
+            assessment.setDrop(drop);
+            mDay7AssessmentDao.create(assessment);
+        }else {
+            assessment.setInfo(decision, note);
+            assessment.setDrop(drop);
+            mDay7AssessmentDao.update(assessment);
+        }
+        drop.setDay7Assessment(assessment);
         updateOtherData(drop);
     }
 

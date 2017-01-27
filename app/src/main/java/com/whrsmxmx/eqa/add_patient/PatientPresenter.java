@@ -30,18 +30,23 @@ class PatientPresenter implements PatientContract.UserActionsListener{
 
     @Override
     public void saveUser(String name, String procedure, Date date, int dropsNumber) {
-        Collection<Drop> drops = new ArrayList<Drop>();
-        Patient p = new Patient(name, procedure, date, dropsNumber);
-        for(int i = 0; i < dropsNumber; i++){
-            Drop drop = new Drop(i);
-            drop.setDecision("");
-            drop.setPatient(p);
-            mDropDao.create(drop);
-            drops.add(drop);
+
+        if (mPatientDao.idExists(name)){
+            mView.showNameExistsDialog();
+        }else {
+            Collection<Drop> drops = new ArrayList<Drop>();
+            Patient p = new Patient(name, procedure, date, dropsNumber);
+            for(int i = 0; i < dropsNumber; i++){
+                Drop drop = new Drop(i);
+                drop.setDecision("");
+                drop.setPatient(p);
+                mDropDao.create(drop);
+                drops.add(drop);
+            }
+            p.setDrops(drops);
+            mPatientDao.create(p);
+            mView.showUserList();
         }
-        p.setDrops(drops);
-        mPatientDao.create(p);
-        mView.showUserList();
     }
 
     @Override

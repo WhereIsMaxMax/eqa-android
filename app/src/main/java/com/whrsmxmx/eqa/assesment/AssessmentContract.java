@@ -61,6 +61,10 @@ public interface AssessmentContract {
                             String te,
                             String note);
 
+//        day 7 and more
+        void openAssessment(String decision,
+                            String note);
+
         void setDropsAmount(int dropsNumber);
 
         void showNextDrop();
@@ -121,6 +125,11 @@ public interface AssessmentContract {
                          String devStage,
                          String ICM,
                          String TE,
+                         String note);
+
+//        day 7 and more
+        void saveClicked(int dropNumber,
+                         String decision,
                          String note);
     }
 }

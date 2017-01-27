@@ -46,7 +46,6 @@
         <item>normal cytoplasm</item>
         <item>refractile bodies</item>
         <item>SERc</item>
-        <item>SERc</item>
         <item>organelle clustering</item>
         <item>large vacuoles</item>
         <item>granularity</item>
@@ -181,7 +180,8 @@
     <!--Export-->
 
     <string-array name="export">
-        <item>name</item>
+        <!--day0-->
+        <item>object number</item>
         <item>maturity</item>
         <item>zona pellucida</item>
         <item>perivitelline space</item>
@@ -189,6 +189,49 @@
         <item>membrane</item>
         <item>cytoplasm</item>
         <item>polar bodies</item>
+        <item>note</item>
+        <item>decision</item>
+        <!--day1-->
+        <item>pronuclei - PN/maturity</item>
+        <item>nucleolar precursor bodies</item>
+        <item>zona pellucida</item>
+        <item>perivitelline space</item>
+        <item>membrane</item>
+        <item>cytoplasm</item>
+        <item>polar bodies</item>
+        <item>note</item>
+        <item>decision</item>
+        <!--day2-->
+        <item>cell number</item>
+        <item>fragmentation</item>
+        <item>features</item>
+        <item>notes</item>
+        <item>decision</item>
+        <!--day3-->
+        <item>cell number</item>
+        <item>fragmentation</item>
+        <item>features</item>
+        <item>notes</item>
+        <item>decision</item>
+        <!--day4-->
+        <item>development stage</item>
+        <item>notes</item>
+        <item>decision</item>
+        <!--day5-->
+        <item>development stage</item>
+        <item>Inner Cell Mass</item>
+        <item>trophectoderm</item>
+        <item>note</item>
+        <item>decision</item>
+        <!--day6-->
+        <item>development stage</item>
+        <item>Inner Cell Mass</item>
+        <item>trophectoderm</item>
+        <item>note</item>
+        <item>decision</item>
+        <!--day7-->
+        <item>decision</item>
+        <item>note</item>
     </string-array>
 
 </resources>

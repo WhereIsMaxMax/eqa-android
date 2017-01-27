@@ -8,17 +8,21 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.assesment.fragments.Day0Fragment;
 import com.whrsmxmx.eqa.assesment.fragments.Day1Fragment;
 import com.whrsmxmx.eqa.assesment.fragments.Day2Day3Fragment;
 import com.whrsmxmx.eqa.assesment.fragments.Day4Fragment;
 import com.whrsmxmx.eqa.assesment.fragments.Day5Day6Fragment;
+import com.whrsmxmx.eqa.assesment.fragments.Day7Fragment;
 import com.whrsmxmx.eqa.data.AppCompatOrmActivity;
 import com.whrsmxmx.eqa.data.database.DatabaseHelper;
 import com.whrsmxmx.eqa.data.database.model.Patient;
 
 import java.util.ArrayList;
+
+import io.fabric.sdk.android.Fabric;
 
 public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         implements AssessmentContract.View, DropsInteractionInterface, Day0Fragment.OnAssessment0Listener,
@@ -38,6 +42,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_assessment);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,6 +68,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                 getHelper().getDay4AssessmentDataDao(),
                 getHelper().getDay5AssessmentDataDao(),
                 getHelper().getDay6AssessmentDataDao(),
+                getHelper().getDay7AssessmentDataDao(),
                 this, mPatient_id);
 
         mListener.getDay();
@@ -160,6 +166,11 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                                String ism, String te, String note) {
         ((Day5Day6Fragment)mAssessmentFragment).setInfo(decision, isDay5, developmentStage, ism,
                 te, note);
+    }
+
+    @Override
+    public void openAssessment(String decision, String note) {
+        ((Day7Fragment)mAssessmentFragment).setInfo(decision, note);
     }
 
 
