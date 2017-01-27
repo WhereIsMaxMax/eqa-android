@@ -89,7 +89,7 @@ public class AssessmentPresenter implements AssessmentContract.UserActionsListen
             if ((drop.getDecision()!=null&&!drop.getDecision().isEmpty())&&!isDirectClick){
                 mView.showNextDrop();
             } else {
-                Log.i(TAG, "openDrop " + drop.getNumber());
+                Log.i(TAG, "openDrop " + drop.getNumber() + " day " + mDay);
                 switch (mDay){
                     case 0:
                         if(drop.getDay0Assessment()!=null){

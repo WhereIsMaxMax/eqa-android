@@ -14,7 +14,7 @@ import com.whrsmxmx.eqa.R;
 
 public class DropsView extends LinearLayout {
 
-    private static final int DROPS_MARGIN_PX = 28;
+    private static final int DROPS_MARGIN_PX = 16;
     private static final int DROPS_SIZE = 64;
     private static final String TAG = DropsView.class.getName();
 

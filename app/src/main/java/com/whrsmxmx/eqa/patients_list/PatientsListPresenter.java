@@ -32,7 +32,7 @@ public class PatientsListPresenter implements PatientsListContract.UserActionsLi
 
     @Override
     public void deletePatient(String patientId) {
-
+        mPatientsView.deletePatient(patientId);
     }
 
     @Override

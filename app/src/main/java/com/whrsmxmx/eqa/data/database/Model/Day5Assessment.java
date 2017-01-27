@@ -60,7 +60,7 @@ public class Day5Assessment {
     }
 
     public String[] toStringArray(){
-        return new String[]{decision, devStage, ICM, TE, note};
+        return new String[]{devStage, ICM, TE, note, decision};
     }
 
     public String getDecision() {

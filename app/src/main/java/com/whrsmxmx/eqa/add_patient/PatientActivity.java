@@ -23,8 +23,8 @@ public class PatientActivity extends AppCompatOrmActivity<DatabaseHelper> {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         if(ab!=null){
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-            ab.setDisplayHomeAsUpEnabled(true);
+//            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+//            ab.setDisplayHomeAsUpEnabled(true);
             ab.setTitle(getResources().getString(R.string.patient));
         }
 

@@ -11,6 +11,8 @@ interface PatientsListContract {
         void showPatientCard(String patientId);
 
         void openUpdatePatient(String patientId);
+
+        void deletePatient(String patientId);
     }
 
     interface UserActionsListener {

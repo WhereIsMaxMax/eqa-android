@@ -6,6 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
 
+import static com.whrsmxmx.eqa.utils.StringsTricks.stringCSVFromArrayList;
+
 /**
  * Created by Max on 09.01.2017.
  */
@@ -83,5 +85,10 @@ public class Day2Assessment{
         this.percent = percent;
         this.anomalies = anomalies;
         this.note = note;
+    }
+
+    public String[] toStringArray(){
+        return new String[]{blastomeres, String.valueOf(percent),
+                stringCSVFromArrayList(anomalies), note, decision};
     }
 }

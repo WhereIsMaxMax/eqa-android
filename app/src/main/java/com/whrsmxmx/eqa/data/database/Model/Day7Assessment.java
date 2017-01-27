@@ -31,7 +31,7 @@ public class Day7Assessment {
     }
 
     public String[] toStringArray(){
-        return new String[]{decision, note};
+        return new String[]{note, decision};
     }
 
     public String getDecision() {

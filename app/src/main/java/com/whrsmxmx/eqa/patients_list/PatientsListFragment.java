@@ -148,6 +148,14 @@ public class PatientsListFragment extends Fragment implements PatientsListContra
     }
 
     @Override
+    public void deletePatient(String patientId) {
+        RuntimeExceptionDao<Patient, String> patientDao =
+                ((AppCompatOrmActivity<DatabaseHelper>)getActivity()).getHelper().getSimpleDataDao();
+        patientDao.deleteById(patientId);
+        updatePatientsList();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i(TAG, "OnActivityResult");

@@ -48,6 +48,14 @@ public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionI
         // Required empty public constructor
     }
 
+    public static Day5Day6Fragment newInstance(boolean isDay5) {
+        Day5Day6Fragment day5day6Fragment = new Day5Day6Fragment();
+        Bundle b = new Bundle();
+        b.putBoolean(DAY_TAG, isDay5);
+        day5day6Fragment.setArguments(b);
+        return day5day6Fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,7 +63,7 @@ public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionI
 
         View v = inflater.inflate(R.layout.fragment_day5, container, false);
 
-        if(!getArguments().isEmpty())
+        if(getArguments()!=null&&!getArguments().isEmpty())
             mIsDay5 = getArguments().getBoolean(DAY_TAG);
 
         bind(v);
@@ -65,32 +73,35 @@ public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionI
         return v;
     }
 
-    public static Day5Day6Fragment newInstance(boolean isDay5) {
-        Day5Day6Fragment day5Fragment = new Day5Day6Fragment();
-        Bundle b = new Bundle();
-        b.putBoolean(DAY_TAG, isDay5);
-        day5Fragment.setArguments(b);
-        return new Day5Day6Fragment();
-    }
-
 
     private void bind(View v) {
         mDevStageSpinner = (Spinner) v.findViewById(R.id.first_spinner);
-        mICMSpinner = (Spinner) v.findViewById(R.id.fragmentation_spinner);
-        mTESpinner = (Spinner) v.findViewById(R.id.blastomeres_spinner);
+        mICMSpinner = (Spinner) v.findViewById(R.id.second_spinner);
+        mTESpinner = (Spinner) v.findViewById(R.id.third_spinner);
         saveButton = (Button) v.findViewById(R.id.save_button);
         notesEditText = (EditText) v.findViewById(R.id.notes_edit_text);
         mDecisionView = (DecisionView) v.findViewById(R.id.decision_view);
     }
 
     private void init() {
-        mDevStageArray = new ArrayList<>(R.array.development_stage_string_array);
-        mICMArray = new ArrayList<>(R.array.ICM_string_array);
-        mTEArray = new ArrayList<>(R.array.TE_string_array);
+        mDevStageArray = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.development_stage_string_array))
+        );
+        mICMArray = new ArrayList<>(Arrays.asList(
+                getResources().getStringArray(R.array.ICM_string_array))
+        );
+        mTEArray = new ArrayList<>(Arrays.asList(
+                getResources().getStringArray(R.array.TE_string_array))
+        );
+
+        mDevStageSpinner.setAdapter(new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                mDevStageArray));
 
         mICMSpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 mICMArray));
+
         mTESpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 getResources().getStringArray(R.array.blastomeres_number_day2_string_array)));

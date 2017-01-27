@@ -81,17 +81,16 @@
     </string-array>
 
     <!--Day 2-->
-
     <string-array name="properties">
-        <item>нормальный паттерн дробления</item>
-        <item>неправильный паттерн дробления</item>
-        <item>деформированные бластомеры</item>
-        <item>мультинуклеация</item>
-        <item>кластеризация органелл</item>
-        <item>вакуоли</item>
-        <item>много гранул</item>
-        <item>компактизация</item>
-        <item>другое</item>
+        <item>normal cleavage pattern</item>
+        <item>abnormal cleavage pattern</item>
+        <item>abnormally shaped cells</item>
+        <item>multinucleation</item>
+        <item>organelle clustering</item>
+        <item>large vacuoles</item>
+        <item>granularity</item>
+        <item>compaction</item>
+        <item>other</item>
     </string-array>
 
     <string-array name="blastomeres_number_day2_string_array">
@@ -185,7 +184,6 @@
         <item>maturity</item>
         <item>zona pellucida</item>
         <item>perivitelline space</item>
-        <item>PVS</item>
         <item>membrane</item>
         <item>cytoplasm</item>
         <item>polar bodies</item>
@@ -230,8 +228,8 @@
         <item>note</item>
         <item>decision</item>
         <!--day7-->
-        <item>decision</item>
         <item>note</item>
+        <item>decision</item>
     </string-array>
 
 </resources>

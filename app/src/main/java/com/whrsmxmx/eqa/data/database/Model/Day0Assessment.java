@@ -119,7 +119,7 @@ public class Day0Assessment{
     }
 
     public String[] toStringArray(){
-        return new String[]{decision, maturity, stringCSVFromArrayList(zonaPellucida), stringCSVFromArrayList(pvs),
-                stringCSVFromArrayList(membrane), stringCSVFromArrayList(cytoplasm), dirBody, note};
+        return new String[]{maturity, stringCSVFromArrayList(zonaPellucida), stringCSVFromArrayList(pvs),
+                stringCSVFromArrayList(membrane), stringCSVFromArrayList(cytoplasm), dirBody, note, decision};
     }
 }

@@ -28,6 +28,7 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
     private ProgressDialog mDialog;
     private Patient mPatient;
     private String mPatientName;
+    private String mFileName = "";
 
     public ExportDatabaseCSVTask(Patient patient, Context context){
         mContext = context;
@@ -47,8 +48,8 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
         if (!exportDir.exists()) {
             exportDir.mkdirs();
         }
-
-        File file = new File(exportDir, mPatientName +"_excel.csv");
+        mFileName = mPatientName +"_excel.csv";
+        File file = new File(exportDir, mFileName);
         try {
 
             file.createNewFile();
@@ -67,6 +68,8 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
                     dataArrayList.addAll(Arrays.asList(d.getDay0Assessment().toStringArray()));
                 if(d.getDay1Assessment()!=null)
                     dataArrayList.addAll(Arrays.asList(d.getDay1Assessment().toStringArray()));
+                if(d.getDay2Assessment()!=null)
+                    dataArrayList.addAll(Arrays.asList(d.getDay2Assessment().toStringArray()));
                 if(d.getDay3Assessment()!=null)
                     dataArrayList.addAll(Arrays.asList(d.getDay3Assessment().toStringArray()));
                 if(d.getDay4Assessment()!=null)
@@ -98,7 +101,8 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
             this.mDialog.dismiss();
         }
         if (success.isEmpty()){
-            Toast.makeText(mContext, "Export successful!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Export successful! File " + mFileName +
+                    " was created in your phone storage", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(mContext, "Export failed!", Toast.LENGTH_SHORT).show();

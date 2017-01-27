@@ -51,8 +51,8 @@ public class Day3Assessment{
     }
 
     public String[] toStringArray(){
-        return new String[]{decision, blastomeres, String.valueOf(percent),
-                stringCSVFromArrayList(anomalies), note};
+        return new String[]{blastomeres, String.valueOf(percent),
+                stringCSVFromArrayList(anomalies), note, decision};
     }
 
     public String getBlastomeres() {

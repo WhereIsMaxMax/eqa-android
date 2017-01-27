@@ -154,7 +154,7 @@ public class Day1Assessment{
 
 
     public String[] toStringArray(){
-        return new String[]{decision, maturity, npbs, stringCSVFromArrayList(zonaPellucida), stringCSVFromArrayList(pvs),
-                stringCSVFromArrayList(membrane), stringCSVFromArrayList(cytoplasm), dirBody, note};
+        return new String[]{maturity, npbs, stringCSVFromArrayList(zonaPellucida), stringCSVFromArrayList(pvs),
+                stringCSVFromArrayList(membrane), stringCSVFromArrayList(cytoplasm), dirBody, note, decision};
     }
 }

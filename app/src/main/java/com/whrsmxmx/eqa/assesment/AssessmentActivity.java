@@ -25,9 +25,11 @@ import java.util.ArrayList;
 import io.fabric.sdk.android.Fabric;
 
 public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
-        implements AssessmentContract.View, DropsInteractionInterface, Day0Fragment.OnAssessment0Listener,
-        Day1Fragment.OnAssessment1Listener, Day2Day3Fragment.OnAssessment2Listener,
-        Day4Fragment.OnAssessmentListener, Day5Day6Fragment.OnAssessmentListener, DecisionView.DecisionInterface{
+        implements AssessmentContract.View, DropsInteractionInterface,
+        Day0Fragment.OnAssessment0Listener, Day1Fragment.OnAssessment1Listener,
+        Day2Day3Fragment.OnAssessment2Listener, Day4Fragment.OnAssessmentListener,
+        Day5Day6Fragment.OnAssessmentListener, Day7Fragment.OnAssessmentListener,
+        DecisionView.DecisionInterface{
 
     final static String TAG = AssessmentActivity.class.getName();
     private AssessmentContract.UserActionsListener mListener;
@@ -48,8 +50,8 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
+//        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+//        ab.setDisplayHomeAsUpEnabled(true);
 
         if(getIntent().hasExtra(Patient.PERSON_ID)){
             mPatient_id = getIntent().getStringExtra(Patient.PERSON_ID);
@@ -117,6 +119,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                 mAssessmentFragment = Day5Day6Fragment.newInstance(false);
                 break;
             default:
+                mAssessmentFragment = Day7Fragment.newInstance();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.assessment_container, mAssessmentFragment).commit();
     }
@@ -167,7 +170,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         ((Day5Day6Fragment)mAssessmentFragment).setInfo(decision, isDay5, developmentStage, ism,
                 te, note);
     }
-
+//     day 7 and after
     @Override
     public void openAssessment(String decision, String note) {
         ((Day7Fragment)mAssessmentFragment).setInfo(decision, note);
@@ -178,7 +181,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
     public void onDropClicked(int dropNumber) {
         mDropNumber = dropNumber;
         mListener.getDrop(dropNumber, true);
-        Toast.makeText(this, "Drop # "+dropNumber, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Drop # "+dropNumber, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -192,10 +195,11 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
 
     @Override
     public void lastDropSaved() {
-        Toast.makeText(this, "Last drop was saved", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Last drop was saved", Toast.LENGTH_SHORT).show();
         finish();
     }
 
+//    day 0
     @Override
     public void onSaveClicked(String decision, String maturity,
                               ArrayList<String> zonaPellucida,
@@ -205,6 +209,7 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                 cytoplasm,dirBody, note);
     }
 
+//    day 1
     @Override
     public void onSaveClicked(String decision, String maturity, String npbs,
                               ArrayList<String> zonaPellucida, ArrayList<String> pvs,
@@ -214,21 +219,31 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
                 membrane, cytoplasm, dirBody, note);
     }
 
+//    day 2,3
     @Override
     public void onSaveClicked(boolean is3Day, String decision, String blastomeres, int percent,
                               ArrayList<String> anomalies, String note) {
         mListener.saveClicked(mDropNumber, is3Day, decision, blastomeres, percent, anomalies, note);
     }
 
+//    day 4
     @Override
     public void onSaveClicked(String decision, String devStage, String note) {
         mListener.saveClicked(mDropNumber, decision, devStage, note);
     }
 
+//    day 5,6
     @Override
     public void onSaveClicked(String decision, boolean is5Day, String devStage, String ICM, String TE, String note) {
         mListener.saveClicked(mDropNumber, decision, is5Day, devStage, ICM, TE, note);
     }
+
+//    day 7 and after
+    @Override
+    public void onSaveClicked(String decision, String note) {
+        mListener.saveClicked(mDropNumber, decision, note);
+    }
+
     @Override
     public void onDecisionClick(int decision) {
 
