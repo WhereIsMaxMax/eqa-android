@@ -3,6 +3,7 @@ package com.whrsmxmx.eqa.assesment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -52,6 +53,8 @@ public class AssessmentActivity extends AppCompatOrmActivity<DatabaseHelper>
         ActionBar ab = getSupportActionBar();
 //        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
 //        ab.setDisplayHomeAsUpEnabled(true);
+
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         if(getIntent().hasExtra(Patient.PERSON_ID)){
             mPatient_id = getIntent().getStringExtra(Patient.PERSON_ID);
