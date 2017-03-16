@@ -1,30 +1,22 @@
 package com.whrsmxmx.eqa.assesment.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.whrsmxmx.eqa.R;
 import com.whrsmxmx.eqa.assesment.DecisionView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static com.whrsmxmx.eqa.utils.StringsTricks.removeLastCharIfNotEmpty;
 
 public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionInterface {
 
@@ -104,7 +96,7 @@ public class Day5Day6Fragment extends Fragment implements DecisionView.DecisionI
 
         mTESpinner.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item,
-                getResources().getStringArray(R.array.blastomeres_number_day2_string_array)));
+                mTEArray));
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
